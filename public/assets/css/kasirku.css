@@ -1,0 +1,19 @@
+.profile-initials {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: #20c997;
+    color: #fff;
+    text-align: center;
+    line-height: 2rem;
+    font-family: Arial. Helvetica, sans-sarif;
+    font-size: 1rem;
+    display: inline-block;
+}
+
+#profileImage {
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
+    display: inline-block;
+}
