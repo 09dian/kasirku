@@ -274,8 +274,8 @@
                                     <li class="nav-item">
                                         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                                         <a
-                                            class="nav-link {{ request()->is('orders') ? 'active' : '' }}"
-                                            href="/orders">
+                                            class="nav-link {{ request()->is('produk') ? 'active' : '' }}"
+                                            href="/produk">
                                             <span class="nav-icon">
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -291,7 +291,7 @@
                                                 </svg>
                                             </svg>
                                         </span>
-                                        <span class="nav-link-text">Orders</span>
+                                        <span class="nav-link-text">Produk</span>
                                     </a>
                                     <!--//nav-link-->
                                 </li>
