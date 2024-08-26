@@ -12,13 +12,19 @@ class ProdukController extends Controller
      */
     public function index()
     {
+        // Eager load category relationship for produk
+        $produks = Produk::with('category')->get();
+        
+        // Get all categories
+        $categories = Category::all();
+
+        // Pass 'title' along with produk and categories to the view
         return view('app.produk', [
             'title' => 'Produk',
-            'produk' => Produk::all(),
-            'categories' => Category::all(),  // Tambahkan kategori ke view
+            'produk' => $produks,
+            'categories' => $categories
         ]);
     }
-
     /**
      * Show the form for creating a new resource.
      */

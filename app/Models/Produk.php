@@ -7,13 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Produk extends Model
 {
-    use HasFactory;
-    protected $fillable = [
-        'nama_produk',
-        'id_category',
-        'harga',
-        'stok',
-    ];
-    
- 
+    protected $fillable = ['nama_produk', 'id_category', 'harga', 'stok'];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'id_category');
+    }
 }
