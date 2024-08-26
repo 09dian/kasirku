@@ -14,7 +14,7 @@ return new class extends Migration
     Schema::create('produks', function (Blueprint $table) {
         $table->id(); // ID auto-increment
         $table->string('nama_produk'); // Nama produk
-        $table->string('tipe'); // Tipe makanan
+        $table->string('id_category'); // Tipe makanan
         $table->integer('harga'); // Harga produk
         $table->integer('stok'); // Stok produk
         $table->timestamps(); // Kolom created_at dan updated_at

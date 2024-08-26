@@ -1,5 +1,6 @@
 <?php use App\Http\Controllers\ProdukController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
     return view('app.index', [
@@ -16,7 +17,7 @@ Route::get('/penjualan', function () {
         'title' => 'Penjualan',
     ]);
 });
-
+Route::resource('/category', CategoryController::class);
 Route::resource('/produk', ProdukController::class);
 
 
