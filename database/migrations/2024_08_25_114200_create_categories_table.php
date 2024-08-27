@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('category'); // Tipe makanan
+            $table->string('slug'); // Tipe makanan
+            $table->boolean('status')->default(1); // Status default 1 (aktif)
             $table->timestamps();
         });
     }

@@ -77,9 +77,7 @@
 
                                     <a
                                         class="btn app-btn-primary"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#uploadKategory"
-                                        href="#">
+                                        href="/category">
                                         <svg
                                             width="1em"
                                             height="1em"
@@ -93,49 +91,10 @@
                                             <path
                                                 fill-rule="evenodd"
                                                 d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
-                                        </svg>Category</a>
+                                        </svg>Kategori</a>
                                     {{-- modal --}}
 
-                                    {{-- categoryModal --}}
-
-                                    <form action="{{ route('category.store') }}" method="post">
-                                        @csrf
-                                        <div
-                                            class="modal fade"
-                                            id="uploadKategory"
-                                            data-bs-backdrop="static"
-                                            data-bs-keyboard="false"
-                                            tabindex="-1"
-                                            aria-labelledby="staticBackdropLabel"
-                                            aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Category</h1>
-                                                        <button
-                                                            type="button"
-                                                            class="btn-close"
-                                                            data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="table-responsive">
-                                                            <div class="mb-3">
-                                                                <label class="form-label">Kategory</label>
-                                                                <input type="text" name="category" class="form-control" placeholder="Kategori"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer" style="color: white;">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary" style="color: white;">Save Kategori</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        {{-- akhir kategory modal --}}
-
-                                        <!-- First Modal -->
+                                   <!-- First Modal -->
                                         <div
                                             class="modal fade"
                                             id="exampleModalToggle"
@@ -173,9 +132,14 @@
                                                                             class="form-control"
                                                                             required="required">
                                                                             <option value="">Pilih Kategori</option>
-                                                                            @foreach ($categories as $category)
-                                                                            <option value="{{ $category->id }}">{{ $category->category }}</option>
-                                                                            @endforeach
+                                                                            <select name="category_id" class="form-select">
+                                                                                @foreach ($categories as $category)
+                                                                                    @if ($category->status == 1)
+                                                                                        <option value="{{ $category->id }}">{{ $category->category }}</option>
+                                                                                    @endif
+                                                                                @endforeach
+                                                                            </select>
+                                                                            
                                                                         </select>
                                                                     </div>
                                                                     <div class="mb-3">

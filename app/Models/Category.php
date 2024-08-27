@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $fillable = ['category'];
+    protected $fillable = ['category','slug', 'status'];
 
     public function produk()
     {
         return $this->hasMany(Produk::class, 'id_category');
     }
+    
 }
