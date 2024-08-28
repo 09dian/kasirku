@@ -74,31 +74,27 @@ class CategoryController extends Controller
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Category $category)
 {
-    // Validasi input (sesuaikan dengan kebutuhan)
-    $validate = $request->validate([
-        'category' => 'required|max:255',
-        'slug' => 'required|max:255',
+    // Validasi status (opsional, jika perlu)
+    $request->validate([
+        'status' => 'required|boolean',
     ]);
 
-    // Set status sesuai nilai yang dikirim dari form (1 atau 0)
+    // Update status kategori
     $category->status = $request->input('status');
-
-    // Simpan perubahan
     $category->save();
+    return redirect()->route('category.index')->with('success', 'Berhasil di Update');
 
-    return redirect()->back()->with('success', 'Status kategori berhasil diperbarui.');
 }
 
+    
+    
+    
+    
+    
 
-    /**
-     * Remove the specified resource from storage.
-     */
+     
     public function destroy(Category $category)
     {
         $category->delete();

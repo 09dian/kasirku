@@ -198,30 +198,37 @@
                                                             </td>
                                                             <td class="cell">{{ $data->updated_at }}</td>
                                                             <td class="cell">
-                                                                <form
-                                                                    id="status-form-{{ $data->id }}"
-                                                                    action="{{ route('category.update', $data->id) }}"
-                                                                    method="POST">
-                                                                    @csrf @method('PUT')
-
-                                                                    <div class="form-check form-switch">
-                                                                        <input
-                                                                            class="form-check-input"
-                                                                            type="checkbox"
-                                                                            role="switch"
-                                                                            id="status-switch-{{ $data->id }}"
-                                                                            name="status"
-                                                                            value="1"
-                                                                            {{ $data->status == 1 ? 'checked' : '' }}
-                                                                            onchange="updateStatus(this)">
-                                                                            <label class="form-check-label" for="status-switch-{{ $data->id }}">Aktif</label>
+                                                                <div class="container mt-4">
+                                                                    <form id="status-form-{{ $data->id }}" action="{{ route('category.update', $data->id) }}" method="POST">
+                                                                        @csrf
+                                                                        @method('PUT')
+                                                                        
+                                                                        <!-- Input hidden untuk nilai default 0 -->
+                                                                        <input type="hidden" name="status" value="0">
+                                                                        
+                                                                        <div class="form-check form-switch">
+                                                                            <input
+                                                                                class="form-check-input"
+                                                                                type="checkbox"
+                                                                                role="switch"
+                                                                                id="status-switch-{{ $data->id }}"
+                                                                                name="status"
+                                                                                value="1"
+                                                                                {{ $data->status == 1 ? 'checked' : '' }}
+                                                                                onchange="document.getElementById('status-form-{{ $data->id }}').submit();">
+                                                                            
+                                                                            <!-- Label untuk switch -->
+                                                                            <label class="form-check-label" for="status-switch-{{ $data->id }}">
+                                                                                {{ $data->status == 1 ? 'Aktif' : 'Tidak Aktif' }}
+                                                                            </label>
                                                                         </div>
                                                                     </form>
-
+                                                                    
+                                                                    </div>
                                                                 </td>
                                                                 <td class="cell">
                                                                     <form
-                                                                        action="{{ route('category.destroy', $data->id) }}"
+                                                                        action="{{ route('category.update', $data->id) }}"
                                                                         method="post"
                                                                         class="d-inline">
                                                                         @csrf @method('DELETE')
@@ -279,28 +286,29 @@
                                         </ul>
                                     </nav>
                                     <!--//app-pagination-->
-
                                 </div>
-                                <!--//tab-pane-->
                                 <script>
-                                    document.addEventListener('DOMContentLoaded', function () {
-                                        // Memeriksa elemen
-                                        const categoryInput = document.getElementById('category');
-                                        const slugInput = document.getElementById('slug');
-
-                                        if (categoryInput && slugInput) {
-                                            categoryInput.addEventListener('input', function () {
-                                                const categoryValue = categoryInput.value;
-                                                const slugValue = categoryValue
-                                                    .toLowerCase() // Ubah ke huruf kecil
-                                                    .replace(/ /g, '-') // Ganti spasi dengan dash
-                                                    .replace(/[^\w-]+/g, ''); // Hapus karakter non-alfanumerik kecuali dash
-
-                                                slugInput.value = slugValue;
-                                            });
-                                        } else {
-                                            console.error('Elemen dengan ID "category" atau "slug" tidak ditemukan.');
-                                        }
-                                    });
+                                    function toggleStatus(id, isChecked) {
+                                        let status = isChecked
+                                            ? 1
+                                            : 0; // Mengatur status berdasarkan switch yang diubah
+                                        fetch(`/category/${id}`, { // URL yang sesuai dengan route update resource
+                                            method: 'PUT',
+                                            headers: {
+                                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                                'Content-Type': 'application/json'
+                                            },
+                                            body: JSON.stringify({status: status})
+                                        })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                if (data.success) {
+                                                    console.log('Status berhasil diupdate!');
+                                                } else {
+                                                    console.error('Gagal mengupdate status');
+                                                }
+                                            })
+                                            .catch(error => console.error('Error:', error));
+                                    }
                                 </script>
                             </x-layout>
