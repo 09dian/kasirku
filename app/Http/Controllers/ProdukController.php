@@ -36,20 +36,32 @@ class ProdukController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-{
-    $validate = $request->validate([
-        'nama_produk' => 'required|max:255',
-        'id_category' => 'required|string|max:255',
-        'harga' => 'required|numeric|min:0',
-        'stok' => 'required|integer|min:0',
-    ]);
 
-   Produk::create($validate);
-   return redirect()->route('produk.index')->with('success', 'Data berhasil disimpan!');
-}
-
-
+     public function store(Request $request)
+     {
+         $validate = $request->validate([
+             'nama_produk' => 'required|max:255',
+             'id_category' => 'required|string|max:255',
+             'harga' => 'required|numeric|min:0',
+             'stok' => 'required|integer|min:0',
+             'gambar' => 'nullable|image|file|max:1024',  // Gambar bisa nullable jika tidak wajib
+         ]);
+     
+         // Simpan gambar jika diunggah
+         if ($request->hasFile('gambar')) {
+             $validate['gambar'] = $request->file('gambar')->store('asset-img', 'public');
+             session(['gambar' => $validate['gambar']]); // Simpan path gambar ke session
+         } else {
+             // Jika tidak ada gambar baru, jangan set gambar di array validasi
+             $validate['gambar'] = null;
+         }
+     
+         // Simpan produk ke database
+         Produk::create($validate);
+     
+         return redirect()->route('produk.index')->with('success', 'Data berhasil disimpan!');
+     }
+     
     /**
      * Display the specified resource.
      */

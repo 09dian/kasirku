@@ -70,89 +70,89 @@
         }
 
         // Skrip keempat: Pagination dan pencarian
-        const rowsPerPage = 10;
-        let currentPage = 1;
-        let filteredRows = []; // Menyimpan hasil pencarian
+     // Deklarasi variabel bersama di luar semua fungsi
+    const rowsPerPage = 10;
+    let currentPage = 1;
+    let filteredRows = [];
+    let currentStatus = 'All';
 
-        function displayTableData() {
-            const tbody = document.getElementById('order-table-body');
-            const rows = tbody.querySelectorAll('tr');
-            
-            // Jika ada pencarian, gunakan hasil pencarian sebagai baris yang ditampilkan
-            const rowsToDisplay = filteredRows.length ? filteredRows : Array.from(rows);
-            
-            // Hitung total halaman berdasarkan data yang disaring
-            const totalPages = Math.ceil(rowsToDisplay.length / rowsPerPage);
+    function displayTableData() {
+        const tbody = document.getElementById('order-table-body');
+        const rows = tbody.querySelectorAll('tr');
 
-            // Sembunyikan semua baris terlebih dahulu
-            rows.forEach(row => row.style.display = 'none');
+        const statusFilteredRows = Array.from(rows).filter(row => {
+            const status = row.querySelector('td:nth-child(6) .badge').textContent.trim();
+            return currentStatus === 'All' || status === currentStatus;
+        });
 
-            // Tampilkan hanya baris yang sesuai dengan halaman saat ini
-            const startIndex = (currentPage - 1) * rowsPerPage;
-            const endIndex = Math.min(startIndex + rowsPerPage, rowsToDisplay.length);
+        const rowsToDisplay = filteredRows.length ? filteredRows.filter(row => statusFilteredRows.includes(row)) : statusFilteredRows;
+        const totalPages = Math.ceil(rowsToDisplay.length / rowsPerPage);
 
-            for (let i = startIndex; i < endIndex; i++) {
-                rowsToDisplay[i].style.display = '';
-            }
-
-            updatePagination(totalPages);
+        rows.forEach(row => row.style.display = 'none');
+        const startIndex = (currentPage - 1) * rowsPerPage;
+        const endIndex = Math.min(startIndex + rowsPerPage, rowsToDisplay.length);
+        for (let i = startIndex; i < endIndex; i++) {
+            rowsToDisplay[i].style.display = '';
         }
 
-        function updatePagination(totalPages) {
-            const pagination = document.getElementById('pagination');
-            pagination.innerHTML = ''; // Kosongkan pagination
+        updatePagination(totalPages);
+    }
 
-            // Tombol "Previous"
-            pagination.innerHTML += `
-                <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
-                    <a class="page-link" href="#" onclick="changePage(${currentPage - 1})">Previous</a>
-                </li>
-            `;
-
-            // Tombol untuk setiap halaman
-            for (let i = 1; i <= totalPages; i++) {
-                pagination.innerHTML += `
-                    <li class="page-item ${currentPage === i ? 'active' : ''}">
-                        <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
-                    </li>
-                `;
-            }
-
-            // Tombol "Next"
-            pagination.innerHTML += `
-                <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
-                    <a class="page-link" href="#" onclick="changePage(${currentPage + 1})">Next</a>
-                </li>
-            `;
-        }
-
-        function changePage(page) {
-            const rows = filteredRows.length ? filteredRows : document.querySelectorAll('#order-table-body tr');
-            const totalPages = Math.ceil(rows.length / rowsPerPage);
-
-            if (page < 1 || page > totalPages) return;
-            currentPage = page;
-            displayTableData();
-        }
-
-        function searchTable() {
-            const input = document.getElementById('search-orders').value.toLowerCase();
-            const rows = document.querySelectorAll('#order-table-body tr');
-
-            // Filter baris berdasarkan input pencarian
-            filteredRows = Array.from(rows).filter(row => {
-                return row.innerText.toLowerCase().includes(input);
-            });
-
-            // Reset halaman ke 1 setiap kali pencarian dilakukan
-            currentPage = 1;
-
-            // Tampilkan hasil pencarian yang sudah dipagination
-            displayTableData();
-        }
-
-        // Inisialisasi tampilan awal
+    function searchTable() {
+        const input = document.getElementById('search-orders').value.toLowerCase();
+        const rows = document.querySelectorAll('#order-table-body tr');
+        filteredRows = Array.from(rows).filter(row => {
+            return row.innerText.toLowerCase().includes(input);
+        });
+        currentPage = 1;
         displayTableData();
+    }
+
+    function filterByStatus(status) {
+        currentStatus = status;
+        currentPage = 1;
+        searchTable();
+    }
+
+    function updatePagination(totalPages) {
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = '';
+
+        pagination.innerHTML += `
+            <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                <a class="page-link" href="#" onclick="changePage(${currentPage - 1})">Previous</a>
+            </li>
+        `;
+
+        for (let i = 1; i <= totalPages; i++) {
+            pagination.innerHTML += `
+                <li class="page-item ${currentPage === i ? 'active' : ''}">
+                    <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
+                </li>
+            `;
+        }
+
+        pagination.innerHTML += `
+            <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                <a class="page-link" href="#" onclick="changePage(${currentPage + 1})">Next</a>
+            </li>
+        `;
+    }
+
+    function changePage(page) {
+        const rows = filteredRows.length ? filteredRows : document.querySelectorAll('#order-table-body tr');
+        const totalPages = Math.ceil(rows.length / rowsPerPage);
+
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+        displayTableData();
+    }
+
+    // Event Listener untuk pencarian
+    document.getElementById('search-orders').addEventListener('input', searchTable);
+
+    // Inisialisasi tampilan data tabel
+    displayTableData();
 
         // Skrip kelima: Tab untuk tabel
         const tabs = document.querySelectorAll('#orders-table-tab a');
