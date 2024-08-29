@@ -218,3 +218,10 @@
             XLSX.writeFile(wb, "Data Penjualan.xlsx");
         });
     });
+    document.getElementById('inputGroupFile02').addEventListener('change', function (event) {
+        const [file] = event.target.files; // Ambil file dari input
+        if (file) {
+            const previewImage = document.getElementById('preview-image'); // Elemen gambar untuk pratinjau
+            previewImage.src = URL.createObjectURL(file); // Update sumber gambar
+        }
+    });
