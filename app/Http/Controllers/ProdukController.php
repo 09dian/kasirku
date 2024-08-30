@@ -98,8 +98,17 @@ class ProdukController extends Controller
      */
     public function destroy(Produk $produk)
     {
+        // Path gambar dari database
+        $gambarPath = public_path('storage/' . $produk->gambar);
+    
+        // Cek apakah file gambar ada dan hapus jika ada
+        if ($produk->gambar && file_exists($gambarPath)) {
+            unlink($gambarPath);
+        }
+    
+        // Hapus data produk dari database
         $produk->delete();
-
+    
         return redirect()->route('produk.index')->with('success', 'Data berhasil dihapus!');
     }
 }

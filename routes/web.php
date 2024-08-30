@@ -18,6 +18,7 @@ Route::get('/penjualan', function () {
     ]);
 });
 Route::resource('/category', CategoryController::class);
+
 Route::resource('/produk', ProdukController::class);
 
 
