@@ -189,7 +189,7 @@
 
             // Buat array untuk menampung data tabel
             var data = [];
-            data.push(["Order", "Product", "Customer", "Date Time", "Status", "Jumlah", "Total"]); // Header
+            data.push(["Order", "Produk", "pembeli", "Waktu", "Status", "Jumlah", "Total"]); // Header
 
             // Loop melalui baris dan ambil data sel
             rows.forEach(function (row) {
@@ -217,7 +217,9 @@
             // Download file Excel
             XLSX.writeFile(wb, "Data Penjualan.xlsx");
         });
+
     });
+
     document.getElementById('inputGroupFile02').addEventListener('change', function (event) {
         const [file] = event.target.files; // Ambil file dari input
         if (file) {

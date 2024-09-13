@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('category'); // Tipe makanan
             $table->string('slug'); // Tipe makanan
             $table->boolean('status')->default(1); // Status default 1 (aktif)
-            $table->timestamps();
+                      $table->timestamps();
         });
     }
 

@@ -1,4 +1,8 @@
-<?php use App\Http\Controllers\ProdukController;
+<?php 
+
+
+use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\ProdukController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 
@@ -12,11 +16,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/penjualan', function () {
-    return view('app.penjualan', [
-        'title' => 'Penjualan',
-    ]);
-});
+Route::resource('/penjualan', PenjualanController::class);
 Route::resource('/category', CategoryController::class);
 
 Route::resource('/produk', ProdukController::class);
