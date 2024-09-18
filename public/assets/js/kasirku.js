@@ -227,3 +227,36 @@
             previewImage.src = URL.createObjectURL(file); // Update sumber gambar
         }
     });
+
+    document.getElementById('payment-method').addEventListener('change', function() {
+        var totalInput = document.getElementById('total-input');
+        if (this.value === 'kash') {
+            totalInput.style.display = 'block';
+        } else {
+            totalInput.style.display = 'none';
+        }
+    });
+
+
+    var basePrice = 50000;
+    var counter = document.getElementById('counter');
+    var price = document.getElementById('price');
+
+    document.getElementById('increment').addEventListener('click', function() {
+        // Tambah nilai counter
+        var currentValue = parseInt(counter.textContent);
+        counter.textContent = currentValue + 1;
+
+        // Update harga total
+        price.textContent = (basePrice * (currentValue + 1)).toLocaleString('id-ID');
+    });
+
+    document.getElementById('decrement').addEventListener('click', function() {
+        // Kurangi nilai counter, minimal 1
+        var currentValue = parseInt(counter.textContent);
+        if (currentValue > 1) {
+            counter.textContent = currentValue - 1;
+            // Update harga total
+            price.textContent = (basePrice * (currentValue - 1)).toLocaleString('id-ID');
+        }
+    });

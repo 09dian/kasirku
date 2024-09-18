@@ -294,7 +294,8 @@
                                                                                         <img
                                                                                             src="{{ asset('storage/'.$data->gambar) }}"
                                                                                             alt="Gambar Produk"
-                                                                                            class="w-full h-16 object-cover rounded-lg mb-2">> @else
+                                                                                            class="w-100 h-10 object-cover rounded-lg mb-2">
+                                                                                            @else
                                                                                             <p>Tidak ada gambar</p>
                                                                                             @endif
                                                                                         </div>
@@ -323,7 +324,7 @@
                                                                                                     {{ $data->created_at->format('d M Y') }}</li>
                                                                                             </ul>
                                                                                         </div>
-                                                                                        <a href="#" id="beli" class="btn btn-primary w-100 text-white">
+                                                                                        <a href="#" id="beli" class="mt-1 btn btn-primary w-100 text-white">
                                                                                             <svg
                                                                                                 xmlns="http://www.w3.org/2000/svg"
                                                                                                 width="16"
@@ -451,13 +452,13 @@
 
                                                                                                 <!-- Konten di Sisi Gambar -->
                                                                                                 <div class="ms-3">
-                                                                                                    <!-- Tulisan d -->
-                                                                                                    <button class="btn btn-success btn-sm px-2 py-1 fs-6 rounded-1" style="color: white">+</button>
-                                                                                                    <span class="mx-2">1</span>
-                                                                                                    <button class="btn btn-danger btn-sm px-2 py-1 fs-6 rounded-1"style="color: white">-</button>
-
+                                                                                                    <!-- Tombol + dan - -->
+                                                                                                    <button id="increment" class="btn btn-success btn-sm px-2 py-1 fs-6 rounded-1" style="color: white">+</button>
+                                                                                                    <span id="counter" class="mx-2">1</span>
+                                                                                                    <button id="decrement" class="btn btn-danger btn-sm px-2 py-1 fs-6 rounded-1" style="color: white">-</button>
+                                                                                                
                                                                                                     <!-- Harga -->
-                                                                                                    <div class="harga mt-2 small">Rp. 50.000</div>
+                                                                                                    <div class="harga mt-2 small">Rp. <span id="price">50.000</span></div>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
@@ -472,29 +473,25 @@
                                                                                                 <input type="text" class="form-control"></div>
                                                                                                 <div class="mb-2">
                                                                                                     <label class="form-label">Metode Pembayaran</label>
-                                                                                                    <select class="form-control">
+                                                                                                    <select class="form-control" id="payment-method">
                                                                                                         <option value="">Pilih Metode</option>
-                                                                                                        <!-- Opsi default kosong -->
                                                                                                         <option value="qris">QRIS</option>
+                                                                                                        <option value="kash">Kash</option>
                                                                                                         <option value="ngutang">Ngutang</option>
                                                                                                         <option value="kredit">Kredit</option>
                                                                                                     </select>
-
+                                                                                                </div>
+                                                                                                <div class="mb-2" id="total-input" style="display: none;">
+                                                                                                    <label class="form-label">Kash</label>
+                                                                                                    <input type="text" class="form-control">
+                                                                                                </div>
                                                                                                     <button type="submit" class="btn btn-danger w-100 mt-2" style="color: white">Pembayaran</button>
-                                                                                                </form>
-
+                                                                                               
                                                                                             </div>
-
                                                                                         </div>
+                                                                                        <!-- //row -->
                                                                                     </div>
                                                                                 </div>
-                                                                                <!-- //row -->
-                                                                            </div>
-                                                                            <!-- //container-fluid -->
+                                                                                <!--//app-content-->
 
-                                                                            <!--//container-fluid-->
-
-                                                                        </div>
-                                                                        <!--//app-content-->
-
-                                                                    </x-layout>
+                                                                            </x-layout>
