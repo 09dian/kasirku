@@ -272,7 +272,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </form>
+                                             </form>
                                                         @endforeach
 
                                                         {{-- akhir_edit --}}
@@ -280,218 +280,167 @@
                                                         <div class="container-fluid">
                                                             <div class="row">
                                                                 <!-- Konten Utama -->
+                                                                
                                                                 <div class="col-12 col-md-9">
                                                                     <div class="row g-4">
-                                                                        @foreach ($produk as $data) @php $tanggalUpload =
-                                                                        \Carbon\Carbon::parse($data->created_at); $selisihHari =
-                                                                        $tanggalUpload->diffInDays(now()); @endphp
-
+                                                                        @foreach ($produk as $data) 
+                                                                        @php 
+                                                                        $tanggalUpload = \Carbon\Carbon::parse($data->created_at); 
+                                                                        $selisihHari = $tanggalUpload->diffInDays(now()); 
+                                                                        @endphp
+                                                                
                                                                         <div class="col-6 col-md-4 col-xl-3 col-xxl-2">
                                                                             <div class="app-card app-card-doc shadow-sm h-100">
                                                                                 <div class="app-card-thumb-holder p-3">
                                                                                     <div class="app-card-thumb">
                                                                                         @if (!empty($data->gambar))
-                                                                                        <img
-                                                                                            src="{{ asset('storage/'.$data->gambar) }}"
-                                                                                            alt="Gambar Produk"
+                                                                                        <img src="{{ asset('storage/'.$data->gambar) }}" alt="Gambar Produk"
                                                                                             class="w-100 h-10 object-cover rounded-lg mb-2">
-                                                                                            @else
-                                                                                            <p>Tidak ada gambar</p>
-                                                                                            @endif
-                                                                                        </div>
-                                                                                        <a class="app-card-link-mask" href="#file-link"></a>
-                                                                                        @if ($selisihHari <= 5)
-                                                                                        <span class="badge bg-success">New Upload</span>
+                                                                                        @else
+                                                                                        <p>Tidak ada gambar</p>
                                                                                         @endif
                                                                                     </div>
-                                                                                    <div class="app-card-body p-3 has-card-actions">
-                                                                                        <h4 class="app-doc-title truncate mb-0">
-                                                                                            <a href="#file-link">{{ $data->nama_produk }}</a>
-                                                                                        </h4>
-                                                                                        <div class="app-doc-meta">
-                                                                                            <ul class="list-unstyled mb-0">
+                                                                                    <a class="app-card-link-mask" href="#file-link"></a>
+                                                                                    @if ($selisihHari <= 5)
+                                                                                    <span class="badge bg-success">New Upload</span>
+                                                                                    @endif
+                                                                                </div>
+                                                                                <div class="app-card-body p-3 has-card-actions">
+                                                                                    <h4 class="app-doc-title truncate mb-0">
+                                                                                        <a href="#file-link">{{ $data->nama_produk }}</a>
+                                                                                    </h4>
+                                                                                    <div class="app-doc-meta">
+                                                                                        <ul class="list-unstyled mb-0">
+                                                                                            <li>
+                                                                                                <span class="text-muted">Tipe:</span>
+                                                                                                {{ $data->category ? $data->category->category : 'Tidak ada kategori' }}
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <span class="text-muted">Harga:</span>
+                                                                                                Rp.{{ number_format($data->harga, 0, ',', '.') }}
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <span class="text-muted">Stok:</span>
+                                                                                                {{ $data->stok }}
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <span class="text-muted">Uploaded:</span>
+                                                                                                {{ $data->created_at->format('d M Y') }}
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                    <a href="#" class="mt-1 btn btn-primary w-100 text-white beli-btn"
+                                                                                        data-nama="{{ $data->nama_produk }}" data-harga="{{ $data->harga }}"
+                                                                                        data-gambar="{{ asset('storage/'.$data->gambar) }}">
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                                                            class="bi bi-cart-plus" viewBox="0 0 16 16">
+                                                                                            <path
+                                                                                                d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z" />
+                                                                                            <path
+                                                                                                d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+                                                                                        </svg>
+                                                                                        Beli
+                                                                                    </a>
+                                                                                    <div class="app-card-actions">
+                                                                                        <div class="dropdown">
+                                                                                            <div class="dropdown-toggle no-toggle-arrow" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots-vertical"
+                                                                                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                                                                    <path fill-rule="evenodd"
+                                                                                                        d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                                                                                                </svg>
+                                                                                            </div>
+                                                                                            <ul class="dropdown-menu">
                                                                                                 <li>
-                                                                                                    <span class="text-muted">Tipe:</span>
-                                                                                                    {{ $data->category ? $data->category->category : 'Tidak ada kategori' }}</li>
+                                                                                                    <a class="dropdown-item" href="#">
+                                                                                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye me-2"
+                                                                                                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                                                                            <path fill-rule="evenodd"
+                                                                                                                d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.134 13.134 0 0 0 1.66 2.043C4.12 11.332 5.88 12.5 8 12.5c2.12 0 3.879-1.168 5.168-2.457A13.134 13.134 0 0 0 14.828 8a13.133 13.133 0 0 0-1.66-2.043C11.879 4.668 10.119 3.5 8 3.5c-2.12 0-3.879 1.168-5.168 2.457A13.133 13.133 0 0 0 1.172 8z" />
+                                                                                                            <path fill-rule="evenodd"
+                                                                                                                d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                                                                                                        </svg>
+                                                                                                        View
+                                                                                                    </a>
+                                                                                                </li>
                                                                                                 <li>
-                                                                                                    <span class="text-muted">Harga:</span>
-                                                                                                    Rp.{{ number_format($data->harga, 0, ',', '.') }}</li>
+                                                                                                    <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                                                                        data-bs-target="#editData{{ $data->id }}">
+                                                                                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil me-2"
+                                                                                                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                                                                            <path fill-rule="evenodd"
+                                                                                                                d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                                                                                                        </svg>
+                                                                                                        Edit
+                                                                                                    </button>
+                                                                                                </li>
                                                                                                 <li>
-                                                                                                    <span class="text-muted">Stok:</span>
-                                                                                                    {{ $data->stok }}</li>
-                                                                                                <li>
-                                                                                                    <span class="text-muted">Uploaded:</span>
-                                                                                                    {{ $data->created_at->format('d M Y') }}</li>
-                                                                                            </ul>
-                                                                                        </div>
-                                                                                        <a href="#" id="beli" class="mt-1 btn btn-primary w-100 text-white">
-                                                                                            <svg
-                                                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                                                width="16"
-                                                                                                height="16"
-                                                                                                fill="currentColor"
-                                                                                                class="bi bi-cart-plus"
-                                                                                                viewBox="0 0 16 16">
-                                                                                                <path
-                                                                                                    d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z"/>
-                                                                                                <path
-                                                                                                    d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                                                                                            </svg>
-                                                                                            Beli
-                                                                                        </a>
-
-                                                                                        <div class="app-card-actions">
-                                                                                            <div class="dropdown">
-                                                                                                <div
-                                                                                                    class="dropdown-toggle no-toggle-arrow"
-                                                                                                    data-bs-toggle="dropdown"
-                                                                                                    aria-expanded="false">
-                                                                                                    <svg
-                                                                                                        width="1em"
-                                                                                                        height="1em"
-                                                                                                        viewBox="0 0 16 16"
-                                                                                                        class="bi bi-three-dots-vertical"
-                                                                                                        fill="currentColor"
-                                                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                                                        <path
-                                                                                                            fill-rule="evenodd"
-                                                                                                            d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-                                                                                                    </svg>
-                                                                                                </div>
-                                                                                                <ul class="dropdown-menu">
-                                                                                                    <li>
-                                                                                                        <a class="dropdown-item" href="#">
-                                                                                                            <svg
-                                                                                                                width="1em"
-                                                                                                                height="1em"
-                                                                                                                viewBox="0 0 16 16"
-                                                                                                                class="bi bi-eye me-2"
-                                                                                                                fill="currentColor"
+                                                                                                    <form action="{{ route('produk.destroy', $data->id) }}" method="POST">
+                                                                                                        @csrf
+                                                                                                        @method('DELETE')
+                                                                                                        <button type="submit" class="dropdown-item text-danger">
+                                                                                                            <svg width="1em" height="1em" viewBox="0 0 16 16"
+                                                                                                                class="bi bi-trash me-2" fill="currentColor"
                                                                                                                 xmlns="http://www.w3.org/2000/svg">
-                                                                                                                <path
-                                                                                                                    fill-rule="evenodd"
-                                                                                                                    d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.134 13.134 0 0 0 1.66 2.043C4.12 11.332 5.88 12.5 8 12.5c2.12 0 3.879-1.168 5.168-2.457A13.134 13.134 0 0 0 14.828 8a13.133 13.133 0 0 0-1.66-2.043C11.879 4.668 10.119 3.5 8 3.5c-2.12 0-3.879 1.168-5.168 2.457A13.133 13.133 0 0 0 1.172 8z"/>
-                                                                                                                <path
-                                                                                                                    fill-rule="evenodd"
-                                                                                                                    d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
-                                                                                                            </svg>
-                                                                                                            View
-                                                                                                        </a>
-                                                                                                    </li>
-                                                                                                    <li>
-                                                                                                        <button
-                                                                                                            type="button"
-                                                                                                            class="dropdown-item"
-                                                                                                            data-bs-toggle="modal"
-                                                                                                            data-bs-target="#editData{{ $data->id }}">
-                                                                                                            <svg
-                                                                                                                width="1em"
-                                                                                                                height="1em"
-                                                                                                                viewBox="0 0 16 16"
-                                                                                                                class="bi bi-pencil me-2"
-                                                                                                                fill="currentColor"
-                                                                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                                                                <path
-                                                                                                                    fill-rule="evenodd"
-                                                                                                                    d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-                                                                                                            </svg>
-                                                                                                            Edit
-                                                                                                        </button>
-                                                                                                    </li>
-                                                                                                    <li>
-                                                                                                        <button
-                                                                                                            type="button"
-                                                                                                            class="dropdown-item"
-                                                                                                            data-bs-toggle="modal"
-                                                                                                            data-bs-target="#deleteData{{ $data->id }}">
-                                                                                                            <svg
-                                                                                                                width="1em"
-                                                                                                                height="1em"
-                                                                                                                viewBox="0 0 16 16"
-                                                                                                                class="bi bi-trash me-2"
-                                                                                                                fill="currentColor"
-                                                                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                                                                <path
-                                                                                                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2 0A.5.5 0 0 1 8 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                                                                                                <path
-                                                                                                                    fill-rule="evenodd"
-                                                                                                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1 0-2h3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1h3a1 1 0 0 1 1 1zM4.118 4l.805 9.66A1 1 0 0 0 5.52 15h4.957a1 1 0 0 0 .996-.94L12.882 4H4.118z"/>
+                                                                                                                <path fill-rule="evenodd"
+                                                                                                                    d="M5.5 5.5A.5.5 0 0 1 6 5h4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5H6a.5.5 0 0 1-.5-.5v-7zM4.118 4 4 4.059V4.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V4.059L11.882 4H4.118zM2.5 3A.5.5 0 0 1 3 2.5h10a.5.5 0 0 1 .5.5v1h-11v-1zM5 2.5a.5.5 0 0 0-.5.5v1h7v-1a.5.5 0 0 0-.5-.5H5zM1 4.5A.5.5 0 0 1 1.5 4h13a.5.5 0 0 1 .5.5v9A2.5 2.5 0 0 1 12.5 16h-9A2.5 2.5 0 0 1 1 13.5v-9z" />
                                                                                                             </svg>
                                                                                                             Delete
                                                                                                         </button>
-                                                                                                    </li>
-                                                                                                </ul>
-                                                                                            </div>
+                                                                                                    </form>
+                                                                                                </li>
+                                                                                            </ul>
                                                                                         </div>
-                                                                                        <!-- //app-card-actions -->
                                                                                     </div>
-                                                                                    <!-- //app-card-body -->
                                                                                 </div>
-                                                                                <!-- //app-card -->
                                                                             </div>
-                                                                            <!-- //col -->
-                                                                            @endforeach
                                                                         </div>
-                                                                        <!-- //row -->
+                                                                        @endforeach
                                                                     </div>
-                                                                    <!-- //col -->
+                                                                </div>
+                                                                
                                                                     <!-- Sidebar Kanan -->
                                                                     <div class="col-12 col-md-3 bg-light border-start">
                                                                         <!-- Ubah col-md-3 menjadi col-md-4 -->
                                                                         <div class="sidebar p-3">
-                                                                            <form>
+                                                                            <div class="produk mt-4"></div>
+
+                                                                                <!-- Formulir -->
                                                                                 <div class="mb-2">
-                                                                                    <div class="card" style="width: 100%; height: 6rem;">
-                                                                                        <div class="card-body d-flex align-items-center">
-                                                                                            <!-- Gambar -->
-                                                                                            <img
-                                                                                                src="assets/images/padang.jpg"
-                                                                                                alt="Gambar Padang"
-                                                                                                class="img-fluid rounded"
-                                                                                                style="max-width: 28%; height: auto;">
+                                                                                    <label for="namapembeli" class="form-label mt-2">Nama Pembeli</label>
+                                                                                    <input type="text" class="form-control" id="namapembeli"></div>
 
-                                                                                                <!-- Konten di Sisi Gambar -->
-                                                                                                <div class="ms-3">
-                                                                                                    <!-- Tombol + dan - -->
-                                                                                                    <button id="increment" class="btn btn-success btn-sm px-2 py-1 fs-6 rounded-1" style="color: white">+</button>
-                                                                                                    <span id="counter" class="mx-2">1</span>
-                                                                                                    <button id="decrement" class="btn btn-danger btn-sm px-2 py-1 fs-6 rounded-1" style="color: white">-</button>
-                                                                                                
-                                                                                                    <!-- Harga -->
-                                                                                                    <div class="harga mt-2 small">Rp. <span id="price">50.000</span></div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
+                                                                                    <div class="mb-2">
+                                                                                        <label for="jenis-kelamin" class="form-label">Jenis Kelamin</label>
+                                                                                        <input type="text" class="form-control" id="jenis-kelamin"></div>
 
-                                                                                        <label class="form-label mt-2">Nama Pembeli</label>
-                                                                                        <input type="text" class="form-control" id="namapembeli"></div>
                                                                                         <div class="mb-2">
-                                                                                            <label class="form-label">Jenis-kelamin</label>
-                                                                                            <input type="text" class="form-control"></div>
+                                                                                            <label for="total" class="form-label">Total</label>
+                                                                                            <input type="text" class="form-control" id="total"></div>
+
                                                                                             <div class="mb-2">
-                                                                                                <label class="form-label">Total</label>
-                                                                                                <input type="text" class="form-control"></div>
-                                                                                                <div class="mb-2">
-                                                                                                    <label class="form-label">Metode Pembayaran</label>
-                                                                                                    <select class="form-control" id="payment-method">
-                                                                                                        <option value="">Pilih Metode</option>
-                                                                                                        <option value="qris">QRIS</option>
-                                                                                                        <option value="kash">Kash</option>
-                                                                                                        <option value="ngutang">Ngutang</option>
-                                                                                                        <option value="kredit">Kredit</option>
-                                                                                                    </select>
-                                                                                                </div>
-                                                                                                <div class="mb-2" id="total-input" style="display: none;">
-                                                                                                    <label class="form-label">Kash</label>
-                                                                                                    <input type="text" class="form-control">
-                                                                                                </div>
-                                                                                                    <button type="submit" class="btn btn-danger w-100 mt-2" style="color: white">Pembayaran</button>
-                                                                                               
+                                                                                                <label for="payment-method" class="form-label">Metode Pembayaran</label>
+                                                                                                <select class="form-control" id="payment-method">
+                                                                                                    <option value="">Pilih Metode</option>
+                                                                                                    <option value="qris">QRIS</option>
+                                                                                                    <option value="kash">Kash</option>
+                                                                                                    <option value="ngutang">Ngutang</option>
+                                                                                                    <option value="kredit">Kredit</option>
+                                                                                                </select>
+                                                                                            </div>
+
+                                                                                            <div class="mb-2" id="total-input" style="display: none;">
+                                                                                                <label for="kash" class="form-label">Kash</label>
+                                                                                                <input type="text" class="form-control" id="kash"></div>
+
+                                                                                                <button type="submit" class="btn btn-danger w-100 mt-2">Pembayaran</button>
+
                                                                                             </div>
                                                                                         </div>
-                                                                                        <!-- //row -->
                                                                                     </div>
                                                                                 </div>
-                                                                                <!--//app-content-->
+                                                                            </div>
 
-                                                                            </x-layout>
+                                                                            <!--//app-content-->
+
+                                                                        </x-layout>

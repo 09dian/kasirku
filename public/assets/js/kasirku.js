@@ -238,25 +238,81 @@
     });
 
 
-    var basePrice = 50000;
-    var counter = document.getElementById('counter');
-    var price = document.getElementById('price');
+// Fungsi untuk menangani tombol "Beli"
+document.querySelectorAll('.beli-btn').forEach(function(button) {
+    button.addEventListener('click', function() {
+        var nama = this.getAttribute('data-nama');
+        var harga = this.getAttribute('data-harga');
+        var gambar = this.getAttribute('data-gambar');
 
-    document.getElementById('increment').addEventListener('click', function() {
-        // Tambah nilai counter
-        var currentValue = parseInt(counter.textContent);
-        counter.textContent = currentValue + 1;
+        // Cek apakah produk sudah ada di keranjang
+        var existingProduct = document.querySelector('.produk .card-body[data-nama="' + nama + '"]');
 
-        // Update harga total
-        price.textContent = (basePrice * (currentValue + 1)).toLocaleString('id-ID');
-    });
+        if (existingProduct) {
+            // Produk sudah ada, tambahkan jumlahnya
+            var counter = existingProduct.querySelector('.counter');
+            var priceElement = existingProduct.querySelector('.price');
+            var basePrice = parseInt(priceElement.getAttribute('data-base-price'));
+            var currentValue = parseInt(counter.textContent);
 
-    document.getElementById('decrement').addEventListener('click', function() {
-        // Kurangi nilai counter, minimal 1
-        var currentValue = parseInt(counter.textContent);
-        if (currentValue > 1) {
-            counter.textContent = currentValue - 1;
-            // Update harga total
-            price.textContent = (basePrice * (currentValue - 1)).toLocaleString('id-ID');
+            counter.textContent = currentValue + 1;
+            priceElement.textContent = (basePrice * (currentValue + 1)).toLocaleString('id-ID');
+        } else {
+            // Produk baru, tambahkan ke keranjang
+            var produkHTML = `
+                <div class="card-body d-flex align-items-center my-2" data-nama="` + nama + `">
+                    <!-- Gambar Produk -->
+                    <img src="` + gambar + `" alt="Gambar Produk" class="img-fluid rounded" style="max-width: 28%; height: auto;">
+                    
+                    <!-- Konten di Sisi Gambar -->
+                    <div class="ms-3">
+                        <!-- Nama Produk -->
+                        <div class="nama-produk">` + nama + `</div>
+
+                        <!-- Tombol + dan - -->
+                        <div class="d-flex align-items-center mb-2">
+                            <button class="increment btn btn-success btn-sm px-2 py-1 fs-6 rounded-1">+</button>
+                            <span class="counter mx-2">1</span>
+                            <button class="decrement btn btn-danger btn-sm px-2 py-1 fs-6 rounded-1">-</button>
+                        </div>
+
+                        <!-- Harga -->
+                        <div class="harga small">Rp. <span class="price" data-base-price="` + parseInt(harga) + `">` + parseInt(harga).toLocaleString('id-ID') + `</span></div>
+                    </div>
+                </div>
+            `;
+            
+            // Masukkan konten ke dalam div produk tanpa menghapus produk yang sudah ada
+            document.querySelector('.produk').insertAdjacentHTML('beforeend', produkHTML);
         }
     });
+});
+
+// Event delegation untuk menangani tombol + dan - pada semua produk
+document.querySelector('.produk').addEventListener('click', function(event) {
+    if (event.target.classList.contains('increment')) {
+        var counter = event.target.nextElementSibling;
+        var priceElement = event.target.parentElement.nextElementSibling.querySelector('.price');
+        var basePrice = parseInt(priceElement.getAttribute('data-base-price'));
+        var currentValue = parseInt(counter.textContent);
+
+        counter.textContent = currentValue + 1;
+        priceElement.textContent = (basePrice * (currentValue + 1)).toLocaleString('id-ID');
+    }
+
+    if (event.target.classList.contains('decrement')) {
+        var counter = event.target.previousElementSibling;
+        var priceElement = event.target.parentElement.nextElementSibling.querySelector('.price');
+        var basePrice = parseInt(priceElement.getAttribute('data-base-price'));
+        var currentValue = parseInt(counter.textContent);
+
+        if (currentValue > 1) {
+            counter.textContent = currentValue - 1;
+            priceElement.textContent = (basePrice * (currentValue - 1)).toLocaleString('id-ID');
+        } else {
+            // Jika counter 1 dan dikurangi lagi, hapus produk
+            var productCard = event.target.closest('.card-body');
+            productCard.remove();
+        }
+    }
+});
