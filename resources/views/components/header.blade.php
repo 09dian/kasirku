@@ -6,8 +6,8 @@
 
                     <div class="col-auto">
                         <a id="sidepanel-toggler" class="sidepanel-toggler d-inline-block d-xl-none" href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                viewBox="0 0 30 30" role="img">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
+                                role="img">
                                 <title>Menu</title>
                                 <path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
                                     stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path>
@@ -49,8 +49,8 @@
                                     <div class="item p-3">
                                         <div class="row gx-2 justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <img class="profile-image"
-                                                    src="assets/images/profiles/profile-1.png" alt="">
+                                                <img class="profile-image" src="assets/images/profiles/profile-1.png"
+                                                    alt="">
                                             </div><!--//col-->
                                             <div class="col">
                                                 <div class="info">
@@ -111,8 +111,8 @@
                                     <div class="item p-3">
                                         <div class="row gx-2 justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <img class="profile-image"
-                                                    src="assets/images/profiles/profile-2.png" alt="">
+                                                <img class="profile-image" src="assets/images/profiles/profile-2.png"
+                                                    alt="">
                                             </div><!--//col-->
                                             <div class="col">
                                                 <div class="info">
@@ -154,7 +154,7 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="login.html">Log Out</a></li>
+                                <li><a class="dropdown-item" href="{{ route('logout') }}">Kaluar</a></li>
                             </ul>
                         </div><!--//app-user-dropdown-->
                     </div><!--//app-utilities-->
@@ -167,8 +167,8 @@
         <div class="sidepanel-inner d-flex flex-column">
             <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
             <div class="app-branding">
-                <a class="app-logo" href="index.html"><img class="logo-icon me-2"
-                        src="assets/images/app-logo.svg" alt="logo"><span class="logo-text">PORTAL</span></a>
+                <a class="app-logo" href="index.html"><img class="logo-icon me-2" src="assets/images/app-logo.svg"
+                        alt="logo"><span class="logo-text">PORTAL</span></a>
 
             </div><!--//app-branding-->
 
@@ -238,9 +238,8 @@
                             </span>
                             <span class="nav-link-text">Pages</span>
                             <span class="submenu-arrow">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16"
-                                    class="bi bi-chevron-down" fill="currentColor"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
                                         d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
                                 </svg>
@@ -252,8 +251,8 @@
                                         href="notifications.html">Notifications</a></li>
                                 <li class="submenu-item"><a class="submenu-link" href="account.html">Account</a>
                                 </li>
-                                <li class="submenu-item"><a class="submenu-link"
-                                        href="settings.html">Settings</a></li>
+                                <li class="submenu-item"><a class="submenu-link" href="settings.html">Settings</a>
+                                </li>
                             </ul>
                         </div>
                     </li><!--//nav-item-->
@@ -271,9 +270,8 @@
                             </span>
                             <span class="nav-link-text">External</span>
                             <span class="submenu-arrow">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16"
-                                    class="bi bi-chevron-down" fill="currentColor"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
                                         d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
                                 </svg>
@@ -297,9 +295,8 @@
                         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                         <a class="nav-link" href="charts.html">
                             <span class="nav-icon">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16"
-                                    class="bi bi-bar-chart-line" fill="currentColor"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bar-chart-line"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
                                         d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2zm1 12h2V2h-2v12zm-3 0V7H7v7h2zm-5 0v-3H2v3h2z" />
                                 </svg>
@@ -312,9 +309,8 @@
                         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                         <a class="nav-link" href="help.html">
                             <span class="nav-icon">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16"
-                                    class="bi bi-question-circle" fill="currentColor"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-question-circle"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
                                         d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                     <path
@@ -349,9 +345,8 @@
                             <a class="nav-link"
                                 href="https://themes.3rdwavemedia.com/bootstrap-templates/admin-dashboard/portal-free-bootstrap-admin-dashboard-template-for-developers/">
                                 <span class="nav-icon">
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16"
-                                        class="bi bi-download" fill="currentColor"
-                                        xmlns="http://www.w3.org/2000/svg">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download"
+                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd"
                                             d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
                                         <path fill-rule="evenodd"
@@ -366,9 +361,8 @@
                             <a class="nav-link"
                                 href="https://themes.3rdwavemedia.com/bootstrap-templates/admin-dashboard/portal-free-bootstrap-admin-dashboard-template-for-developers/">
                                 <span class="nav-icon">
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16"
-                                        class="bi bi-file-person" fill="currentColor"
-                                        xmlns="http://www.w3.org/2000/svg">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-person"
+                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd"
                                             d="M12 1H4a1 1 0 0 0-1 1v10.755S4 11 8 11s5 1.755 5 1.755V2a1 1 0 0 0-1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
                                         <path fill-rule="evenodd" d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
