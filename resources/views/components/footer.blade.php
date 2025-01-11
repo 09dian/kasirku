@@ -1,9 +1,9 @@
 <footer class="app-footer">
     <div class="container text-center py-3">
         <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
-        <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart"
-                style="color: #ec2f00;"></i> by <a class="app-link" href="https://github.com/09dian" target="_blank">Dian
-                Mustofa</a> KASIRKU V.0.0.1</small>
+        <small class="copyright">{{ date('Y') }} Di Disain Penuh <span class="sr-only">love</span><i
+                class="fas fa-heart" style="color: #ec2f00;"></i> 🇮🇩 Oleh <a class="app-link"
+                href="https://github.com/09dian" target="_blank">Dian Mustofa</a> KASIRKU V.0.0.1</small>
 
     </div>
 </footer><!--//app-footer-->

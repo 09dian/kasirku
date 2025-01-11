@@ -27,13 +27,13 @@
             <div class="d-flex flex-column align-content-end">
                 <div class="app-auth-body mx-auto">
                     <div class="d-flex justify-content-center align-items-center">
-                        <div class="app-auth-branding mb-4">
+                        <div class="app-auth-branding mb-2">
                             <a class="app-logo" href="index.html">
                                 <img class="logo-icon me-2" src="assets/images/app-logo.svg" alt="logo">
                             </a>
                         </div>
                     </div>
-                    <h2 class="auth-heading text-center mb-5">Daftar Kasirku</h2>
+                    <h2 class="auth-heading text-center mb-2">Daftar Kasirku</h2>
                     @if ($errors->has('email'))
                         <div class="alert alert-danger text-center">
                             {{ $errors->first('email') }}
@@ -42,20 +42,28 @@
                     <div class="auth-form-container text-start">
                         <form class="auth-form login-form" action="{{ route('register') }}" method="POST">
                             @csrf
-                            <div class="email mb-3">
+                            <div class="email mb-2">
                                 <input id="signup-name" name="name" value="{{ old('name') }}" type="text"
                                     class="form-control signup-name" placeholder="Nami Panjang" required="required">
                             </div>
-                            <div class="email mb-3">
+                            <div class="email mb-2">
                                 <input id="signin-email" name="email" value="{{ old('email') }}" type="email"
                                     class="form-control signin-email" placeholder="Email address" required="required">
                             </div><!--//form-group-->
-                            <div class="password mb-3">
+                            <div class="ttl mb-2">
+                                <input id="ttl" name="ttl" value="{{ old('ttl') }}" type="date"
+                                    class="form-control signin-email" placeholder="Ttl" required="required">
+                            </div><!--//form-group-->
+                            <div class="alamat mb-2">
+                                <input id="alamat" name="alamat" value="{{ old('alamat') }}" type="text"
+                                    class="form-control signin-email" placeholder="Alamat" required="required">
+                            </div><!--//form-group-->
+                            <div class="password mb-2">
                                 <input id="signup-password" name="password" type="password"
                                     class="form-control signup-password" placeholder="Dambel Sandi" required="required">
                             </div>
 
-                            <div class="password mb-3">
+                            <div class="password mb-2">
                                 <input id="signup-password" name="password_confirmation" type="password"
                                     class="form-control signup-password" placeholder="Ulang Sandi" required="required">
                             </div>

@@ -17,7 +17,9 @@ class RegisterController extends Controller
         // Validasi input pendaftar
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email:dns|unique:users,email',
+            'email' => 'required|email|unique:users,email',
+            'ttl'=> 'required|string|max:255',
+            'alamat'=>'required|string|max:255',
            'password' => 'required|min:8|max:255|confirmed',
         ], [
             'email.unique' => 'Email tos diangge, cobi angge email nu sanes.',
@@ -27,7 +29,10 @@ class RegisterController extends Controller
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
+            'ttl'=>$validated['ttl'],
+            'alamat'=> $validated['alamat'],
             'password' => Hash::make($validated['password']),
+            
         ]);
 
         // Kirim pesan

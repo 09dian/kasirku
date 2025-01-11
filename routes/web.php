@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ForgotController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SettingsController;
+
+
+
 
 Route::get('/', [LoginController::class, 'login'])->name('login');
 Route::post('/', [LoginController::class, 'ActionLogin'])->middleware('guest')-> name('login');
@@ -22,3 +26,10 @@ Route::get('/home', function () {
 Route::get('/docs', function(){
     return view('home.docs',['title'=>'Doc']); 
 })->middleware(['auth'])->name('docs'); // docs
+
+
+
+
+// settings
+Route::get('settings',[SettingsController::class,'settings'])->middleware('auth')->name('settings');
+Route::post('settings',[SettingsController::class,'create'])->middleware('auth')->name('settings');
