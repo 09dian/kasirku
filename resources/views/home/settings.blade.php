@@ -82,7 +82,7 @@
                                     <div class="col text-end">
                                         <button type="button" class="btn-sm app-btn-secondary" data-bs-toggle="modal"
                                             data-bs-target="#editModal">
-                                            Edit nama
+                                            Edit nama pengguna
                                         </button>
                                     </div><!--//col-->
                                     <!-- Modal Edit -->
@@ -140,7 +140,7 @@
                                                 @method('PUT')
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="editModalLabel">Ubah Fhoto
+                                                        <h1 class="modal-title fs-5" id="editModalLabel">Ubah Email
                                                         </h1>
                                                         <button type="button" class="btn-close"
                                                             data-bs-dismiss="modal" aria-label="Close"></button>
@@ -237,7 +237,7 @@
                                                 @method('PUT')
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="editModalLabel">Ubah Fhoto
+                                                        <h1 class="modal-title fs-5" id="editModalLabel">Ubah Alamat
                                                         </h1>
                                                         <button type="button" class="btn-close"
                                                             data-bs-dismiss="modal" aria-label="Close"></button>
