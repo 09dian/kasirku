@@ -17,7 +17,6 @@
                                                 d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
                                         </svg>
                                     </div><!--//icon-holder-->
-
                                 </div><!--//col-->
                                 <div class="col-auto">
                                     <h4 class="app-card-title">Profile</h4>
@@ -27,44 +26,66 @@
                         <div class="app-card-body px-4 w-100">
                             <div class="item border-bottom py-3">
                                 <div class="row justify-content-between align-items-center">
-                                    <div class="col-auto">
-                                        <div class="item-label mb-2"><strong>Photo</strong></div>
-                                        <div class="item-data"><img class="profile-image"
-                                                src="assets/images/{{ Auth::user()->gambar }}" alt="">
-                                        </div>
-                                    </div><!--//col-->
-                                    <!-- Tombol Edit -->
-                                    <div class="col text-end">
-                                        <button type="button" class="btn-sm app-btn-secondary" data-bs-toggle="modal"
-                                            data-bs-target="#editModal{{ Auth::user()->id }}">
-                                            Edit
-                                        </button>
-                                    </div><!--//col-->
+                                    <form action="{{ route('settings') }}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="col-auto">
+                                            <div class="item-label mb-2"><strong>Photo</strong></div>
+                                            <div class="item-data">
+                                                <img class="profile-image rounded-circle"
+                                                    src="{{ Auth::user()->gambar ? (str_starts_with(Auth::user()->gambar, 'profile_images/') ? asset('storage/' . Auth::user()->gambar) : asset('assets/images/' . Auth::user()->gambar)) : asset('assets/images/default.jpg') }}"
+                                                    alt="Profile Image">
+
+                                            </div>
+                                        </div><!--//col-->
+                                        <!-- Tombol Edit -->
+                                        <div class="col text-end">
+                                            <button type="button" class="btn-sm app-btn-secondary"
+                                                data-bs-toggle="modal" data-bs-target="#editPhotoModal">
+                                                Edit
+                                            </button>
+                                        </div><!--//col-->
+                                    </form>
                                     <!-- Modal Edit -->
-                                    <div class="modal fade" id="editModal{{ Auth::user()->id }}" tabindex="-1"
-                                        aria-labelledby="editModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="editPhotoModal" tabindex="-1"
+                                        aria-labelledby="editPhotoModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <form action="{{ route('settings', Auth::user()->id) }}" method="post">
+                                            <form action="{{ route('settings') }}" method="post"
+                                                enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="editModalLabel">Ubah Fhoto</h1>
+                                                        <h1 class="modal-title fs-5" id="editPhotoModalLabel">Ubah
+                                                            Foto
+                                                        </h1>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <div class="input-group mb-3">
-                                                            <div class="item-data"><img class="profile-image"
-                                                                    src="assets/images/{{ Auth::user()->gambar }}"
-                                                                    alt="">
+                                                        <div class="d-flex align-items-center">
+                                                            <!-- Gambar Profil di Sebelah Kiri -->
+                                                            <div class="me-3">
+                                                                <img id="previewImage"
+                                                                    class="profile-image rounded-circle"
+                                                                    src="{{ Auth::user()->gambar ? (str_starts_with(Auth::user()->gambar, 'profile_images/') ? asset('storage/' . Auth::user()->gambar) : asset('assets/images/' . Auth::user()->gambar)) : asset('assets/images/default.jpg') }}"
+                                                                    alt="Profile Image"
+                                                                    style="width:77px; height:77px; object-fit: cover;">
                                                             </div>
-                                                            <input type="file" class="mt-4 offset-lg-2">
+
+                                                            <!-- Input File di Sebelah Kanan -->
+                                                            <div class="flex-grow-1">
+                                                                <div class="input-group">
+                                                                    <input type="file" id="imageUpload"
+                                                                        name="gambar" class="form-control"
+                                                                        accept="image/*" required>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="submit"
-                                                            class="btn app-btn-primary w-100 theme-btn mx-auto">Simpan</button>
+                                                            class="btn app-btn-primary w-100">Simpan</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -75,41 +96,42 @@
                             <div class="item border-bottom py-3">
                                 <div class="row justify-content-between align-items-center">
                                     <div class="col-auto">
-                                        <div class="item-label"><strong>Name</strong></div>
+                                        <div class="item-label"><strong>Nami</strong></div>
                                         <div class="item-data">{{ ucwords(strtolower(Auth::user()->name)) }}</div>
                                     </div><!--//col-->
                                     <!-- Tombol Edit -->
                                     <div class="col text-end">
                                         <button type="button" class="btn-sm app-btn-secondary" data-bs-toggle="modal"
-                                            data-bs-target="#editModal">
-                                            Edit nama pengguna
+                                            data-bs-target="#editModalName">
+                                            Edit
                                         </button>
-                                    </div><!--//col-->
-                                    <!-- Modal Edit -->
-                                    <div class="modal fade" id="editModal" tabindex="-1"
+                                    </div>
+                                    <div class="modal fade" id="editModalName" tabindex="-1"
                                         aria-labelledby="editModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <form action="{{ route('settings', Auth::user()->name) }}" method="post">
+                                            <form action="{{ route('settings') }}" method="post">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="editModalLabel">Ubah Nama</h1>
+                                                        <h1 class="modal-title fs-5" id="editModalLabel">Edit Data
+                                                            Nami
+                                                        </h1>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
+
                                                         <div class="input-group mb-3">
-                                                            <div class="item-data"><img class="profile-image"
-                                                                    src="assets/images/{{ Auth::user()->gambar }}"
-                                                                    alt="">
-                                                            </div>
-                                                            <input type="file" class="mt-4 offset-lg-2">
+                                                            <span class="input-group-text">Nami</span>
+                                                            <input type="text" name="name" class="form-control"
+                                                                value="{{ ucwords(strtolower(Auth::user()->name)) }}"
+                                                                required>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="submit"
-                                                            class="btn app-btn-primary w-100 theme-btn mx-auto">Simpan</button>
+                                                            class="btn app-btn-primary w-100">Simpan</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -118,6 +140,7 @@
 
                                 </div><!--//row-->
                             </div><!--//item-->
+
                             <div class="item border-bottom py-3">
                                 <div class="row justify-content-between align-items-center">
                                     <div class="col-auto">
@@ -127,41 +150,41 @@
                                     <!-- Tombol Edit -->
                                     <div class="col text-end">
                                         <button type="button" class="btn-sm app-btn-secondary"
-                                            data-bs-toggle="modal" data-bs-target="#editModal{{ Auth::user()->id }}">
+                                            data-bs-toggle="modal" data-bs-target="#editModalEmail">
                                             Edit
                                         </button>
-                                    </div><!--//col-->
-                                    <!-- Modal Edit -->
-                                    <div class="modal fade" id="editModal{{ Auth::user()->id }}" tabindex="-1"
+                                    </div>
+                                    <div class="modal fade" id="editModalEmail" tabindex="-1"
                                         aria-labelledby="editModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <form action="{{ route('settings', Auth::user()->id) }}" method="post">
+                                            <form action="{{ route('settings') }}" method="post">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="editModalLabel">Ubah Email
+                                                        <h1 class="modal-title fs-5" id="editModalLabel">Edit
+                                                            Email
                                                         </h1>
                                                         <button type="button" class="btn-close"
                                                             data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
+
                                                         <div class="input-group mb-3">
-                                                            <div class="item-data"><img class="profile-image"
-                                                                    src="assets/images/{{ Auth::user()->gambar }}"
-                                                                    alt="">
-                                                            </div>
-                                                            <input type="file" class="mt-4 offset-lg-2">
+                                                            <span class="input-group-text">Email</span>
+                                                            <input type="text" name="name" class="form-control"
+                                                                value="{{ Auth::user()->email }}" required>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="submit"
-                                                            class="btn app-btn-primary w-100 theme-btn mx-auto">Simpan</button>
+                                                            class="btn app-btn-primary w-100">Simpan</button>
                                                     </div>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
+
 
                                 </div><!--//row-->
                             </div><!--//item-->
@@ -176,41 +199,41 @@
                                     <!-- Tombol Edit -->
                                     <div class="col text-end">
                                         <button type="button" class="btn-sm app-btn-secondary"
-                                            data-bs-toggle="modal" data-bs-target="#editModal{{ Auth::user()->id }}">
+                                            data-bs-toggle="modal" data-bs-target="#editModalTtl">
                                             Edit
                                         </button>
-                                    </div><!--//col-->
-                                    <!-- Modal Edit -->
-                                    <div class="modal fade" id="editModal{{ Auth::user()->id }}" tabindex="-1"
+                                    </div>
+                                    <div class="modal fade" id="editModalTtl" tabindex="-1"
                                         aria-labelledby="editModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <form action="{{ route('settings', Auth::user()->id) }}" method="post">
+                                            <form action="{{ route('settings') }}" method="post">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="editModalLabel">Ubah Tanggal
-                                                            Lahir
+                                                        <h1 class="modal-title fs-5" id="editModalLabel">Edit Data
+                                                            Ttl
                                                         </h1>
                                                         <button type="button" class="btn-close"
                                                             data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
+
                                                         <div class="input-group mb-3">
-                                                            <span class="input-group-text">Nama</span>
-                                                            <input type="text" name="nama" class="form-control"
-                                                                value="{{ ucwords(strtolower(Auth::user()->name)) }}"
-                                                                required>
+                                                            <span class="input-group-text">TTL</span>
+                                                            <input type="date" name="name" class="form-control"
+                                                                value="{{ Auth::user()->ttl }}" required>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="submit"
-                                                            class="btn app-btn-primary w-100 theme-btn mx-auto">Simpan</button>
+                                                            class="btn app-btn-primary w-100">Simpan</button>
                                                     </div>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
+
                                 </div><!--//row-->
                             </div><!--//item-->
                             <div class="item border-bottom py-3">
@@ -224,42 +247,41 @@
                                     <!-- Tombol Edit -->
                                     <div class="col text-end">
                                         <button type="button" class="btn-sm app-btn-secondary"
-                                            data-bs-toggle="modal" data-bs-target="#editModal{{ Auth::user()->id }}">
+                                            data-bs-toggle="modal" data-bs-target="#editModalAlamat">
                                             Edit
                                         </button>
-                                    </div><!--//col-->
-                                    <!-- Modal Edit -->
-                                    <div class="modal fade" id="editModal{{ Auth::user()->id }}" tabindex="-1"
+                                    </div>
+                                    <div class="modal fade" id="editModalAlamat" tabindex="-1"
                                         aria-labelledby="editModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <form action="{{ route('settings', Auth::user()->id) }}" method="post">
+                                            <form action="{{ route('settings') }}" method="post">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="editModalLabel">Ubah Alamat
+                                                        <h1 class="modal-title fs-5" id="editModalLabel">Edit
+                                                            Alamat
                                                         </h1>
                                                         <button type="button" class="btn-close"
                                                             data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
+
                                                         <div class="input-group mb-3">
-                                                            <div class="item-data"><img class="profile-image"
-                                                                    src="assets/images/{{ Auth::user()->gambar }}"
-                                                                    alt="">
-                                                            </div>
-                                                            <input type="file" class="mt-4 offset-lg-2">
+                                                            <span class="input-group-text">Alamat</span>
+                                                            <input type="text" name="alamat" class="form-control"
+                                                                value="{{ Auth::user()->alamat }}" required>
                                                         </div>
+
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="submit"
-                                                            class="btn app-btn-primary w-100 theme-btn mx-auto">Simpan</button>
+                                                            class="btn app-btn-primary w-100">Simpan</button>
                                                     </div>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
-
                                 </div><!--//row-->
                             </div><!--//item-->
                         </div><!--//app-card-body-->

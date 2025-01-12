@@ -32,4 +32,4 @@ Route::get('/docs', function(){
 
 // settings
 Route::get('settings',[SettingsController::class,'settings'])->middleware('auth')->name('settings');
-Route::post('settings',[SettingsController::class,'create'])->middleware('auth')->name('settings');
+Route::put('settings',[SettingsController::class,'create'])->middleware('auth')->name('settings');
