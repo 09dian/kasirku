@@ -3,7 +3,7 @@
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
 
-            <h1 class="app-page-title">Akun Abi</h1>
+            <h1 class="app-page-title">Akun {{ ucwords(strtolower(Auth::user()->nama_toko)) }}</h1>
             <div class="row gy-4">
                 <div class="col-12 col-lg-6">
                     <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
@@ -284,11 +284,56 @@
                                     </div>
                                 </div><!--//row-->
                             </div><!--//item-->
-                        </div><!--//app-card-body-->
-                        <div class="app-card-footer p-4 mt-auto">
-                            <a class="btn app-btn-secondary" href="#">Manage Profile</a>
-                        </div><!--//app-card-footer-->
+                            <div class="item border-bottom py-3">
+                                <div class="row justify-content-between align-items-center">
+                                    <div class="col-auto">
+                                        <div class="item-label"><strong>Ganti Nama Toko</strong></div>
+                                        <div class="item-data">
+                                            {{ Auth::user()->nama_toko }}
+                                        </div>
+                                    </div><!--//col-->
+                                    <!-- Tombol Edit -->
+                                    <div class="col text-end">
+                                        <button type="button" class="btn-sm app-btn-secondary"
+                                            data-bs-toggle="modal" data-bs-target="#editModalNamaToko">
+                                            Edit
+                                        </button>
+                                    </div>
+                                    <div class="modal fade" id="editModalNamaToko" tabindex="-1"
+                                        aria-labelledby="editModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <form action="{{ route('settings') }}" method="post">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="editModalLabel">Edit
+                                                            Nama Toko
+                                                        </h1>
+                                                        <button type="button" class="btn-close"
+                                                            data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
 
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text">Nama Toko</span>
+                                                            <input type="text" name="nama_toko"
+                                                                class="form-control"
+                                                                value="{{ Auth::user()->nama_toko }}" required>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit"
+                                                            class="btn app-btn-primary w-100">Simpan</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div><!--//row-->
+                            </div><!--//item-->
+                        </div><!--//app-card-body-->
                     </div><!--//app-card-->
                 </div><!--//col-->
                 <div class="col-12 col-lg-6">
@@ -446,7 +491,7 @@
 
                                 </div><!--//col-->
                                 <div class="col-auto">
-                                    <h4 class="app-card-title">Payment methods</h4>
+                                    <h4 class="app-card-title">Metode Pembayaran</h4>
                                 </div><!--//col-->
                             </div><!--//row-->
                         </div><!--//app-card-header-->
@@ -481,7 +526,7 @@
                             </div><!--//item-->
                         </div><!--//app-card-body-->
                         <div class="app-card-footer p-4 mt-auto">
-                            <a class="btn app-btn-secondary" href="#">Manage Payment</a>
+                            <a class="btn app-btn-secondary" href="#">Tambah Metode Pembayaran</a>
                         </div><!--//app-card-footer-->
 
                     </div><!--//app-card-->

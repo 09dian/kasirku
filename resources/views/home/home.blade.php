@@ -2,7 +2,7 @@
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
-            <h1 class="app-page-title">Ringkasan</h1>
+            <h1 class="app-page-title">Ringkasan {{ ucwords(strtolower(Auth::user()->nama_toko)) }}</h1>
             <div class="app-card alert alert-dismissible shadow-sm mb-4 border-left-decoration" role="alert">
                 <div class="inner">
                     <div class="app-card-body p-3 p-lg-4">
@@ -26,7 +26,6 @@
 
                 </div><!--//inner-->
             </div><!--//app-card-->
-
             <div class="row g-4 mb-4">
                 <div class="col-6 col-lg-3">
                     <div class="app-card app-card-stat shadow-sm h-100">
@@ -66,8 +65,6 @@
                         <div class="app-card-body p-3 p-lg-4">
                             <h4 class="stats-type mb-1">Jumlah Barang</h4>
                             <div class="stats-figure">23</div>
-                            <div class="stats-meta">
-                                Open</div>
                         </div><!--//app-card-body-->
                         <a class="app-card-link-mask" href="#"></a>
                     </div><!--//app-card-->
@@ -77,7 +74,6 @@
                         <div class="app-card-body p-3 p-lg-4">
                             <h4 class="stats-type mb-1">Barang kaluar</h4>
                             <div class="stats-figure">6</div>
-                            <div class="stats-meta">New</div>
                         </div><!--//app-card-body-->
                         <a class="app-card-link-mask" href="#"></a>
                     </div><!--//app-card-->
@@ -121,9 +117,8 @@
                             <div class="row align-items-center gx-3">
                                 <div class="col-auto">
                                     <div class="app-icon-holder">
-                                        <svg width="1em" height="1em" viewBox="0 0 16 16"
-                                            class="bi bi-code-square" fill="currentColor"
-                                            xmlns="http://www.w3.org/2000/svg">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-code-square"
+                                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd"
                                                 d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
                                             <path fill-rule="evenodd"

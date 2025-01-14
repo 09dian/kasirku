@@ -38,18 +38,6 @@
                                 </svg>
                             </a>
                         </div><!--//col-->
-                        <div class="search-mobile-trigger d-sm-none col">
-                            <i class="search-mobile-trigger-icon fa-solid fa-magnifying-glass"></i>
-                        </div><!--//col-->
-                        <div class="app-search-box col">
-                            <form class="app-search-form">
-                                <input type="text" placeholder="Search..." name="search"
-                                    class="form-control search-input">
-                                <button type="submit" class="btn search-btn btn-primary" value="Search"><i
-                                        class="fa-solid fa-magnifying-glass"></i></button>
-                            </form>
-                        </div><!--//app-search-box-->
-
                         <div class="app-utilities col-auto">
                             <div class="app-utility-item app-notifications-dropdown dropdown">
                                 <a class="dropdown-toggle no-toggle-arrow" id="notifications-dropdown-toggle"
@@ -67,7 +55,7 @@
 
                                 <div class="dropdown-menu p-0" aria-labelledby="notifications-dropdown-toggle">
                                     <div class="dropdown-menu-header p-3">
-                                        <h5 class="dropdown-menu-title mb-0">Notifications</h5>
+                                        <h5 class="dropdown-menu-title mb-0">Notifikasi Penjualan</h5>
                                     </div><!--//dropdown-menu-title-->
                                     <div class="dropdown-menu-content">
                                         <div class="item p-3">
@@ -203,7 +191,8 @@
                             </a><!--//nav-link-->
                         </li><!--//nav-item-->
                         <li class="nav-item">
-                            <a class="nav-link {{ $title == 'Doc' ? 'active' : '' }} " href="{{ route('docs') }}">
+                            <a class="nav-link {{ $title == 'Produk' ? 'active' : '' }} "
+                                href="{{ route('produk') }}">
                                 <span class="nav-icon">
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -213,7 +202,7 @@
                                             d="M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z" />
                                     </svg>
                                 </span>
-                                <span class="nav-link-text">Docs</span>
+                                <span class="nav-link-text">Produk</span>
                             </a><!--//nav-link-->
                         </li><!--//nav-item-->
                         <li class="nav-item">
@@ -231,7 +220,7 @@
                                         <circle cx="3.5" cy="10.5" r=".5" />
                                     </svg>
                                 </span>
-                                <span class="nav-link-text">Orders</span>
+                                <span class="nav-link-text">History Penjualan</span>
                             </a><!--//nav-link-->
                         </li><!--//nav-item-->
                         <li class="nav-item has-submenu">

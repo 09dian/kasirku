@@ -65,6 +65,11 @@ class SettingsController extends Controller
             $user->alamat = $request->input('alamat');
             $pesan[] = 'Alamat berhasil diubah.';
         }
+        // Update nama toko
+        if ($request->has('nama_toko') && $request->input('nama_toko') !== $user->nama_toko) {
+            $user->nama_toko= $request->input('nama_toko');
+            $pesan[] = 'Nama toko berhasil diubah.';
+        }
 
         // Simpan perubahan
         $user->save();

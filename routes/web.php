@@ -23,9 +23,9 @@ Route::get('/home', function () {
    return view('home.home',['title'=>'Home']);
 })->middleware(['auth'])->name('home'); // home
 
-Route::get('/docs', function(){
-    return view('home.docs',['title'=>'Doc']); 
-})->middleware(['auth'])->name('docs'); // docs
+Route::get('/produk', function(){
+    return view('home.produk',['title'=>'Produk']); 
+})->middleware(['auth'])->name('produk'); // docs
 
 
 
