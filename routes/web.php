@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ForgotController;
+use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SettingsController;
 
@@ -16,7 +17,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->middleware('auth')->n
 Route::get('register', [RegisterController::class, 'register'])->middleware('guest')-> name('register');
 Route::post('register', [RegisterController::class, 'store'])->middleware('guest')-> name('register');
 
-Route::get('forgot', [ForgotController::class, 'forgot'])->name('forgot');
+Route::get('forgot', [ForgotController::class, 'forgot'])->middleware('guest')->name('forgot');
 
 //code yang sudah login
 Route::get('/home', function () {
@@ -25,7 +26,7 @@ Route::get('/home', function () {
 
 Route::get('/produk', function(){
     return view('home.produk',['title'=>'Produk']); 
-})->middleware(['auth'])->name('produk'); // docs
+})->middleware(['auth'])->name('produk'); // produk
 
 
 
@@ -33,3 +34,7 @@ Route::get('/produk', function(){
 // settings
 Route::get('settings',[SettingsController::class,'settings'])->middleware('auth')->name('settings');
 Route::put('settings',[SettingsController::class,'create'])->middleware('auth')->name('settings');
+
+// pegawai
+Route::get('pegawai',[PegawaiController::class,'pegawai'])->middleware('auth')->name('pegawai');
+Route::post('pegawai',[PegawaiController::class,'create'])->middleware('auth')->name('pegawai');
