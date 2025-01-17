@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('pegawais', function (Blueprint $table) {
             $table->id();
+            $table->string('id_user');
             $table->string('no_pegawai')->unique(); 
             $table->string('nama'); //nama
             $table->string('ttl'); //ttl

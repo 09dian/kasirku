@@ -153,6 +153,5 @@
             </div><!--//tab-pane-->
         </div><!--//tab-content-->
     </div><!--//container-fluid-->
-    </div><!--//app-content-->
 
 </x-layout>

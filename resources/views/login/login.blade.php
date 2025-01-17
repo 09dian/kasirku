@@ -54,6 +54,20 @@
                             <div class="password mb-3">
                                 <input id="signin-password" name="password" type="password"
                                     class="form-control signin-password" placeholder="Sandi" required="required">
+
+                            </div>
+                            <div class="id_pegawai" id="id-pegawai-field" style="display: none;">
+                                <input id="signin-id-pegawai" name="id_pegawai" type="text"
+                                    class="form-control signin-id-pegawai" placeholder="Id Pegawai" required="required">
+                            </div><!--//form-group-->
+                            <!--//form-group-->
+                            <div class="password mb-3 mt-3">
+                                <select class="form-select" aria-label="Default select example" id="user-type">
+                                    <option selected>Pilih</option>
+                                    <option value="1">Pemilik</option>
+                                    <option value="2">Pegawai</option>
+                                </select>
+
                                 <div class="extra mt-3 row justify-content-between">
                                     <div class="col-6">
                                         <div class="form-check">
@@ -66,8 +80,9 @@
                                             <a href="{{ route('forgot') }}">Hilap Sandi?</a>
                                         </div>
                                     </div><!--//col-6-->
+
                                 </div><!--//extra-->
-                            </div><!--//form-group-->
+                            </div>
                             <div class="text-center">
                                 <button type="submit" class="btn app-btn-primary w-100 theme-btn mx-auto">Log
                                     In</button>
@@ -80,6 +95,8 @@
                     </div><!--//auth-form-container-->
 
                 </div><!--//auth-body-->
+
+                <script src="assets/js/kasirku.js"></script>
 
                 <footer class="app-auth-footer">
                     <div class="container text-center py-3">
