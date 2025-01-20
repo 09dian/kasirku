@@ -526,7 +526,47 @@
                             </div><!--//item-->
                         </div><!--//app-card-body-->
                         <div class="app-card-footer p-4 mt-auto">
-                            <a class="btn app-btn-secondary" href="#">Tambah Metode Pembayaran</a>
+                            <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
+                                    <path
+                                        d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                    <path
+                                        d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4" />
+                                </svg>
+                                Tambah Metode Pembayaran
+                            </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Metode</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <form action="/ " method="post">
+
+                                            @csrf
+                                            <div class="modal-body">
+                                                <!-- Input Nama -->
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1">Nama</span>
+                                                    <input type="text" name="nama" class="form-control"
+                                                        placeholder="Masukkan Nama" aria-label="Nama Pegawai"
+                                                        aria-describedby="basic-addon1" required>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn app-btn-secondary">Save</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- akhir modal tambah metode --}}
                         </div><!--//app-card-footer-->
 
                     </div><!--//app-card-->

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('id_user');
             $table->string('no_pegawai')->unique(); 
+            $table->string('password');
             $table->string('nama'); //nama
             $table->string('ttl'); //ttl
             $table->text('alamat'); //alamat

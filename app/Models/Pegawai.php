@@ -14,10 +14,12 @@ class Pegawai extends Model
     /** @use HasFactory<\Database\Factories\PegawaiFactory> */
     use HasFactory;
     
+    protected $table = 'pegawais'; // Tentukan nama tabel
     // Menambahkan atribut yang bisa diisi (mass assignable)
     protected $fillable = [
         'id_user',
         'no_pegawai',
+        'password',
         'nama',
         'ttl',
         'alamat',

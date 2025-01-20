@@ -2,9 +2,6 @@
 const imageUpload = document.getElementById('imageUpload');
 const previewImage = document.getElementById('previewImage');
 
-// Ambil elemen dropdown dan div id_pegawai
-const userTypeSelect = document.getElementById('user-type');
-const idPegawaiField = document.getElementById('id-pegawai-field');
 
 // Script mengubah gambar saat dipilih file
 if (imageUpload && previewImage) {
@@ -20,17 +17,20 @@ if (imageUpload && previewImage) {
     });
 }
 
-// Event listener untuk perubahan pada dropdown
-if (userTypeSelect && idPegawaiField) {
-    userTypeSelect.addEventListener('change', function() {
-        // Dapatkan nilai yang dipilih di dropdown
-        const selectedValue = userTypeSelect.value;
+const selectRole = document.getElementById('role');
+const formPemilik = document.getElementById('form-pemilik');
+const formPegawai = document.getElementById('form-pegawai');
+// Tampilkan form pemilik secara default
+formPemilik.style.display = 'block';
+formPegawai.style.display = 'none';
 
-        // Jika "Pegawai" dipilih (value = "2"), tampilkan input Id Pegawai
-        if (selectedValue === '2') {
-            idPegawaiField.style.display = 'block'; // Menampilkan field Id Pegawai
-        } else {
-            idPegawaiField.style.display = 'none'; // Menyembunyikan field Id Pegawai
-        }
-    });
+// Event saat dropdown berubah
+selectRole.addEventListener('change', function() {
+if (this.value === 'pegawai') {
+    formPemilik.style.display = 'none';
+    formPegawai.style.display = 'block';
+} else {
+    formPegawai.style.display = 'none';
+    formPemilik.style.display = 'block';
 }
+});

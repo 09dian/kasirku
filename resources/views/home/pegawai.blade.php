@@ -131,10 +131,8 @@
                                             <td class="cell">{{ $pegawai->no_hp }}</td>
                                             <td class="cell">
                                                 @if ($pegawai->terakhir_login)
-                                                    <span
-                                                        class="cell-data">{{ $pegawai->terakhir_login->format('d M Y') }}</span>
-                                                    <span
-                                                        class="note">{{ $pegawai->terakhir_login->format('h:i A') }}</span>
+                                                    <span class="cell-data">{{ $pegawai->terakhir_login }}</span>
+                                                    <span class="note">{{ $pegawai->terakhir_login }}</span>
                                                 @else
                                                     <span class="badge bg-warning">Never logged in</span>
                                                 @endif

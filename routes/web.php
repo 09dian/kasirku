@@ -6,6 +6,7 @@ use App\Http\Controllers\ForgotController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\LoginPegawaiController;
 
 
 
@@ -35,6 +36,17 @@ Route::get('/produk', function(){
 Route::get('settings',[SettingsController::class,'settings'])->middleware('auth')->name('settings');
 Route::put('settings',[SettingsController::class,'create'])->middleware('auth')->name('settings');
 
-// pegawai
+// pegawai 
 Route::get('pegawai',[PegawaiController::class,'pegawai'])->middleware('auth')->name('pegawai');
 Route::post('pegawai',[PegawaiController::class,'create'])->middleware('auth')->name('pegawai');
+
+
+Route::get('/pos', function(){
+    return view('home.pos',['title'=>'Pos']); 
+})->middleware(['auth'])->name('pos'); 
+// bisa di akses oleh pemilik toko dan pekerja(pegawai)
+
+//login pegawai
+Route::post('login_pegawai', [LoginPegawaiController::class, 'ActionLogin'])->middleware('guest')->name('login_pegawai');
+Route::get('home_pegawai', [LoginPegawaiController::class, 'index'])->name('home_pegawai');
+Route::post('/logout_pegawai', [LoginPegawaiController::class, 'logout'])->middleware('auth')->name('logout_pegawai');
