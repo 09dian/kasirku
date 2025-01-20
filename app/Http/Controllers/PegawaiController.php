@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class PegawaiController extends Controller
 {
@@ -41,6 +42,7 @@ class PegawaiController extends Controller
         Pegawai::create([
             'id_user'=>Auth::user()->id,
             'no_pegawai'=>$validated['no_pegawai'],
+            'password'=>Hash::make($validated['no_pegawai']),
             'nama' => $validated['nama'],
             'ttl' => $validated['ttl'],
             'alamat' => $validated['alamat'],
