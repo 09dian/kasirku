@@ -58,6 +58,10 @@
                                 <input id="alamat" name="alamat" value="{{ old('alamat') }}" type="text"
                                     class="form-control signin-email" placeholder="Alamat" required="required">
                             </div><!--//form-group-->
+                            <div class="nama_toko mb-2">
+                                <input id="nama_toko" name="nama_toko" value="{{ old('nama_toko') }}" type="text"
+                                    class="form-control signin-email" placeholder="Nama Toko" required="required">
+                            </div><!--//form-group-->
                             <div class="password mb-2">
                                 <input id="signup-password" name="password" type="password"
                                     class="form-control signup-password" placeholder="Dambel Sandi" required="required">
@@ -88,7 +92,8 @@
                 <footer class="app-auth-footer">
                     <div class="container text-center py-3">
                         <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart"
-                                style="color: #bd2d09;"></i> by <a class="app-link" href="#" target="_blank">Dian
+                                style="color: #bd2d09;"></i> by <a class="app-link" href="#"
+                                target="_blank">Dian
                                 Mustofa</a> Racikcode <?= date('Y') ?></small>
 
                     </div>

@@ -47,6 +47,7 @@ class PegawaiController extends Controller
             'ttl' => $validated['ttl'],
             'alamat' => $validated['alamat'],
             'no_hp' => $validated['no_hp'],
+            'nama_toko' => Auth::user()->nama_toko,
             'terakhir_login' => now() // Menyimpan waktu terakhir login
         ]);
       

@@ -3,8 +3,6 @@
 
 <head>
     <title>Login</title>
-
-    <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -83,13 +81,12 @@
                                     In</button>
                             </div>
                         </form>
-
                         <!-- Form Login Pegawai -->
                         <form id="form-pegawai" class="auth-form login-form" method="POST"
                             action="{{ route('login_pegawai') }}" style="display: none;">
                             @csrf
                             <div class="id pegawai mb-3">
-                                <input id="signin-pegawai" name="id_pegawai" type="text"
+                                <input id="signin-pegawai" name="no_pegawai" type="text"
                                     class="form-control signin-password" placeholder="Id Pegawai" required="required">
                             </div>
                             <div class="password mb-3">
@@ -114,9 +111,7 @@
                                     In</button>
                             </div>
                         </form>
-
                         {{-- akhir login pegawai --}}
-
                         <div class="auth-option text-center pt-2">
                             Teu acan gaduh Akun? daftar <a class="text-link"
                                 href="{{ route('register') }}">Ayeuna</a>.

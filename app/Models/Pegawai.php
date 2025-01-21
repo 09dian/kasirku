@@ -2,20 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Pegawai extends Model
+class Pegawai extends Authenticatable
 {
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'id_user');
-    }
-    /** @use HasFactory<\Database\Factories\PegawaiFactory> */
-    use HasFactory;
-    
-    protected $table = 'pegawais'; // Tentukan nama tabel
-    // Menambahkan atribut yang bisa diisi (mass assignable)
+    // Pastikan model ini mewarisi Authenticatable
     protected $fillable = [
         'id_user',
         'no_pegawai',
@@ -24,5 +15,11 @@ class Pegawai extends Model
         'ttl',
         'alamat',
         'no_hp',
+        'nama_toko',
+        'terakhir_login',
+    ];
+
+    protected $hidden = [
+        'password',
     ];
 }

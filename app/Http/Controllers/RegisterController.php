@@ -20,6 +20,7 @@ class RegisterController extends Controller
             'email' => 'required|email|unique:users,email',
             'ttl'=> 'required|string|max:255',
             'alamat'=>'required|string|max:255',
+            'nama_toko'=>'required|string|max:255',
            'password' => 'required|min:8|max:255|confirmed',
         ], [
             'email.unique' => 'Email tos diangge, cobi angge email nu sanes.',
@@ -31,6 +32,7 @@ class RegisterController extends Controller
             'email' => $validated['email'],
             'ttl'=>$validated['ttl'],
             'alamat'=> $validated['alamat'],
+            'nama_toko'=> $validated['nama_toko'],
             'password' => Hash::make($validated['password']),
             
         ]);

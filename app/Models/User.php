@@ -26,6 +26,7 @@ class User extends Authenticatable
         'email',
         'ttl',
         'alamat',
+        'nama_toko',
         'password',
     ];
 

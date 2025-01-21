@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('ttl'); //ttl
             $table->text('alamat'); //alamat
             $table->string('no_hp'); //nomor hp
+            $table->string('nama_toko');
+            $table->string('gambar')->default('user.png');            
             $table->timestamp('terakhir_login')->nullable(); // Terakhir Login
             $table->timestamps();
         });

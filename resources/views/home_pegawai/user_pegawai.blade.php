@@ -1,7 +1,10 @@
-<!-- Menampilkan nama pegawai yang sedang login -->
-<h1>Selamat datang, {{ $pegawai->nama }}</h1>
-<!-- Form untuk tombol logout -->
-<form action="{{ route('logout_pegawai') }}" method="POST" style="display: inline;">
-    @csrf
-    <button type="submit" class="btn btn-danger">Logout</button>
-</form>
+<x-layout>
+    <x-slot:title>{{ $title }}</x-slot:title>
+    <h1>Selamat datang, {{ $pegawai->nama }}</h1>
+    <p>Nomor Pegawai: {{ $pegawai->no_pegawai }}</p>
+    <p>Terakhir Login: {{ $pegawai->terakhir_login }}</p>
+    <form action="{{ route('logout_pegawai') }}" method="get">
+        @csrf
+        <button type="submit">Logout</button>
+    </form>
+</x-layout>

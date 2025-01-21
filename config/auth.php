@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'pegawai' => [
+        'driver' => 'session',
+        'provider' => 'pegawais', // Guard baru untuk login pegawai
+    ],
         
     ],
 
@@ -66,10 +70,11 @@ return [
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+           // Provider untuk pegawai
+    'pegawais' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Pegawai::class,
+    ],
     ],
 
     /*

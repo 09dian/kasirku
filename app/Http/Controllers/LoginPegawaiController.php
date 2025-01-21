@@ -1,75 +1,65 @@
-<?php 
+<?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Pegawai; // Ganti model User dengan model Pegawai
-use Illuminate\Support\Facades\Auth; // Untuk autentikasi
-use Illuminate\Support\Facades\Hash; // Untuk pengecekan password yang terenkripsi
+use Illuminate\Support\Facades\Auth;
+use App\Models\Pegawai;
+use Illuminate\Support\Facades\Hash;
 
 class LoginPegawaiController extends Controller
 {
     public function ActionLogin(Request $request)
     {
-        // Validate the request data
+        // Validasi input
         $request->validate([
-            'id_pegawai' => 'required',
-            'password' => 'required',
+            'no_pegawai' => 'required|string',
+            'password' => 'required|string',
         ]);
-    
-        // Retrieve the input data
-        $id_pegawai = $request->input('id_pegawai');
-        $password = $request->input('password');
-    
-        // Check if the pegawai exists
-        $pegawai = \App\Models\Pegawai::where('no_pegawai', $id_pegawai)->first();
-    
-        // Jika pegawai tidak ditemukan atau password salah
-    if (!$pegawai || !\Hash::check($password, $pegawai->password)) {
-        return back()->with('message', 'ID Pegawai atau Password salah.');
-    }
-    
-        // Log the user in session
-        session(['pegawai' => $pegawai]);
-    
-        // Update the last login timestamp
-        $pegawai->terakhir_login = now();
-        $pegawai->save();
-   
-            // Redirect ke route 'home_pegawai'
-    return redirect()->route('home_pegawai');
-    }
-    
 
-    public function index(){
-        // Cek apakah pegawai sudah login atau belum
-        if (!session()->has('pegawai')) {
-            // Jika pegawai belum login, arahkan ke halaman login
-            return redirect()->route('login_pegawai')->with('message', 'Silakan login terlebih dahulu.');
+        // Ambil data input
+        $credentials = $request->only('no_pegawai', 'password');
+
+        // Cek autentikasi menggunakan guard 'pegawai'
+        if (Auth::guard('pegawai')->attempt($credentials)) {
+            // Jika berhasil login, update waktu terakhir login
+            $pegawai = Auth::guard('pegawai')->user();
+            $pegawai->update(['terakhir_login' => now()]);
+
+
+
+            return redirect('/home_pegawai');
         }
-    
-        // Ambil data pegawai yang login
-        $pegawai = session('pegawai');
-    
-        // Kirim data pegawai ke view
-        return view('home_pegawai.user_pegawai', compact('pegawai'));
+
+        // Jika gagal login
+        return back()
+            ->withErrors(['no_pegawai' => 'Nomor pegawai atau password salah.'])
+            ->withInput($request->only('no_pegawai'));
     }
-    
 
 
-    
+
+
+
+
+
+
+    public function index()
+    {
+        // Ambil data pengguna yang sedang login
+        $pegawai = Auth::guard('pegawai')->user();
+        return view('home_pegawai.user_pegawai', compact('pegawai'), ['title' => 'Pegawai']);
+    }
     public function logout(Request $request)
     {
-        // Menghapus data pegawai dari session
-        $request->session()->forget('pegawai');
-    
-        // Menghancurkan semua data session
-        $request->session()->flush();
-    
-        // Menambahkan pesan sukses
-        session()->flash('message', 'Akun Pegawai telah keluar');
-    
-        // Redirect ke halaman login setelah logout
-        return redirect()->route('/');
+        // Logout dari guard 'pegawai'
+        Auth::guard('pegawai')->logout();
+
+        // Hapus semua data sesi
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        session()->flash('success', 'Akun pegawai atos kaluar');
+        return redirect('/');
     }
-    
 }
