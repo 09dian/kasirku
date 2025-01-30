@@ -74,8 +74,24 @@
                                                 </td>
                                                 <td>
                                                     @if ($produk->img_produk)
+                                                        <!-- Thumbnail Gambar -->
                                                         <img src="{{ asset('storage/' . $produk->img_produk) }}"
-                                                            alt="{{ $produk->nama_produk }}" width="100">
+                                                            alt="{{ $produk->nama_produk }}" width="100"
+                                                            class="img-thumbnail" data-bs-toggle="modal"
+                                                            data-bs-target="#imageModal{{ $produk->id }}">
+
+                                                        <!-- Modal Bootstrap -->
+                                                        <div class="modal fade" id="imageModal{{ $produk->id }}"
+                                                            tabindex="-1" aria-hidden="true">
+                                                            <div class="modal-dialog modal-xl modal-dialog-centered">
+                                                                <div class="modal-content bg-transparent border-0">
+                                                                    <div class="modal-body text-center">
+                                                                        <img src="{{ asset('storage/' . $produk->img_produk) }}"
+                                                                            class="img-fluid rounded w-90">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     @else
                                                         Tidak ada gambar
                                                     @endif
