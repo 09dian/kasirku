@@ -57,13 +57,17 @@
                                     <tbody>
                                         @foreach ($kategori as $key => $kategori)
                                             <tr class="text-center">
+                                                <td class="cell">{{ $loop->iteration }}</td>
                                                 <td class="cell">{{ $kategori->nama_kategori }}</td>
                                                 <td class="cell">
                                                     <span class="truncate">{{ $kategori->deskripsi }}</span>
                                                 </td>
-                                                <td class="cell">{{ $kategori->status }}</td>
-                                                <td class="cell text-center">
-                                                    <span class="badge bg-success">Aktif</span>
+                                                <td class="cell">
+                                                    @if ($kategori->status == 1)
+                                                        <span class="badge bg-success">Aktif</span>
+                                                    @else
+                                                        <span class="badge bg-danger">Tidak Aktif</span>
+                                                    @endif
                                                 </td>
                                                 <td class="cell">
                                                     <a class="btn-sm app-btn-secondary"href="#">View</a>
