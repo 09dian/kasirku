@@ -55,7 +55,8 @@
 
                                 <div class="dropdown-menu p-0" aria-labelledby="notifications-dropdown-toggle">
                                     <div class="dropdown-menu-header p-3">
-                                        <h5 class="dropdown-menu-title mb-0">Notifikasi Penjualan</h5>
+                                        <h5 class="dropdown-menu-title mb-0">Notifikasi Toko
+                                            {{ ucwords(strtolower(Auth::user()->nama_toko)) }}</h5>
                                     </div><!--//dropdown-menu-title-->
                                     <div class="dropdown-menu-content">
                                         <div class="item p-3">
@@ -72,7 +73,7 @@
                                                     </div>
                                                 </div><!--//col-->
                                             </div><!--//row-->
-                                            <a class="link-mask" href="notifications.html"></a>
+                                            <a class="link-mask" href="{{ route('notifikasi') }}"></a>
                                         </div><!--//item-->
                                         <div class="item p-3">
                                             <div class="row gx-2 justify-content-between align-items-center">
@@ -177,7 +178,8 @@
                     <ul class="app-menu list-unstyled accordion" id="menu-accordion">
                         <li class="nav-item">
                             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                            <a class="nav-link {{ $title == 'Home' ? 'active' : '' }}" href="{{ route('home') }}">
+                            <a class="nav-link {{ $title == 'Home Pemilik' ? 'active' : '' }}"
+                                href="{{ route('home') }}">
                                 <span class="nav-icon">
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-door"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -194,12 +196,10 @@
                             <a class="nav-link {{ $title == 'Produk' ? 'active' : '' }} "
                                 href="{{ route('produk') }}">
                                 <span class="nav-icon">
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder"
-                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="bi bi-columns-gap" viewBox="0 0 16 16">
                                         <path
-                                            d="M9.828 4a3 3 0 0 1-2.12-.879l-.83-.828A1 1 0 0 0 6.173 2H2.5a1 1 0 0 0-1 .981L1.546 4h-1L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3v1z" />
-                                        <path fill-rule="evenodd"
-                                            d="M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z" />
+                                            d="M6 1v3H1V1zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1zm14 12v3h-5v-3zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1zM6 8v7H1V8zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zm14-6v7h-5V1zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1z" />
                                     </svg>
                                 </span>
                                 <span class="nav-link-text">Produk</span>

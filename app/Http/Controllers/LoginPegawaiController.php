@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Pegawai;
@@ -25,10 +24,7 @@ class LoginPegawaiController extends Controller
             // Jika berhasil login, update waktu terakhir login
             $pegawai = Auth::guard('pegawai')->user();
             $pegawai->update(['terakhir_login' => now()]);
-
-
-
-            return redirect('/home_pegawai');
+        return redirect('/home_pegawai');
         }
 
         // Jika gagal login
@@ -36,13 +32,6 @@ class LoginPegawaiController extends Controller
             ->withErrors(['no_pegawai' => 'Nomor pegawai atau password salah.'])
             ->withInput($request->only('no_pegawai'));
     }
-
-
-
-
-
-
-
 
     public function index()
     {
@@ -54,7 +43,6 @@ class LoginPegawaiController extends Controller
     {
         // Logout dari guard 'pegawai'
         Auth::guard('pegawai')->logout();
-
         // Hapus semua data sesi
         $request->session()->invalidate();
         $request->session()->regenerateToken();

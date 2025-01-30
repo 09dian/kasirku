@@ -1,9 +1,12 @@
 <?php
 
+use App\Models\Kategori;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ForgotController;
+use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\LoginPegawaiController;
@@ -24,6 +27,10 @@ Route::get('forgot', [ForgotController::class, 'forgot'])->middleware('guest')->
 Route::get('/settings', [SettingsController::class, 'settings'])->middleware('auth')->name('settings');
 Route::put('/settings', [SettingsController::class, 'create'])->middleware('auth')->name('settings');
 
+//notifikasi
+Route::get('/notifikasi', [NotifikasiController::class, 'index'])->middleware('auth')->name('notifikasi');
+
+
 // pegawai 
 Route::get('/pegawai', [PegawaiController::class, 'pegawai'])->middleware('auth')->name('pegawai');
 Route::post('/pegawai', [PegawaiController::class, 'create'])->middleware('auth')->name('pegawai');
@@ -38,15 +45,33 @@ Route::get('/logout_pegawai', [LoginPegawaiController::class, 'logout'])
     ->middleware('auth:pegawai') // Pastikan hanya pegawai yang login yang bisa mengakses
     ->name('logout_pegawai');
 
-//code yang sudah login pegawai dan pemilik
-Route::get('/home', function () {
-    return view('home.home', ['title' => 'Home']);
-})->middleware(['auth'])->name('home'); // home
 
-Route::get('/produk', function () {
-    return view('home.produk', ['title' => 'Produk']);
-})->middleware(['auth'])->name('produk'); // produk
+
+
+// Route Home (Akses oleh Auth dan Auth:Pegawai)
+Route::get('/home', function () {
+    return view('home.home', ['title' => 'Home pemilik']);
+})->middleware('auth')->name('home'); // home
 
 Route::get('/pos', function () {
     return view('home.pos', ['title' => 'Pos']);
-})->middleware(['auth'])->name('pos');
+})->middleware('auth')->name('pos'); //pos
+
+
+Route::get('/produk', [ProdukController::class,'index'])->middleware('auth')->name('produk');
+Route::post('/tambah_produk', [ProdukController::class,'create'])->middleware('auth')->name('tambah_produk');
+
+Route::get('/tambah_produk', function () {
+    $kategori= Kategori::all();
+    return view('home.tambah_produk', compact('kategori'),['title' => 'Produk']);
+})->middleware('auth')->name('tambah_produk'); //produk
+
+
+
+// kategori
+Route::get('/kategori',[KategoriController::class,'index'])->middleware('auth')->name('kategori');
+Route::post('/tambah_kategori',[KategoriController::class,'create'])->middleware('auth')->name('tambah_kategori');
+
+Route::get('/tambah_kategori', function () {
+    return view('home.tambah_kategori', ['title' => 'Produk']);
+})->middleware('auth')->name('tambah_kategori'); //kategori

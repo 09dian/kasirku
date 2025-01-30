@@ -34,3 +34,12 @@ if (this.value === 'pegawai') {
     formPemilik.style.display = 'block';
 }
 });
+
+function updateSwitchLabel(element) {
+
+    element.value = element.checked ? "1" : "0";
+
+    // Perbarui teks label sesuai status
+    const label = document.getElementById("switchLabel");
+    label.textContent = element.checked ? "Active" : "Tidak Active";
+}

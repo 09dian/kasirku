@@ -5,7 +5,7 @@
 
             <div class="row g-3 mb-4 align-items-center justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title mb-0">Data Barang</h1>
+                    <h1 class="app-page-title mb-0">kategori</h1>
                 </div>
                 <div class="col-auto">
                     <div class="page-utilities">
@@ -21,13 +21,13 @@
                                 </a>
                             </div>
                             <div class="col-auto">
-                                <a class="btn app-btn-secondary" href="{{ route('kategori') }}">
+                                <a class="btn app-btn-secondary" href="{{ route('tambah_kategori') }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd"
                                             d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
                                     </svg>
-                                    Kategori
+                                    Tambah Kategori
                                 </a>
                             </div>
                         </div><!--//row-->
@@ -48,37 +48,22 @@
                                     <thead>
                                         <tr class="text-center">
                                             <th class="cell">No</th>
-                                            <th class="cell">Kategori</th>
-                                            <th class="cell">Nama</th>
-                                            <th class="cell">Harga</th>
-                                            <th class="cell">Stok</th>
+                                            <th class="cell">Nama Kategori</th>
+                                            <th class="cell">Deskripsi</th>
                                             <th class="cell text-center">Status</th>
-                                            <th class="cell">Gambar</th>
                                             <th class="cell">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($produks as $key => $produk)
+                                        @foreach ($kategori as $key => $kategori)
                                             <tr class="text-center">
-                                                <td class="cell">{{ $loop->iteration }}</td>
-                                                <td class="cell">{{ $produk->kategori_produk }}</td>
+                                                <td class="cell">{{ $kategori->nama_kategori }}</td>
                                                 <td class="cell">
-                                                    <span class="truncate">{{ $produk->nama_produk }}</span>
+                                                    <span class="truncate">{{ $kategori->deskripsi }}</span>
                                                 </td>
-                                                <td class="cell">{{ $produk->harga_produk }}</td>
-                                                <td class="cell">
-                                                    <span>{{ $produk->stok_produk }}</span>
-                                                </td>
+                                                <td class="cell">{{ $kategori->status }}</td>
                                                 <td class="cell text-center">
                                                     <span class="badge bg-success">Aktif</span>
-                                                </td>
-                                                <td>
-                                                    @if ($produk->img_produk)
-                                                        <img src="{{ asset('storage/' . $produk->img_produk) }}"
-                                                            alt="{{ $produk->nama_produk }}" width="100">
-                                                    @else
-                                                        Tidak ada gambar
-                                                    @endif
                                                 </td>
                                                 <td class="cell">
                                                     <a class="btn-sm app-btn-secondary"href="#">View</a>
