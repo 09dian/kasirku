@@ -31,7 +31,7 @@
                     <div class="app-card app-card-stat shadow-sm h-100">
                         <div class="app-card-body p-3 p-lg-4">
                             <h4 class="stats-type mb-1">Total Penjualan</h4>
-                            <div class="stats-figure">Rp.{{ $hasil->total_penjualan }}</div>
+                            <div class="stats-figure">Rp.{{ $hasil->total_penjualan ?? 0 }}</div>
                             <div class="stats-meta text-success">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -48,7 +48,7 @@
                     <div class="app-card app-card-stat shadow-sm h-100">
                         <div class="app-card-body p-3 p-lg-4">
                             <h4 class="stats-type mb-1">Penghasilan</h4>
-                            <div class="stats-figure">Rp.{{ $hasil->penghasilan }}</div>
+                            <div class="stats-figure">Rp.{{ $hasil->penghasilan ?? 0 }}</div>
                             <div class="stats-meta text-success">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -64,7 +64,7 @@
                     <div class="app-card app-card-stat shadow-sm h-100">
                         <div class="app-card-body p-3 p-lg-4">
                             <h4 class="stats-type mb-1">Jumlah Barang</h4>
-                            <div class="stats-figure">{{ $hasil->jumlah_barang }}</div>
+                            <div class="stats-figure">{{ $hasil->jumlah_barang ?? 0 }}</div>
                         </div><!--//app-card-body-->
                         <a class="app-card-link-mask" href="#"></a>
                     </div><!--//app-card-->
@@ -73,7 +73,7 @@
                     <div class="app-card app-card-stat shadow-sm h-100">
                         <div class="app-card-body p-3 p-lg-4">
                             <h4 class="stats-type mb-1">Barang kaluar</h4>
-                            <div class="stats-figure">{{ $hasil->barang_keluar }}</div>
+                            <div class="stats-figure">{{ $hasil->barang_keluar ?? 0 }}</div>
                         </div><!--//app-card-body-->
                         <a class="app-card-link-mask" href="#"></a>
                     </div><!--//app-card-->
