@@ -132,7 +132,6 @@
                                             <td class="cell">
                                                 @if ($pegawai->terakhir_login)
                                                     <span class="cell-data">{{ $pegawai->terakhir_login }}</span>
-                                                    <span class="note">{{ $pegawai->terakhir_login }}</span>
                                                 @else
                                                     <span class="badge bg-warning">Never logged in</span>
                                                 @endif

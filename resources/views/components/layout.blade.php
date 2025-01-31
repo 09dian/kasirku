@@ -73,7 +73,7 @@
                                                     </div>
                                                 </div><!--//col-->
                                             </div><!--//row-->
-                                            <a class="link-mask" href="{{ route('notifikasi') }}"></a>
+                                            <a class="link-mask" href="./"></a>
                                         </div><!--//item-->
                                         <div class="item p-3">
                                             <div class="row gx-2 justify-content-between align-items-center">
@@ -139,7 +139,7 @@
                                     </div><!--//dropdown-menu-content-->
 
                                     <div class="dropdown-menu-footer p-2 text-center">
-                                        <a href="notifications.html">View all</a>
+                                        <a href="{{ route('notifikasi') }}">View all</a>
                                     </div>
 
                                 </div><!--//dropdown-menu-->

@@ -2,7 +2,6 @@
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
-
             <div class="row g-3 mb-4 align-items-center justify-content-between">
                 <div class="col-auto">
                     <h1 class="app-page-title mb-0">Data Barang</h1>
@@ -22,11 +21,6 @@
                             </div>
                             <div class="col-auto">
                                 <a class="btn app-btn-secondary" href="{{ route('kategori') }}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                            d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
-                                    </svg>
                                     Kategori
                                 </a>
                             </div>
@@ -69,8 +63,12 @@
                                                 <td class="cell">
                                                     <span>{{ $produk->stok_produk }}</span>
                                                 </td>
-                                                <td class="cell text-center">
-                                                    <span class="badge bg-success">Aktif</span>
+                                                <td class="cell">
+                                                    @if ($produk->status == 1)
+                                                        <span class="badge bg-success">Aktif</span>
+                                                    @else
+                                                        <span class="badge bg-danger">Tidak Aktif</span>
+                                                    @endif
                                                 </td>
                                                 <td>
                                                     @if ($produk->img_produk)
@@ -97,7 +95,37 @@
                                                     @endif
                                                 </td>
                                                 <td class="cell">
-                                                    <a class="btn-sm app-btn-secondary"href="#">View</a>
+                                                    <button type="button" class="btn-sm app-btn-secondary"
+                                                        data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                        View
+                                                    </button>
+
+                                                    <!-- Modal pertama -->
+                                                    <div class="modal fade" id="exampleModal" aria-hidden="true"
+                                                        aria-labelledby="exampleModalLabel" tabindex="-1">
+                                                        <div class="modal-dialog modal-dialog-centered">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Modal
+                                                                        1</h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <table class="table app-table-hover mb-0 text-left">
+                                                                        <tr class="text-center">
+                                                                            <th class="cell">Nama</th>
+                                                                            <th class="cell">Harga</th>
+                                                                            <th class="cell">Stok</th>
+                                                                            <th class="cell text-center">Status</th>
+                                                                            <th class="cell">Aksi</th>
+                                                                        </tr>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @endforeach

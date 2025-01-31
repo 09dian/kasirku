@@ -1,8 +1,8 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <h1>Selamat datang, {{ $pegawai->nama }}</h1>
-    <p>Nomor Pegawai: {{ $pegawai->no_pegawai }}</p>
-    <p>Terakhir Login: {{ $pegawai->terakhir_login }}</p>
+    <h2>Selamat datang, {{ $pegawai->nama_toko }}</h2>
+
     <form action="{{ route('logout_pegawai') }}" method="get">
         @csrf
         <button type="submit">Logout</button>

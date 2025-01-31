@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Hasil;
 use App\Models\Kategori;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -30,7 +31,6 @@ Route::put('/settings', [SettingsController::class, 'create'])->middleware('auth
 //notifikasi
 Route::get('/notifikasi', [NotifikasiController::class, 'index'])->middleware('auth')->name('notifikasi');
 
-
 // pegawai 
 Route::get('/pegawai', [PegawaiController::class, 'pegawai'])->middleware('auth')->name('pegawai');
 Route::post('/pegawai', [PegawaiController::class, 'create'])->middleware('auth')->name('pegawai');
@@ -45,18 +45,15 @@ Route::get('/logout_pegawai', [LoginPegawaiController::class, 'logout'])
     ->middleware('auth:pegawai') // Pastikan hanya pegawai yang login yang bisa mengakses
     ->name('logout_pegawai');
 
-
-
-
-// Route Home (Akses oleh Auth dan Auth:Pegawai)
+// Route Home (Akses oleh Auth atau Pemilik
 Route::get('/home', function () {
-    return view('home.home', ['title' => 'Home pemilik']);
-})->middleware('auth')->name('home'); // home
+    $hasil=Hasil::latest()->first();
+    return view('home.home', compact('hasil'),['title' => 'Home Pemilik']);
+})->middleware('auth')->name('home');// home
 
 Route::get('/pos', function () {
     return view('home.pos', ['title' => 'Pos']);
-})->middleware('auth')->name('pos'); //pos
-
+})->middleware('auth')->name('pos');//pos
 
 Route::get('/produk', [ProdukController::class,'index'])->middleware('auth')->name('produk');
 Route::post('/tambah_produk', [ProdukController::class,'create'])->middleware('auth')->name('tambah_produk');
@@ -66,10 +63,9 @@ Route::get('/tambah_produk', function () {
     return view('home.tambah_produk', compact('kategori'),['title' => 'Produk']);
 })->middleware('auth')->name('tambah_produk'); //produk
 
-
-
 // kategori
 Route::get('/kategori',[KategoriController::class,'index'])->middleware('auth')->name('kategori');
+
 Route::post('/tambah_kategori',[KategoriController::class,'create'])->middleware('auth')->name('tambah_kategori');
 
 Route::get('/tambah_kategori', function () {
