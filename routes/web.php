@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ForgotController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\RegisterController;
@@ -28,8 +29,9 @@ Route::get('forgot', [ForgotController::class, 'forgot'])->middleware('guest')->
 Route::get('/settings', [SettingsController::class, 'settings'])->middleware('auth')->name('settings');
 Route::put('/settings', [SettingsController::class, 'create'])->middleware('auth')->name('settings');
 
-//notifikasi
-Route::get('/notifikasi', [NotifikasiController::class, 'index'])->middleware('auth')->name('notifikasi');
+//pesan
+Route::get('/notifikasi', [MessageController::class, 'index'])->middleware('auth')->name('notifikasi');
+Route::post('/messages', [MessageController::class, 'create'])->middleware('auth')->name('messages');
 
 // pegawai 
 Route::get('/pegawai', [PegawaiController::class, 'pegawai'])->middleware('auth')->name('pegawai');

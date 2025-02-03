@@ -6,7 +6,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Pegawai extends Authenticatable
 {
-    // Pastikan model ini mewarisi Authenticatable
     protected $fillable = [
         'id_user',
         'no_pegawai',
@@ -22,4 +21,22 @@ class Pegawai extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    // Relasi ke user (pemilik)
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
+
+    // Pesan yang dikirim oleh pegawai
+    public function sentMessages()
+    {
+        return $this->morphMany(Message::class, 'sender');
+    }
+
+    // Pesan yang diterima oleh pegawai
+    public function receivedMessages()
+    {
+        return $this->morphMany(Message::class, 'receiver');
+    }
 }
