@@ -58,7 +58,9 @@ Route::get('/pos', function () {
 })->middleware('auth')->name('pos');//pos
 
 Route::get('/produk', [ProdukController::class,'index'])->middleware('auth')->name('produk');
-Route::post('/tambah_produk', [ProdukController::class,'create'])->middleware('auth')->name('tambah_produk');
+Route::post('/tambah_produk', [ProdukController::class, 'store'])->middleware('auth')->name('tambah_produk');
+Route::delete('/produk/{id}', [ProdukController::class, 'destroy'])->middleware('auth')->name('produk_delete');
+Route::patch('/produk/{id}', [ProdukController::class, 'update'])->middleware('auth')->name('produk_update');
 
 Route::get('/tambah_produk', function () {
     $kategori= Kategori::all();

@@ -28,11 +28,6 @@
                             <input name="deskripsi" type="text" class="form-control" placeholder="Deskripsi barang"
                                 aria-label="Nama barang" aria-describedby="addon-wrapping">
                         </div>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="status"
-                                value="1" checked onchange="updateSwitchLabel(this)">
-                            <label class="form-check-label" for="flexSwitchCheckDefault" id="switchLabel">Active</label>
-                        </div>
                         <button type="submit" class="btn btn-primary mt-3">Save</button>
                     </div>
                 </form>

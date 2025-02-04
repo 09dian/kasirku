@@ -13,19 +13,19 @@ class KategoriController extends Controller
     }
 
     public function create(Request $request){
-        
         $validated = $request->validate([
             'nama_kategori' => 'required|string|max:255',
             'deskripsi' => 'required|string|max:255',
-            'status' => 'required|string|min:1',
         ]);
-    // Simpan data ke dalam tabel `kategoris`
-    Kategori::create([
-    'nama_kategori' => $validated['nama_kategori'],
-    'deskripsi' => $validated['deskripsi'],
-    'status' => $validated['status'],
-]);
+    
+        // Tetapkan nilai default status ke 1
+        $validated['status'] = 1;
+    
+        // Simpan data ke dalam tabel `kategoris`
+        Kategori::create($validated);
+         // Redirect dengan pesan sukses
          // Redirect dengan pesan sukses
     return redirect()->route('kategori')->with('success', 'Kategori berhasil ditambahkan!');
-}
+    }
+
 }

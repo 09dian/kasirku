@@ -52,11 +52,6 @@
                             <input name="img_produk" type="file" class="form-control" placeholder="Gambar"
                                 aria-label="Gambar" aria-describedby="addon-wrapping">
                         </div>
-                        <div class="form-check form-switch">
-                            <input name="status" value="1" class="form-check-input" type="checkbox" role="switch"
-                                id="flexSwitchCheckChecked" checked value="1" onchange="updateSwitchLabel(this)">
-                            <label class="form-check-label" for="flexSwitchCheckChecked" id="switchLabel">Active</label>
-                        </div>
                         <button type="submit" class="btn btn-primary mt-3">Save</button>
                     </div>
                 </form>
