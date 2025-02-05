@@ -54,5 +54,15 @@ class PegawaiController extends Controller
         // Redirect dengan pesan sukses
         return redirect()->route('pegawai')->with('success', 'Pegawai berhasil ditambahkan');
     }
+
+
+
+    public function destroy($id) {
+        // Menghapus data pegawai berdasarkan id
+        Pegawai::destroy($id);
+    
+        // Redirect dengan pesan sukses
+        return redirect()->route('pegawai')->with('success', 'Pegawai berhasil dihapus');
+    }
     
 }

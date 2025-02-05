@@ -36,6 +36,7 @@ Route::post('/messages', [MessageController::class, 'create'])->middleware('auth
 // pegawai 
 Route::get('/pegawai', [PegawaiController::class, 'pegawai'])->middleware('auth')->name('pegawai');
 Route::post('/pegawai', [PegawaiController::class, 'create'])->middleware('auth')->name('pegawai');
+Route::delete('/pegawai/{id}', [PegawaiController::class, 'destroy'])->middleware('auth')->name('delete_pegawai');
 
 //login pegawai
 Route::post('/login_pegawai', [LoginPegawaiController::class, 'ActionLogin'])->middleware('guest')->name('login_pegawai');
