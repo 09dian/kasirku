@@ -69,8 +69,9 @@ Route::get('/tambah_produk', function () {
 
 // kategori
 Route::get('/kategori',[KategoriController::class,'index'])->middleware('auth')->name('kategori');
-
 Route::post('/tambah_kategori',[KategoriController::class,'create'])->middleware('auth')->name('tambah_kategori');
+Route::delete('/kategori/{id}',[KategoriController::class,'destroy'])->middleware('auth')->name('kategori_delete');
+Route::patch('/kategori/{id}', [KategoriController::class, 'update'])->middleware('auth')->name('kategori_update');
 
 Route::get('/tambah_kategori', function () {
     return view('home.tambah_kategori', ['title' => 'Produk']);

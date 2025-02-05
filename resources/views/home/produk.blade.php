@@ -208,6 +208,7 @@
                                             </tr>
                                         @endforeach
                                         <!-- Modal Update -->
+                                        @foreach ($produks as $key => $produk)
                                         <div class="modal fade" id="updateModal{{ $produk->id }}" tabindex="-1"
                                             aria-labelledby="updateModalLabel{{ $produk->id }}" aria-hidden="true">
                                             <div class="modal-dialog">
@@ -305,6 +306,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div><!--//table-responsive-->
