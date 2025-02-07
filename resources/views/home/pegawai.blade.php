@@ -135,7 +135,7 @@
                                                     <span class="badge bg-warning">Never logged in</span>
                                                 @endif
                                             </td>
-                                            <td class="cell">
+                                            <td class="cell d-flex gap-2">
                                                 <form action="{{ route('delete_pegawai', $pegawai->id) }}"
                                                     method="post">
                                                     @csrf
@@ -149,8 +149,80 @@
                                                         </svg>
                                                     </button>
                                                 </form>
+                                                <button type="button" class="btn btn-warning"
+                                                    data-bs-target="#exampleModalToggle" data-bs-toggle="modal">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                        height="16" fill="currentColor" class="bi bi-pen-fill"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001" />
+                                                    </svg>
+                                                </button>
 
+                                                <form action="{{ route('edit_pegawai', $pegawai->id) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <div class="modal fade" id="exampleModalToggle"
+                                                        aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+                                                        tabindex="-1">
+                                                        <div class="modal-dialog modal-dialog-centered">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h1 class="modal-title fs-5"
+                                                                        id="exampleModalToggleLabel">Edit Pegawai</h1>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                     <!-- Input pegawai -->
+                                                                <div class="input-group mb-3">
+                                                                    <span class="input-group-text" id="basic-addon1">Nama</span>
+                                                                    <input type="text" name="no_pegawai" class="form-control" placeholder="Masukkan No Pegawai" aria-label="No pegawai" aria-describedby="basic-addon1" value="{{ $pegawai->no_pegawai }}" required>
+                                                                </div>
+                                                                <!-- Input Nama -->
+                                                                <div class="input-group mb-3">
+                                                                    <span class="input-group-text" id="basic-addon1">Nama</span>
+                                                                    <input type="text" name="nama" class="form-control" placeholder="Masukkan Nama" aria-label="Nama Pegawai" aria-describedby="basic-addon1" value="{{ $pegawai->nama }}" required>
+                                                                </div>
+
+                                                                <!-- Input TTL (Tempat, Tanggal Lahir) -->
+                                                                <div class="input-group mb-3">
+                                                                    <span class="input-group-text" id="basic-addon1">TTL</span>
+                                                                    <input type="date" name="ttl" class="form-control" placeholder="Pilih Tanggal Lahir" aria-label="Tanggal Lahir" aria-describedby="basic-addon1" value="{{ $pegawai->ttl }}" required>
+                                                                </div>
+
+                                                                <!-- Input Alamat -->
+                                                                <div class="input-group mb-3">
+                                                                    <span class="input-group-text" id="basic-addon1">Alamat</span>
+                                                                    <input type="text" name="alamat" class="form-control" placeholder="Masukkan Alamat" aria-label="Alamat Pegawai" aria-describedby="basic-addon1" value="{{ $pegawai->alamat }}" required>
+                                                                </div>
+
+                                                                <!-- Input No Hp -->
+                                                                <div class="input-group mb-3">
+                                                                    <span class="input-group-text" id="basic-addon1">No Hp</span>
+                                                                    <input type="text" name="no_hp" class="form-control" placeholder="Masukkan Nomor Handphone" aria-label="Nomor Handphone" aria-describedby="basic-addon1" value="{{ $pegawai->no_hp }}" required>
+                                                                </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button class="btn btn btn-success text-white"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            width="16" height="16"
+                                                                            fill="currentColor"
+                                                                            class="bi bi-floppy2-fill"
+                                                                            viewBox="0 0 16 16">
+                                                                            <path d="M12 2h-2v3h2z" />
+                                                                            <path
+                                                                                d="M1.5 0A1.5 1.5 0 0 0 0 1.5v13A1.5 1.5 0 0 0 1.5 16h13a1.5 1.5 0 0 0 1.5-1.5V2.914a1.5 1.5 0 0 0-.44-1.06L14.147.439A1.5 1.5 0 0 0 13.086 0zM4 6a1 1 0 0 1-1-1V1h10v4a1 1 0 0 1-1 1zM3 9h10a1 1 0 0 1 1 1v5H2v-5a1 1 0 0 1 1-1" />
+                                                                        </svg> Simpan</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </td>
+
                                         </tr>
                                     @endforeach
                                 </tbody>
