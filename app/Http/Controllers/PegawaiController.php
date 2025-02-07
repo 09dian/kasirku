@@ -54,9 +54,6 @@ class PegawaiController extends Controller
         // Redirect dengan pesan sukses
         return redirect()->route('pegawai')->with('success', 'Pegawai berhasil ditambahkan');
     }
-
-
-
     public function destroy($id) {
         // Menghapus data pegawai berdasarkan id
         Pegawai::destroy($id);
@@ -64,5 +61,32 @@ class PegawaiController extends Controller
         // Redirect dengan pesan sukses
         return redirect()->route('pegawai')->with('success', 'Pegawai berhasil dihapus');
     }
+
+
+        public function update(Request $request, $id) {
+            // Validasi input dari pengguna
+            $validated = $request->validate([
+                'no_pegawai' => 'required|string|max:255',
+                'nama' => 'required|string|max:255',
+                'ttl' => 'required|date',
+                'alamat' => 'required|string|max:255',
+                'no_hp' => 'required|string|max:15'
+            ]);
+
+            // Mengambil data pegawai berdasarkan id
+            $pegawai = Pegawai::findOrFail($id);
+
+            // Mengupdate data pegawai
+            $pegawai->update([
+                'no_pegawai' => $validated['no_pegawai'],
+                'nama' => $validated['nama'],
+                'ttl' => $validated['ttl'],
+                'alamat' => $validated['alamat'],
+                'no_hp' => $validated['no_hp']
+            ]);
+
+            // Redirect dengan pesan sukses
+            return redirect()->route('pegawai')->with('success', 'Pegawai berhasil diperbarui');
+        }
     
 }
