@@ -2,8 +2,8 @@
 
 use App\Models\Hasil;
 use App\Models\Kategori;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\CabangController;
 use App\Http\Controllers\ForgotController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\MessageController;
@@ -49,21 +49,22 @@ Route::get('/produk', [ProdukController::class,'index'])->middleware('auth')->na
 Route::post('/tambah_produk', [ProdukController::class, 'store'])->middleware('auth')->name('tambah_produk');
 Route::delete('/produk/{id}', [ProdukController::class, 'destroy'])->middleware('auth')->name('produk_delete');
 Route::patch('/produk/{id}', [ProdukController::class, 'update'])->middleware('auth')->name('produk_update');
+
 Route::get('/tambah_produk', function () {
     $kategori= Kategori::all();
     return view('home.tambah_produk', compact('kategori'),['title' => 'Produk']);
-})->middleware('auth')->name('tambah_produk'); //produk
-
-// Route Home
+})->middleware('auth')->name('tambah_produk');
 Route::get('/home', function () {
     $hasil=Hasil::latest()->first();
     return view('home.home', compact('hasil'),['title' => 'Home Pemilik']);
 })->middleware('auth')->name('home');
-// Route Pos
 Route::get('/pos', function () {
     return view('home.pos', ['title' => 'Pos']);
-})->middleware('auth')->name('pos');//pos
-
+})->middleware('auth')->name('pos');
+Route::get('/history', function () {
+    return view('home.history', ['title' => 'History']);
+})->middleware('auth')->name('history');
+Route::get('cabang',[CabangController::class,'index'])->middleware('auth')->name('cabang');
 
 
 // kategori
