@@ -195,9 +195,15 @@
                                                                     value="{{ $kategori->deskripsi }}">
                                                             </div>
                                                             <div class="mb-3">
+                                                                <label for="status" class="form-label">Status</label>
                                                                 <div class="form-check form-switch">
-                                                                    <input name="status" value="1" class="form-check-input" type="checkbox" role="switch"
-                                                                        id="status_{{ $kategori->id }}" {{ $kategori->status == 1 ? 'checked' : '' }} onchange="updateSwitchLabel(this)">
+                                                                    <!-- Input hidden untuk mengirimkan nilai 0 ketika tidak dicentang -->
+                                                                    <input type="hidden" name="status" value="0">
+                                                                    
+                                                                    <!-- Checkbox yang akan mengirimkan nilai 1 saat dicentang -->
+                                                                    <input name="status" value="1" class="form-check-input" type="checkbox" role="switch" id="statusSwitch"
+                                                                           {{ $kategori->status == 1 ? 'checked' : '' }} onchange="updateSwitch(this)">
+                                                                    
                                                                     <label class="form-check-label" for="statusSwitch" id="switchLabel">
                                                                         {{ $kategori->status == 1 ? 'Aktif' : 'Tidak Aktif' }}
                                                                     </label>
