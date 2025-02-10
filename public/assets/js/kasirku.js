@@ -34,16 +34,7 @@ if (this.value === 'pegawai') {
     formPemilik.style.display = 'block';
 }
 });
-function updateSwitch(switchElem) {
-    let label = document.getElementById('switchLabel');
-    if (switchElem.checked) {
-        switchElem.value = 1;
-        label.textContent = 'Aktif';
-    } else {
-        switchElem.value = 0;
-        label.textContent = 'Tidak Aktif';
-    }
-}
+
 function updateSwitch(checkbox) {
     // Jika checkbox dicentang, nilai checkbox menjadi 1 (Aktif)
     if (checkbox.checked) {
