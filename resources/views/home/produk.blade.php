@@ -209,103 +209,111 @@
                                         @endforeach
                                         <!-- Modal Update -->
                                         @foreach ($produks as $key => $produk)
-                                        <div class="modal fade" id="updateModal{{ $produk->id }}" tabindex="-1"
-                                            aria-labelledby="updateModalLabel{{ $produk->id }}" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title"
-                                                            id="updateModalLabel{{ $produk->id }}">
-                                                            Update Produk
-                                                        </h5>
-                                                        <button type="button" class="btn-close"
-                                                            data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form action="{{ route('produk_update', $produk->id) }}"
-                                                            method="POST" enctype="multipart/form-data" novalidate>
-                                                            @csrf
-                                                            @method('PATCH')
-                                                            <!-- Nama Produk -->
-                                                            <div class="mb-3">
-                                                                <label for="kategori_produk"
-                                                                    class="form-label">Kategori Produk</label>
-                                                                <select class="form-select" id="kategori_produk"
-                                                                    name="kategori_produk" required>
-                                                                    @foreach ($kategoris as $kategori)
-                                                                        <option value="{{ $kategori->id }}"
-                                                                            {{ $produk->kategori_id == $kategori->id ? 'selected' : '' }}>
-                                                                            {{ $kategori->nama_kategori }}
-                                                                        </option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="nama_produk" class="form-label">Nama
-                                                                    Produk</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="nama_produk" name="nama_produk"
-                                                                    value="{{ $produk->nama_produk }}" required>
-                                                            </div>
+                                            <div class="modal fade" id="updateModal{{ $produk->id }}"
+                                                tabindex="-1" aria-labelledby="updateModalLabel{{ $produk->id }}"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title"
+                                                                id="updateModalLabel{{ $produk->id }}">
+                                                                Update Produk
+                                                            </h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="{{ route('produk_update', $produk->id) }}"
+                                                                method="POST" enctype="multipart/form-data"
+                                                                novalidate>
+                                                                @csrf
+                                                                @method('PATCH')
+                                                                <!-- Nama Produk -->
+                                                                <div class="mb-3">
+                                                                    <label for="kategori_produk"
+                                                                        class="form-label">Kategori Produk</label>
+                                                                    <select class="form-select" id="kategori_produk"
+                                                                        name="kategori_produk" required>
+                                                                        @foreach ($kategoris as $kategori)
+                                                                            <option value="{{ $kategori->id }}"
+                                                                                {{ $produk->kategori_id == $kategori->id ? 'selected' : '' }}>
+                                                                                {{ $kategori->nama_kategori }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="nama_produk" class="form-label">Nama
+                                                                        Produk</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="nama_produk" name="nama_produk"
+                                                                        value="{{ $produk->nama_produk }}" required>
+                                                                </div>
 
-                                                            <!-- Harga Produk -->
-                                                            <div class="mb-3">
-                                                                <label for="harga_produk" class="form-label">Harga
-                                                                    Produk</label>
-                                                                <input type="number" class="form-control"
-                                                                    id="harga_produk" name="harga_produk"
-                                                                    value="{{ $produk->harga_produk }}" required>
-                                                            </div>
+                                                                <!-- Harga Produk -->
+                                                                <div class="mb-3">
+                                                                    <label for="harga_produk" class="form-label">Harga
+                                                                        Produk</label>
+                                                                    <input type="number" class="form-control"
+                                                                        id="harga_produk" name="harga_produk"
+                                                                        value="{{ $produk->harga_produk }}" required>
+                                                                </div>
 
-                                                            <!-- Stok Produk -->
-                                                            <div class="mb-3">
-                                                                <label for="stok_produk" class="form-label">Stok
-                                                                    Produk</label>
-                                                                <input type="number" class="form-control"
-                                                                    id="stok_produk" name="stok_produk"
-                                                                    value="{{ $produk->stok_produk }}" required>
-                                                            </div>
+                                                                <!-- Stok Produk -->
+                                                                <div class="mb-3">
+                                                                    <label for="stok_produk" class="form-label">Stok
+                                                                        Produk</label>
+                                                                    <input type="number" class="form-control"
+                                                                        id="stok_produk" name="stok_produk"
+                                                                        value="{{ $produk->stok_produk }}" required>
+                                                                </div>
 
-                                                            <!-- Status -->
-                                                            <div class="mb-3">
-                                                                <label for="status"
-                                                                    class="form-label">Status</label>
+                                                                <!-- Status -->
+                                                                <div class="mb-3">
+                                                                    <label for="status" class="form-label">Status</label>
                                                                     <div class="form-check form-switch">
-                                                                        <input name="status" value="1" class="form-check-input" type="checkbox" role="switch"
-                                                                            id="statusSwitch" {{ $produk->status == 1 ? 'checked' : '' }} onchange="updateSwitchLabel(this)">
+                                                                        <!-- Input hidden untuk mengirimkan nilai 0 ketika tidak dicentang -->
+                                                                        <input type="hidden" name="status" value="0">
+                                                                        
+                                                                        <!-- Checkbox yang akan mengirimkan nilai 1 saat dicentang -->
+                                                                        <input name="status" value="1" class="form-check-input" type="checkbox" role="switch" id="statusSwitch"
+                                                                               {{ $produk->status == 1 ? 'checked' : '' }} onchange="updateSwitch(this)">
+                                                                        
                                                                         <label class="form-check-label" for="statusSwitch" id="switchLabel">
                                                                             {{ $produk->status == 1 ? 'Aktif' : 'Tidak Aktif' }}
                                                                         </label>
                                                                     </div>
-                                                            </div>
-
-                                                            <!-- Gambar Produk -->
-                                                            <div class="mb-3">
-                                                                <label for="img_produk" class="form-label">Gambar
-                                                                    Produk</label>
-                                                                <input type="file" class="form-control"
-                                                                    id="img_produk" name="img_produk">
-
-                                                                <!-- Simpan gambar lama (hidden input) -->
-                                                                <input type="hidden" name="old_img_produk"
-                                                                    value="{{ $produk->img_produk }}">
-
-                                                                <!-- Tampilkan gambar jika ada -->
-                                                                @if ($produk->img_produk)
-                                                                    <img src="{{ asset('storage/' . $produk->img_produk) }}"
-                                                                        width="100" class="img-thumbnail mt-2">
-                                                                @endif
-                                                            </div>
+                                                                </div>
+                                                                
 
 
-                                                            <!-- Tombol Submit -->
-                                                            <button type="submit"
-                                                                class="btn btn-primary">Update</button>
-                                                        </form>
+                                                                <!-- Gambar Produk -->
+                                                                <div class="mb-3">
+                                                                    <label for="img_produk" class="form-label">Gambar
+                                                                        Produk</label>
+                                                                    <input type="file" class="form-control"
+                                                                        id="img_produk" name="img_produk">
+
+                                                                    <!-- Simpan gambar lama (hidden input) -->
+                                                                    <input type="hidden" name="old_img_produk"
+                                                                        value="{{ $produk->img_produk }}">
+
+                                                                    <!-- Tampilkan gambar jika ada -->
+                                                                    @if ($produk->img_produk)
+                                                                        <img src="{{ asset('storage/' . $produk->img_produk) }}"
+                                                                            width="100" class="img-thumbnail mt-2">
+                                                                    @endif
+                                                                </div>
+
+
+                                                                <!-- Tombol Submit -->
+                                                                <button type="submit"
+                                                                    class="btn btn-primary">Update</button>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         @endforeach
                                     </tbody>
                                 </table>

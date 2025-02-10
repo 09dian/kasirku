@@ -34,11 +34,24 @@ if (this.value === 'pegawai') {
     formPemilik.style.display = 'block';
 }
 });
-function updateSwitchLabel(checkbox) {
-    let label = document.getElementById("switchLabel");
-    if (checkbox.checked) {
-        label.textContent = "Aktif";
+function updateSwitch(switchElem) {
+    let label = document.getElementById('switchLabel');
+    if (switchElem.checked) {
+        switchElem.value = 1;
+        label.textContent = 'Aktif';
     } else {
-        label.textContent = "Tidak Aktif";
+        switchElem.value = 0;
+        label.textContent = 'Tidak Aktif';
+    }
+}
+function updateSwitch(checkbox) {
+    // Jika checkbox dicentang, nilai checkbox menjadi 1 (Aktif)
+    if (checkbox.checked) {
+        checkbox.value = 1;
+        document.getElementById('switchLabel').textContent = 'Aktif'; // Ubah label menjadi Aktif
+    } else {
+        // Jika checkbox tidak dicentang, nilai checkbox menjadi 0 (Tidak Aktif)
+        checkbox.value = 0;
+        document.getElementById('switchLabel').textContent = 'Tidak Aktif'; // Ubah label menjadi Tidak Aktif
     }
 }

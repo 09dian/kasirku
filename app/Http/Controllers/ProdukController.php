@@ -57,7 +57,7 @@ class ProdukController extends Controller
             'img_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'required|string|min:1',
         ]);
-    
+        
         $produk = Produk::findOrFail($id);
     
         // Jika ada file baru yang diunggah
