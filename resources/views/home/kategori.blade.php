@@ -163,60 +163,68 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @endforeach
-                                        <div class="modal fade" id="updateModalKategori" aria-hidden="true"
-                                            aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="exampleModalToggleLabel">
-                                                            Edit Kategori</h1>
-                                                        <button type="button" class="btn-close"
-                                                            data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
+                                            <div class="modal fade" id="updateModalKategori" aria-hidden="true"
+                                                aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="exampleModalToggleLabel">
+                                                                Edit Kategori</h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
 
-                                                        <form action="{{ route('kategori_update', $kategori->id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('PATCH')
-                                                            <div class="mb-3">
-                                                               
-                                                                <input type="text" class="form-control"
-                                                                    id="nama_kategori_{{ $kategori->id }}"
-                                                                    name="nama_kategori"
-                                                                    value="{{ $kategori->nama_kategori }}">
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                
-                                                                <input type="text" class="form-control"
-                                                                    id="deskripsi_{{ $kategori->id }}"
-                                                                    name="deskripsi"
-                                                                    value="{{ $kategori->deskripsi }}">
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="status" class="form-label">Status</label>
-                                                                <div class="form-check form-switch">
-                                                                    <!-- Input hidden untuk mengirimkan nilai 0 ketika tidak dicentang -->
-                                                                    <input type="hidden" name="status" value="0">
-                                                                    
-                                                                    <!-- Checkbox yang akan mengirimkan nilai 1 saat dicentang -->
-                                                                    <input name="status" value="1" class="form-check-input" type="checkbox" role="switch" id="statusSwitch"
-                                                                           {{ $kategori->status == 1 ? 'checked' : '' }} onchange="updateSwitch(this)">
-                                                                    
-                                                                    <label class="form-check-label" for="statusSwitch" id="switchLabel">
-                                                                        {{ $kategori->status == 1 ? 'Aktif' : 'Tidak Aktif' }}
-                                                                    </label>
+                                                            <form
+                                                                action="{{ route('kategori_update', $kategori->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('PATCH')
+                                                                <div class="mb-3">
+
+                                                                    <input type="text" class="form-control"
+                                                                        id="nama_kategori_{{ $kategori->id }}"
+                                                                        name="nama_kategori"
+                                                                        value="{{ $kategori->nama_kategori }}">
                                                                 </div>
-                                                            </div>
-                                                            <button type="submit"
-                                                                class="btn btn-primary">Submit</button>
-                                                        </form>
+                                                                <div class="mb-3">
 
+                                                                    <input type="text" class="form-control"
+                                                                        id="deskripsi_{{ $kategori->id }}"
+                                                                        name="deskripsi"
+                                                                        value="{{ $kategori->deskripsi }}">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="status"
+                                                                        class="form-label">Status</label>
+                                                                    <div class="form-check form-switch">
+                                                                        <!-- Input hidden untuk mengirimkan nilai 0 ketika tidak dicentang -->
+                                                                        <input type="hidden" name="status"
+                                                                            value="0">
+
+                                                                        <!-- Checkbox yang akan mengirimkan nilai 1 saat dicentang -->
+                                                                        <input name="status" value="1"
+                                                                            class="form-check-input" type="checkbox"
+                                                                            role="switch" id="statusSwitch"
+                                                                            {{ $kategori->status == 1 ? 'checked' : '' }}
+                                                                            onchange="updateSwitch(this)">
+
+                                                                        <label class="form-check-label"
+                                                                            for="statusSwitch" id="switchLabel">
+                                                                            {{ $kategori->status == 1 ? 'Aktif' : 'Tidak Aktif' }}
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                <button type="submit"
+                                                                    class="btn btn-primary">Submit</button>
+                                                            </form>
+
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        @endforeach
+
                                     </tbody>
                                 </table>
                             </div><!--//table-responsive-->
