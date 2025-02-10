@@ -267,17 +267,21 @@
                                                             </div>
 
                                                             <!-- Status -->
-                                                            <div class="mb-3">
-                                                                <label for="status"
-                                                                    class="form-label">Status</label>
+                                                             <div class="mb-3">
+                                                                    <label for="status" class="form-label">Status</label>
                                                                     <div class="form-check form-switch">
-                                                                        <input name="status" value="1" class="form-check-input" type="checkbox" role="switch"
-                                                                            id="statusSwitch" {{ $produk->status == 1 ? 'checked' : '' }} onchange="updateSwitchLabel(this)">
+                                                                        <!-- Input hidden untuk mengirimkan nilai 0 ketika tidak dicentang -->
+                                                                        <input type="hidden" name="status" value="0">
+                                                                        
+                                                                        <!-- Checkbox yang akan mengirimkan nilai 1 saat dicentang -->
+                                                                        <input name="status" value="1" class="form-check-input" type="checkbox" role="switch" id="statusSwitch"
+                                                                               {{ $produk->status == 1 ? 'checked' : '' }} onchange="updateSwitch(this)">
+                                                                        
                                                                         <label class="form-check-label" for="statusSwitch" id="switchLabel">
                                                                             {{ $produk->status == 1 ? 'Aktif' : 'Tidak Aktif' }}
                                                                         </label>
                                                                     </div>
-                                                            </div>
+                                                                </div>
 
                                                             <!-- Gambar Produk -->
                                                             <div class="mb-3">
