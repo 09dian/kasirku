@@ -37,6 +37,9 @@ Route::get('/home_pegawai', [LoginPegawaiController::class, 'index'])
 //pesan
 Route::get('/notifikasi', [MessageController::class, 'index'])->middleware('auth')->name('notifikasi');
 Route::post('/messages', [MessageController::class, 'create'])->middleware('auth')->name('messages');
+Route::get('/all_pesan', function () {
+    return view('home.all_pesan', ['title' => 'Semua Pesan']);
+})->middleware('auth')->name('all_pesan');
 
 // pegawai 
 Route::get('/pegawai', [PegawaiController::class, 'pegawai'])->middleware('auth')->name('pegawai');

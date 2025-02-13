@@ -10,13 +10,13 @@
             <!-- Chat Messages Container -->
             <div class="messages"
                 style="height: 400px; overflow-y: scroll; border: 1px solid #ddd; padding: 15px; border-radius: 8px;">
-                <!-- Dian's message (Left) -->
+                <!-- Dian's message (Left)pengirim pesan-->
                 <div class="d-flex justify-content-start mb-3">
                     <div class="bg-light p-2 rounded border border-3 border-dark">
                         <p class="mb-0">Hello</p>
                     </div>
                 </div>
-                <!-- Response (Right) -->
+                <!-- Response (Right) utuk tampilanpembalas pesan-->
                 <div class="d-flex justify-content-end mb-3">
                     <div class="bg-primary app-btn-primar theme-btn text-dark p-2 rounded border border-3 border-dark">
                         <p class="mb-0">Hay</p>
