@@ -117,7 +117,7 @@
                                         <th class="cell">Alamat</th>
                                         <th class="cell">No HP</th>
                                         <th class="cell">Terahkir Login</th>
-                                        <th class="cell">Aksi</th>
+                                        <th class="cell text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -135,7 +135,7 @@
                                                     <span class="badge bg-warning">Never logged in</span>
                                                 @endif
                                             </td>
-                                            <td class="cell d-flex gap-2">
+                                            <td class="cell d-flex gap-2 justify-content-center">
                                                 <form action="{{ route('delete_pegawai', $pegawai->id) }}"
                                                     method="post">
                                                     @csrf
@@ -176,34 +176,65 @@
                                                                         aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                     <!-- Input pegawai -->
-                                                                <div class="input-group mb-3">
-                                                                    <span class="input-group-text" id="basic-addon1">Nama</span>
-                                                                    <input type="text" name="no_pegawai" class="form-control" placeholder="Masukkan No Pegawai" aria-label="No pegawai" aria-describedby="basic-addon1" value="{{ $pegawai->no_pegawai }}" required>
-                                                                </div>
-                                                                <!-- Input Nama -->
-                                                                <div class="input-group mb-3">
-                                                                    <span class="input-group-text" id="basic-addon1">Nama</span>
-                                                                    <input type="text" name="nama" class="form-control" placeholder="Masukkan Nama" aria-label="Nama Pegawai" aria-describedby="basic-addon1" value="{{ $pegawai->nama }}" required>
-                                                                </div>
+                                                                    <!-- Input pegawai -->
+                                                                    <div class="input-group mb-3">
+                                                                        <span class="input-group-text"
+                                                                            id="basic-addon1">Nama</span>
+                                                                        <input type="text" name="no_pegawai"
+                                                                            class="form-control"
+                                                                            placeholder="Masukkan No Pegawai"
+                                                                            aria-label="No pegawai"
+                                                                            aria-describedby="basic-addon1"
+                                                                            value="{{ $pegawai->no_pegawai }}"
+                                                                            required>
+                                                                    </div>
+                                                                    <!-- Input Nama -->
+                                                                    <div class="input-group mb-3">
+                                                                        <span class="input-group-text"
+                                                                            id="basic-addon1">Nama</span>
+                                                                        <input type="text" name="nama"
+                                                                            class="form-control"
+                                                                            placeholder="Masukkan Nama"
+                                                                            aria-label="Nama Pegawai"
+                                                                            aria-describedby="basic-addon1"
+                                                                            value="{{ $pegawai->nama }}" required>
+                                                                    </div>
 
-                                                                <!-- Input TTL (Tempat, Tanggal Lahir) -->
-                                                                <div class="input-group mb-3">
-                                                                    <span class="input-group-text" id="basic-addon1">TTL</span>
-                                                                    <input type="date" name="ttl" class="form-control" placeholder="Pilih Tanggal Lahir" aria-label="Tanggal Lahir" aria-describedby="basic-addon1" value="{{ $pegawai->ttl }}" required>
-                                                                </div>
+                                                                    <!-- Input TTL (Tempat, Tanggal Lahir) -->
+                                                                    <div class="input-group mb-3">
+                                                                        <span class="input-group-text"
+                                                                            id="basic-addon1">TTL</span>
+                                                                        <input type="date" name="ttl"
+                                                                            class="form-control"
+                                                                            placeholder="Pilih Tanggal Lahir"
+                                                                            aria-label="Tanggal Lahir"
+                                                                            aria-describedby="basic-addon1"
+                                                                            value="{{ $pegawai->ttl }}" required>
+                                                                    </div>
 
-                                                                <!-- Input Alamat -->
-                                                                <div class="input-group mb-3">
-                                                                    <span class="input-group-text" id="basic-addon1">Alamat</span>
-                                                                    <input type="text" name="alamat" class="form-control" placeholder="Masukkan Alamat" aria-label="Alamat Pegawai" aria-describedby="basic-addon1" value="{{ $pegawai->alamat }}" required>
-                                                                </div>
+                                                                    <!-- Input Alamat -->
+                                                                    <div class="input-group mb-3">
+                                                                        <span class="input-group-text"
+                                                                            id="basic-addon1">Alamat</span>
+                                                                        <input type="text" name="alamat"
+                                                                            class="form-control"
+                                                                            placeholder="Masukkan Alamat"
+                                                                            aria-label="Alamat Pegawai"
+                                                                            aria-describedby="basic-addon1"
+                                                                            value="{{ $pegawai->alamat }}" required>
+                                                                    </div>
 
-                                                                <!-- Input No Hp -->
-                                                                <div class="input-group mb-3">
-                                                                    <span class="input-group-text" id="basic-addon1">No Hp</span>
-                                                                    <input type="text" name="no_hp" class="form-control" placeholder="Masukkan Nomor Handphone" aria-label="Nomor Handphone" aria-describedby="basic-addon1" value="{{ $pegawai->no_hp }}" required>
-                                                                </div>
+                                                                    <!-- Input No Hp -->
+                                                                    <div class="input-group mb-3">
+                                                                        <span class="input-group-text"
+                                                                            id="basic-addon1">No Hp</span>
+                                                                        <input type="text" name="no_hp"
+                                                                            class="form-control"
+                                                                            placeholder="Masukkan Nomor Handphone"
+                                                                            aria-label="Nomor Handphone"
+                                                                            aria-describedby="basic-addon1"
+                                                                            value="{{ $pegawai->no_hp }}" required>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button class="btn btn btn-success text-white"><svg
@@ -221,6 +252,60 @@
                                                         </div>
                                                     </div>
                                                 </form>
+                                                <button type="button" class="btn btn-info" style="color: white"
+                                                    data-bs-target="#exampleModalTogglepesan" data-bs-toggle="modal">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                        height="16" fill="currentColor"
+                                                        class="bi bi-envelope-plus" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2zm3.708 6.208L1 11.105V5.383zM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2z" />
+                                                        <path
+                                                            d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5" />
+                                                    </svg>
+                                                </button>
+                                                {{-- tombol pesan --}}
+                                                <div class="modal fade" id="exampleModalTogglepesan"
+                                                    aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+                                                    tabindex="-1">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5"
+                                                                    id="exampleModalToggleLabel">Kirin pesan ke
+                                                                    {{ $pegawai->nama }}</h1>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                            </div>
+                                                            <!-- Body Modal -->
+                                                            <div
+                                                                class="modal-body d-flex flex-column align-items-center justify-content-center text-center">
+                                                                <label for="message" class="form-label fw-bold">Pesan
+                                                                    Anda:</label>
+                                                                <textarea id="message" name="message" class="form-control p-3 border rounded-3 text-center" rows="4"
+                                                                    placeholder="Tulis pesan di sini..." style="width: 100%; max-width: 450px;"></textarea>
+                                                            </div>
+
+                                                            <!-- Footer Modal -->
+                                                            <div class="modal-footer d-flex justify-content-between">
+                                                                <button class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">
+                                                                    <i class="bi bi-x-circle"></i> Batal
+                                                                </button>
+                                                                <button class="btn app-btn-primary"
+                                                                    data-bs-toggle="modal">Kirim Pesan
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        width="16" height="16"
+                                                                        fill="currentColor"
+                                                                        class="bi bi-arrow-bar-right"
+                                                                        viewBox="0 0 16 16">
+                                                                        <path fill-rule="evenodd"
+                                                                            d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8m-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5" />
+                                                                    </svg></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
 
                                         </tr>
