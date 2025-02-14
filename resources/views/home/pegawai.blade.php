@@ -264,48 +264,71 @@
                                                     </svg>
                                                 </button>
                                                 {{-- tombol pesan --}}
+
+                                                <!-- Modal Kirim Pesan -->
+                                                <!-- Modal Kirim Pesan -->
                                                 <div class="modal fade" id="exampleModalTogglepesan"
                                                     aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
                                                     tabindex="-1">
                                                     <div class="modal-dialog modal-dialog-centered">
                                                         <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h1 class="modal-title fs-5"
-                                                                    id="exampleModalToggleLabel">Kirin pesan ke
-                                                                    {{ $pegawai->nama }}</h1>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal"
-                                                                    aria-label="Close"></button>
-                                                            </div>
-                                                            <!-- Body Modal -->
-                                                            <div
-                                                                class="modal-body d-flex flex-column align-items-center justify-content-center text-center">
-                                                                <label for="message" class="form-label fw-bold">Pesan
-                                                                    Anda:</label>
-                                                                <textarea id="message" name="message" class="form-control p-3 border rounded-3 text-center" rows="4"
-                                                                    placeholder="Tulis pesan di sini..." style="width: 100%; max-width: 450px;"></textarea>
-                                                            </div>
+                                                            <!-- Form di dalam modal -->
+                                                            <form id="messageForm" action="{{ route('messages') }}"
+                                                                method="POST">
+                                                                @csrf <!-- CSRF Token -->
 
-                                                            <!-- Footer Modal -->
-                                                            <div class="modal-footer d-flex justify-content-between">
-                                                                <button class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">
-                                                                    <i class="bi bi-x-circle"></i> Batal
-                                                                </button>
-                                                                <button class="btn app-btn-primary"
-                                                                    data-bs-toggle="modal">Kirim Pesan
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                        width="16" height="16"
-                                                                        fill="currentColor"
-                                                                        class="bi bi-arrow-bar-right"
-                                                                        viewBox="0 0 16 16">
-                                                                        <path fill-rule="evenodd"
-                                                                            d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8m-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5" />
-                                                                    </svg></button>
-                                                            </div>
+                                                                <!-- Modal Header -->
+                                                                <div class="modal-header">
+                                                                    <h1 class="modal-title fs-5"
+                                                                        id="exampleModalToggleLabel">Kirim Pesan ke
+                                                                        {{ $pegawai->nama }}</h1>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+
+                                                                <!-- Modal Body -->
+                                                                <div
+                                                                    class="modal-body d-flex flex-column align-items-center justify-content-center text-center">
+                                                                    <label for="message"
+                                                                        class="form-label fw-bold">Pesan Anda:</label>
+                                                                    <textarea id="message" name="message" class="form-control p-3 border rounded-3 text-center" rows="9"
+                                                                        placeholder="Tulis pesan di sini..." style="width: 100%; max-width: 550px;" required></textarea>
+
+                                                                    <!-- Input Hidden untuk ID Penerima -->
+                                                                    <input type="hidden" id="receiver_id"
+                                                                        name="receiver_id"
+                                                                        value="{{ $pegawai->id }}">
+                                                                    <input type="hidden" id="receiver_type"
+                                                                        name="receiver_type" value="pegawai">
+                                                                </div>
+
+                                                                <!-- Modal Footer -->
+                                                                <div
+                                                                    class="modal-footer d-flex justify-content-between">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">
+                                                                        <i class="bi bi-x-circle"></i> Batal
+                                                                    </button>
+                                                                    <button type="submit"
+                                                                        class="btn app-btn-primary">
+                                                                        Kirim Pesan
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                            width="16" height="16"
+                                                                            fill="currentColor"
+                                                                            class="bi bi-arrow-bar-right"
+                                                                            viewBox="0 0 16 16">
+                                                                            <path fill-rule="evenodd"
+                                                                                d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8m-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5" />
+                                                                        </svg>
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+
                                                         </div>
                                                     </div>
                                                 </div>
+
                                             </td>
 
                                         </tr>

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,11 +13,11 @@ class Message extends Model
 
     public function sender()
     {
-        return $this->morphTo();
+        return $this->morphTo('sender', 'sender_type', 'sender_id');
     }
 
     public function receiver()
     {
-        return $this->morphTo();
+        return $this->morphTo('receiver', 'receiver_type', 'receiver_id');
     }
 }
