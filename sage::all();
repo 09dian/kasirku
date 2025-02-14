@@ -1,0 +1,35 @@
+[90m= [39m[34;4mIlluminate\Support\Collection[39;24m {#5255
+    [34mall[39m: [
+      {#5253
+        +"[1mid[22m": [35m1[39m,
+        +"[1msender_id[22m": [35m1[39m,
+        +"[1msender_type[22m": "[32muser[39m",
+        +"[1mreceiver_id[22m": [35m1[39m,
+        +"[1mreceiver_type[22m": "[32mpegawai[39m",
+        +"[1mmessage[22m": "[32mw[39m",
+        +"[1mcreated_at[22m": "[32m2025-02-14 08:25:57[39m",
+        +"[1mupdated_at[22m": "[32m2025-02-14 08:25:57[39m",
+      },
+      {#5250
+        +"[1mid[22m": [35m2[39m,
+        +"[1msender_id[22m": [35m1[39m,
+        +"[1msender_type[22m": "[32muser[39m",
+        +"[1mreceiver_id[22m": [35m1[39m,
+        +"[1mreceiver_type[22m": "[32mpegawai[39m",
+        +"[1mmessage[22m": "[32mnju naon ey[39m",
+        +"[1mcreated_at[22m": "[32m2025-02-14 08:26:15[39m",
+        +"[1mupdated_at[22m": "[32m2025-02-14 08:26:15[39m",
+      },
+      {#5249
+        +"[1mid[22m": [35m3[39m,
+        +"[1msender_id[22m": [35m1[39m,
+        +"[1msender_type[22m": "[32muser[39m",
+        +"[1mreceiver_id[22m": [35m1[39m,
+        +"[1mreceiver_type[22m": "[32mpegawai[39m",
+        +"[1mmessage[22m": "[32mhty[39m",
+        +"[1mcreated_at[22m": "[32m2025-02-14 08:26:50[39m",
+        +"[1mupdated_at[22m": "[32m2025-02-14 08:26:50[39m",
+      },
+    ],
+  }
+

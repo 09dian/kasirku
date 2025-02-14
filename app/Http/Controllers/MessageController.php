@@ -12,42 +12,49 @@ class MessageController extends Controller
 {
     public function index()
     {
-        return view('home.pesan', ['title' => 'Pesan']);
+        return view('home.pesan', ['title' => 'Pesan']); // Tampilkan view pesan.blade.php
     }
-    public function sendMessage(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
-            'receiver_id' => 'required|integer',
+            'receiver_id' => 'required',
             'receiver_type' => 'required|in:user,pegawai',
-            'message' => 'required|string',
+            'message' => 'required'
         ]);
-
+        // Menentukan pengirim sesuai dengan yang sedang login
+        $sender = auth()->user(); // Untuk User
+        $sender_type = 'user'; // Asumsikan default user
+        
+        // Jika yang login adalah pegawai
+        if (auth()->guard('pegawai')->check()) {
+            $sender = auth()->guard('pegawai')->user(); // Untuk Pegawai
+            $sender_type = 'pegawai'; // Menentukan tipe pengirim
+        }
+    
+        // Cek jika penerima adalah user atau pegawai
+        if ($request->receiver_type === 'user') {
+            $receiver = User::find($request->receiver_id);
+        } else {
+            $receiver = Pegawai::find($request->receiver_id);
+        }
+    
+        // Pastikan hanya user & pegawai dengan id_user yang sama bisa berkomunikasi
+        if (!$receiver || $receiver->id_user != $sender->id) {
+            return response()->json(['error' => 'Tidak bisa mengirim pesan ke penerima ini'], 403);
+        }
+    
+        // Simpan pesan jika validasi lolos
         Message::create([
-            'sender_id' => Auth::id(),
-            'sender_type' => Auth::user() instanceof User ? 'user' : 'pegawai',
+            'sender_id' => $sender->id,
+            'sender_type' => $sender_type,  // Gunakan tipe pengirim sesuai dengan yang login
             'receiver_id' => $request->receiver_id,
             'receiver_type' => $request->receiver_type,
-            'message' => $request->message,
+            'message' => htmlspecialchars($request->message, ENT_QUOTES, 'UTF-8')
         ]);
-
-        return response()->json(['message' => 'Pesan terkirim!']);
+    
+        return redirect()->route('pegawai')->with('success', 'Pesan Berhasil Dikirim');
     }
-
-    public function getMessages($receiver_id, $receiver_type)
-    {
-        $messages = Message::where(function ($query) use ($receiver_id, $receiver_type) {
-            $query->where('sender_id', Auth::id())
-                ->where('sender_type', Auth::user() instanceof User ? 'user' : 'pegawai')
-                ->where('receiver_id', $receiver_id)
-                ->where('receiver_type', $receiver_type);
-        })->orWhere(function ($query) use ($receiver_id, $receiver_type) {
-            $query->where('receiver_id', Auth::id())
-                ->where('receiver_type', Auth::user() instanceof User ? 'user' : 'pegawai')
-                ->where('sender_id', $receiver_id)
-                ->where('sender_type', $receiver_type);
-        })->orderBy('created_at', 'asc')->get();
-
-        return response()->json($messages);
-    }
+    
+    
     
 }

@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Message;
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Pegawai;
 use Illuminate\Support\Facades\Hash;
 
 class LoginPegawaiController extends Controller
@@ -35,10 +36,26 @@ class LoginPegawaiController extends Controller
 
     public function index()
     {
-        // Ambil data pengguna yang sedang login
+        // Ambil data pegawai yang sedang login
         $pegawai = Auth::guard('pegawai')->user();
-        return view('home_pegawai.user_pegawai', compact('pegawai'), ['title' => 'Pegawai']);
+    
+        // Ambil pesan yang dikirim atau diterima oleh pegawai yang sedang login
+        $messages = Message::where(function ($query) use ($pegawai) {
+            $query->where('sender_id', $pegawai->id)
+                  ->orWhere('receiver_id', $pegawai->id);
+        })->get();
+    
+        // Kirim data pegawai dan pesan ke tampilan
+        return view('home_pegawai.user_pegawai', compact('pegawai', 'messages'), ['title' => 'Pesan']);
     }
+    
+
+
+
+
+
+
+
     public function logout(Request $request)
     {
         // Logout dari guard 'pegawai'

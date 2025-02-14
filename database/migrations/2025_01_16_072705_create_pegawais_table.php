@@ -13,18 +13,22 @@ return new class extends Migration
     {
         Schema::create('pegawais', function (Blueprint $table) {
             $table->id();
-            $table->string('id_user');
+            $table->unsignedBigInteger('id_user'); // Foreign key ke tabel users
             $table->string('no_pegawai')->unique(); 
             $table->string('password');
-            $table->string('nama'); //nama
-            $table->string('ttl'); //ttl
-            $table->text('alamat'); //alamat
-            $table->string('no_hp'); //nomor hp
+            $table->string('nama'); 
+            $table->string('ttl'); 
+            $table->text('alamat'); 
+            $table->string('no_hp'); 
             $table->string('nama_toko');
             $table->string('gambar')->default('user.png');            
-            $table->timestamp('terakhir_login')->nullable(); // Terakhir Login
+            $table->timestamp('terakhir_login')->nullable(); 
             $table->timestamps();
+        
+            // Foreign key constraint
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
         });
+        
     }
 
     /**

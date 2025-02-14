@@ -2,7 +2,6 @@
 const imageUpload = document.getElementById('imageUpload');
 const previewImage = document.getElementById('previewImage');
 
-
 // Script mengubah gambar saat dipilih file
 if (imageUpload && previewImage) {
     imageUpload.addEventListener('change', function(event) {
@@ -20,20 +19,23 @@ if (imageUpload && previewImage) {
 const selectRole = document.getElementById('role');
 const formPemilik = document.getElementById('form-pemilik');
 const formPegawai = document.getElementById('form-pegawai');
-// Tampilkan form pemilik secara default
-formPemilik.style.display = 'block';
-formPegawai.style.display = 'none';
 
-// Event saat dropdown berubah
-selectRole.addEventListener('change', function() {
-if (this.value === 'pegawai') {
-    formPemilik.style.display = 'none';
-    formPegawai.style.display = 'block';
-} else {
-    formPegawai.style.display = 'none';
+// Tampilkan form pemilik secara default
+if (formPemilik && formPegawai) {
     formPemilik.style.display = 'block';
+    formPegawai.style.display = 'none';
+
+    // Event saat dropdown berubah
+    selectRole.addEventListener('change', function() {
+        if (this.value === 'pegawai') {
+            formPemilik.style.display = 'none';
+            formPegawai.style.display = 'block';
+        } else {
+            formPegawai.style.display = 'none';
+            formPemilik.style.display = 'block';
+        }
+    });
 }
-});
 
 function updateSwitch(checkbox) {
     // Jika checkbox dicentang, nilai checkbox menjadi 1 (Aktif)
@@ -46,3 +48,4 @@ function updateSwitch(checkbox) {
         document.getElementById('switchLabel').textContent = 'Tidak Aktif'; // Ubah label menjadi Tidak Aktif
     }
 }
+

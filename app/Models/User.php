@@ -52,4 +52,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+     // Pesan yang dikirim oleh user
+     public function sentMessages()
+     {
+         return $this->morphMany(Message::class, 'sender');
+     }
+ 
+     // Pesan yang diterima oleh user
+     public function receivedMessages()
+     {
+         return $this->morphMany(Message::class, 'receiver');
+     }
 }
