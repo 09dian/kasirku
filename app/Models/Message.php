@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Models;
 
@@ -9,7 +9,23 @@ class Message extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['receiver_id', 'receiver_type', 'sender_id', 'sender_type', 'message'];
+    protected $fillable = [
+        'sender_id',
+        'sender_type',
+        'receiver_id',
+        'receiver_type',
+        'message',
+    ];
 
+    // Relasi ke pengirim (sender)
+    public function sender()
+    {
+        return $this->belongsTo(User::class, 'sender_id');
+    }
 
+    // Relasi ke penerima (receiver)
+    public function receiver()
+    {
+        return $this->belongsTo(User::class, 'receiver_id');
+    }
 }

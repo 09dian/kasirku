@@ -25,7 +25,7 @@ class LoginPegawaiController extends Controller
             // Jika berhasil login, update waktu terakhir login
             $pegawai = Auth::guard('pegawai')->user();
             $pegawai->update(['terakhir_login' => now()]);
-        return redirect('/home_pegawai');
+            return redirect('/home_pegawai');
         }
 
         // Jika gagal login
@@ -38,23 +38,13 @@ class LoginPegawaiController extends Controller
     {
         // Ambil data pegawai yang sedang login
         $pegawai = Auth::guard('pegawai')->user();
-    
-        // Ambil pesan yang dikirim atau diterima oleh pegawai yang sedang login
-        $messages = Message::where(function ($query) use ($pegawai) {
-            $query->where('sender_id', $pegawai->id)
-                  ->orWhere('receiver_id', $pegawai->id);
-        })->get();
-    
-        // Kirim data pegawai dan pesan ke tampilan
-        return view('home_pegawai.user_pegawai', compact('pegawai', 'messages'), ['title' => 'Pesan']);
+        $id_pegawai = Auth::guard('pegawai')->id();
+        // Mengambil data pesan yang dikirim ke pegawai yang sedang login
+        $messages = Message::where('receiver_id', $id_pegawai)->get();
+       $total_message = count($messages);
+
+        return view('home_pegawai.user_pegawai', compact('pegawai', 'messages','total_message'), ['title' => 'Pesan']);
     }
-    
-
-
-
-
-
-
 
     public function logout(Request $request)
     {
