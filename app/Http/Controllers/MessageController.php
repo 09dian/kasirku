@@ -16,6 +16,7 @@ class MessageController extends Controller
     }
     public function store(Request $request)
     {
+      
         $request->validate([
             'receiver_id' => 'required',
             'receiver_type' => 'required|in:user,pegawai',
@@ -23,16 +24,16 @@ class MessageController extends Controller
         ]);
         // Menentukan pengirim sesuai dengan yang sedang login
         $sender = auth()->user(); // Untuk User
-        $sender_type = 'user'; // Asumsikan default user
+        $sender_type = Auth::user()->name; // Asumsikan default user
         
         // Jika yang login adalah pegawai
         if (auth()->guard('pegawai')->check()) {
             $sender = auth()->guard('pegawai')->user(); // Untuk Pegawai
-            $sender_type = 'pegawai'; // Menentukan tipe pengirim
+            $sender_type = Auth::guard('pegawai')->user()->nama; // Menentukan tipe pengirim
         }
     
         // Cek jika penerima adalah user atau pegawai
-        if ($request->receiver_type === 'user') {
+        if ($request->receiver_type === Auth::user()->name) {
             $receiver = User::find($request->receiver_id);
         } else {
             $receiver = Pegawai::find($request->receiver_id);
