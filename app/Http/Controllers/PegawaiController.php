@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Message;
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,8 +19,11 @@ class PegawaiController extends Controller
         // Mengambil data pegawai yang sesuai dengan id_user
         $pegawais = Pegawai::where('id_user', $id_user)->get(); // Query berdasarkan id_user
     
+        $id_pemilik = Auth::user()->id;
+        $messages = Message::where('sender_id', $id_pemilik)->get();
+        $total_message = count($messages);
         // Mengirim data pegawai ke view
-        return view('home.pegawai', [
+        return view('home.pegawai',compact('total_message'), [
             'title' => 'Pegawai',
             'pegawais' => $pegawais, // Mengirim data ke view
         ]);

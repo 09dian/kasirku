@@ -1,7 +1,6 @@
 <?php
 
-use App\Models\Hasil;
-use App\Models\Kategori;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CabangController;
 use App\Http\Controllers\ForgotController;
@@ -37,7 +36,6 @@ Route::get('/home_pegawai', [LoginPegawaiController::class, 'index'])
 //pesan
 Route::get('/notifikasi', [MessageController::class, 'index'])->middleware('auth')->name('notifikasi');
 Route::post('/messages', [MessageController::class, 'store'])->middleware('auth')->name('messages'); // untuk pemilik
-Route::post('/messages', [MessageController::class, 'store'])->middleware('auth:pegawai')->name('messages'); // untuk pegawai
 
 
 Route::get('/all_pesan', function () {
@@ -55,15 +53,10 @@ Route::get('/produk', [ProdukController::class,'index'])->middleware('auth')->na
 Route::post('/tambah_produk', [ProdukController::class, 'store'])->middleware('auth')->name('tambah_produk');
 Route::delete('/produk/{id}', [ProdukController::class, 'destroy'])->middleware('auth')->name('produk_delete');
 Route::patch('/produk/{id}', [ProdukController::class, 'update'])->middleware('auth')->name('produk_update');
+Route::get('/tambah_produk', [ProdukController::class, 'produk'])->middleware('auth')->name('tambah_produk');
 
-Route::get('/tambah_produk', function () {
-    $kategori= Kategori::all();
-    return view('home.tambah_produk', compact('kategori'),['title' => 'Produk']);
-})->middleware('auth')->name('tambah_produk');
-Route::get('/home', function () {
-    $hasil=Hasil::latest()->first();
-    return view('home.home', compact('hasil'),['title' => 'Home Pemilik']);
-})->middleware('auth')->name('home');
+Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
+
 Route::get('/pos', function () {
     return view('home.pos', ['title' => 'Pos']);
 })->middleware('auth')->name('pos');
@@ -78,6 +71,4 @@ Route::get('/kategori',[KategoriController::class,'index'])->middleware('auth')-
 Route::post('/tambah_kategori',[KategoriController::class,'create'])->middleware('auth')->name('tambah_kategori');
 Route::delete('/kategori/{id}',[KategoriController::class,'destroy'])->middleware('auth')->name('kategori_delete');
 Route::patch('/kategori/{id}', [KategoriController::class, 'update'])->middleware('auth')->name('kategori_update');
-Route::get('/tambah_kategori', function () {
-    return view('home.tambah_kategori', ['title' => 'Produk']);
-})->middleware('auth')->name('tambah_kategori'); //kategori
+Route::get('/tambah_kategori',[KategoriController::class, 'kategori'])->middleware('auth')->name('tambah_kategori'); //kategori

@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout :totalMessage="$total_message">
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
