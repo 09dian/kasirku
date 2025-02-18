@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Message;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class SettingsController extends Controller
 {
@@ -13,7 +14,10 @@ class SettingsController extends Controller
      */
     public function settings()
     {
-        return view('home.settings', ['title' => 'Settings']);
+        $id_pemilik = Auth::user()->id;
+        $messages = Message::where('sender_id', $id_pemilik)->get();
+        $total_message = count($messages);
+        return view('home.settings', compact('total_message'),['title' => 'Settings']);
     }
 
     /**
@@ -26,7 +30,7 @@ class SettingsController extends Controller
 
         // Array untuk menampung pesan
         $pesan = [];
-        
+
         // Update gambar
         if ($request->hasFile('gambar')) {
             // Hapus gambar lama jika ada
@@ -37,23 +41,23 @@ class SettingsController extends Controller
             $file = $request->file('gambar');
             $path = $file->store('profile_images', 'public');
             $user->gambar = $path;
-            
+
             // Tambahkan pesan sukses
             $pesan[] = 'Foto berhasil diperbarui.';
         }
-        
+
         // Update nama
         if ($request->has('name') && $request->input('name') !== $user->name) {
             $user->name = $request->input('name');
             $pesan[] = 'Nama berhasil diubah.';
         }
-        
+
         // Update email
         if ($request->has('email') && $request->input('email') !== $user->email) {
             $user->email = $request->input('email');
             $pesan[] = 'Email berhasil diubah.';
         }
-        
+
         // Update tanggal lahir
         if ($request->has('ttl') && $request->input('ttl') !== $user->ttl) {
             $user->ttl = $request->input('ttl');
@@ -67,7 +71,7 @@ class SettingsController extends Controller
         }
         // Update nama toko
         if ($request->has('nama_toko') && $request->input('nama_toko') !== $user->nama_toko) {
-            $user->nama_toko= $request->input('nama_toko');
+            $user->nama_toko = $request->input('nama_toko');
             $pesan[] = 'Nama toko berhasil diubah.';
         }
 
@@ -76,7 +80,7 @@ class SettingsController extends Controller
 
         // Kirim pesan sukses
         $berhasil = implode(' ', $pesan);
-        
+
         // Redirect halaman dengan pesan sukses
         return redirect()->route('settings')->with('success', $berhasil);
     }

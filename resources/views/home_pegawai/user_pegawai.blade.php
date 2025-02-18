@@ -19,7 +19,7 @@
         </div>
     @endforeach
 
-    <h3>Total Pesan: {{ $total_message }}</h3>
+
 
 
 </x-layout>
