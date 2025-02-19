@@ -20,8 +20,16 @@ class ProdukController extends Controller
     public function produk(){
         $kategori= Kategori::all();
         $id_pemilik = Auth::user()->id;
-        $messages = Message::where('sender_id', $id_pemilik)->get();
-        
+       // Ambil hanya pesan terbaru untuk setiap receiver_id
+$messages = Message::where('sender_id', $id_pemilik)
+    ->whereIn('id', function ($query) use ($id_pemilik) {
+        $query->selectRaw('MAX(id)')
+            ->from('messages')
+            ->where('sender_id', $id_pemilik)
+            ->groupBy('receiver_id');
+    })
+    ->latest()
+    ->get();
         return view('home.tambah_produk', compact('kategori','messages'),['title' => 'Produk']);
     }
     
@@ -30,8 +38,16 @@ class ProdukController extends Controller
         $produks = Produk::all();
         $kategoris = Kategori::all();
         $id_pemilik = Auth::user()->id;
-        $messages = Message::where('sender_id', $id_pemilik)->get();
-        
+       // Ambil hanya pesan terbaru untuk setiap receiver_id
+$messages = Message::where('sender_id', $id_pemilik)
+    ->whereIn('id', function ($query) use ($id_pemilik) {
+        $query->selectRaw('MAX(id)')
+            ->from('messages')
+            ->where('sender_id', $id_pemilik)
+            ->groupBy('receiver_id');
+    })
+    ->latest()
+    ->get();
         return view('home.produk', compact('produks', 'kategoris','messages'), ['title' => 'Produk']);
     }
 

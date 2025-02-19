@@ -10,9 +10,20 @@ use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        return view('home.pesan', ['title' => 'Pesan']); // Tampilkan view pesan.blade.php
+        $id_pemilik = Auth::user()->id;
+        // Ambil hanya pesan terbaru untuk setiap receiver_id
+$messages = Message::where('sender_id', $id_pemilik)
+    ->whereIn('id', function ($query) use ($id_pemilik) {
+        $query->selectRaw('MAX(id)')
+            ->from('messages')
+            ->where('sender_id', $id_pemilik)
+            ->groupBy('receiver_id');
+    })
+    ->latest()
+    ->get();
+        return view('home.pesan', compact('messages'), ['title' => 'Pesan']); // Tampilkan view pesan.blade.php
     }
 
     public function store(Request $request)
@@ -54,5 +65,20 @@ class MessageController extends Controller
         ]);
 
         return redirect()->route('pegawai')->with('success', 'pesan berhasil di kirim');
+    }
+    public function all_pesan()
+    {
+        $id_pemilik = Auth::user()->id;
+        // Ambil pesan terbaru untuk setiap receiver_id
+        // Ambil hanya pesan terbaru untuk setiap receiver_id
+$messages = Message::where('sender_id', $id_pemilik)
+    ->whereIn('id', function ($query) use ($id_pemilik) {
+        $query->selectRaw('MAX(id)')
+            ->from('messages')
+            ->where('sender_id', $id_pemilik)
+            ->groupBy('receiver_id');
+    })
+    ->latest()
+    ->get(); return view('home.all_pesan', compact('messages'), ['title' => 'Semua Pesan']);
     }
 }

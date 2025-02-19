@@ -39,6 +39,7 @@
                             </a>
                         </div><!--//col-->
                         <div class="app-utilities col-auto">
+                            {{-- notifikasi --}}
                             <div class="app-utility-item app-notifications-dropdown dropdown">
                                 <a class="dropdown-toggle no-toggle-arrow" id="notifications-dropdown-toggle"
                                     data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"
@@ -50,7 +51,8 @@
                                         <path fill-rule="evenodd"
                                             d="M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
                                     </svg>
-                                    <span class="badge text-bg-danger text-white position-relative" style="top: -10px; right: 5px;">{{ count($totalMessage)}}</span> 
+                                    <span class="badge text-bg-danger text-white position-relative"
+                                        style="top: -10px; right: 5px;">{{ count($totalMessage) }}</span>
                                     {{-- banyak pesan --}}
 
                                 </a><!--//dropdown-toggle-->
@@ -61,21 +63,32 @@
                                             {{ ucwords(strtolower(Auth::user()->nama_toko)) }}</h5>
                                     </div><!--//dropdown-menu-title-->
                                     <div class="dropdown-menu-content">
-                                        <div class="item p-3">
-                                            <div class="row gx-2 justify-content-between align-items-center">
-                                                <div class="col-auto">
-                                                    <img class="profile-image rounded-circle"
-                                                        src="assets/images/profiles/profile-2.png" alt="">
-                                                </div><!--//col-->
-                                                <div class="col">
-                                                    <div class="info">
-                                                        <div class="desc">James sent you a new message.</div>
-                                                        <div class="meta"> 7 days ago</div>
-                                                    </div>
-                                                </div><!--//col-->
-                                            </div><!--//row-->
-                                            <a class="link-mask" href="{{ route('notifikasi') }}"></a>
-                                        </div><!--//item-->
+                                        @if ($totalMessage->isNotEmpty())
+                                            @foreach ($totalMessage as $item)
+                                                <div class="item p-3">
+                                                    <div class="row gx-2 justify-content-between align-items-center">
+                                                        <div class="col-auto">
+                                                            <img class="profile-image rounded-circle"
+                                                                src="{{ asset('assets/images/profiles/profile-2.png') }}"
+                                                                alt="Profile">
+                                                        </div><!--//col-->
+                                                        <div class="col">
+                                                            <div class="info">
+                                                                <div class="desc">{{ $item->sender_type }}</div>
+                                                                <label for="Pesan">{{ $item->message }}</label>
+                                                                <div class="meta">
+                                                                    {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}
+                                                                </div>
+                                                            </div>
+                                                        </div><!--//col-->
+                                                    </div><!--//row-->
+                                                    <a class="link-mask"
+                                                        href="{{ route('notifikasi', ['id' => $item->id]) }}"></a>
+                                                </div><!--//item-->
+                                            @endforeach
+                                        @else
+                                            <div class="p-3 text-center">Tidak ada pesan baru</div>
+                                        @endif
                                     </div><!--//dropdown-menu-content-->
 
                                     <div class="dropdown-menu-footer p-2 text-center">
@@ -83,7 +96,9 @@
                                     </div>
 
                                 </div><!--//dropdown-menu-->
-                            </div><!--//app-utility-item-->
+                            </div>
+                            {{-- notifikasi --}}
+                            {{-- fhoto profile --}}
                             <div class="app-utility-item app-user-dropdown dropdown">
                                 <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown"
                                     href="#" role="button" aria-expanded="false"><img class="rounded-circle"
@@ -98,6 +113,7 @@
                                     <li><a class="dropdown-item" href="{{ route('logout') }}">Kaluar</a></li>
                                 </ul>
                             </div><!--//app-user-dropdown-->
+                            {{-- alhir fhoto profile --}}
                         </div><!--//app-utilities-->
                     </div><!--//row-->
                 </div><!--//app-header-content-->
