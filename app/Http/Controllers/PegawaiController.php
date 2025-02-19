@@ -20,8 +20,16 @@ class PegawaiController extends Controller
         $pegawais = Pegawai::where('id_user', $id_user)->get(); // Query berdasarkan id_user
     
         $id_pemilik = Auth::user()->id;
-        $messages = Message::where('sender_id', $id_pemilik)->get();
-        
+       // Ambil hanya pesan terbaru untuk setiap receiver_id
+$messages = Message::where('sender_id', $id_pemilik)
+->whereIn('id', function ($query) use ($id_pemilik) {
+    $query->selectRaw('MAX(id)')
+        ->from('messages')
+        ->where('sender_id', $id_pemilik)
+        ->groupBy('receiver_id');
+})
+->latest()
+->get();
         // Mengirim data pegawai ke view
         return view('home.pegawai',compact('messages'), [
             'title' => 'Pegawai',

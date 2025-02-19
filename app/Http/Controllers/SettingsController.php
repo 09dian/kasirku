@@ -15,9 +15,8 @@ class SettingsController extends Controller
     public function settings()
     {
         $id_pemilik = Auth::user()->id;
-        $messages = Message::where('sender_id', $id_pemilik)->get();
-        $total_message = count($messages);
-        return view('home.settings', compact('total_message'),['title' => 'Settings']);
+        $messages = Message::where('sender_id', $id_pemilik)->selectRaw('*, MAX(created_at) as max_created_at')->groupBy('receiver_id')->orderBy('max_created_at', 'desc')->get();
+        return view('home.settings', compact('messages'), ['title' => 'Settings']);
     }
 
     /**
