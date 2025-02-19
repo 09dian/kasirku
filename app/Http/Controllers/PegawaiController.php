@@ -21,9 +21,9 @@ class PegawaiController extends Controller
     
         $id_pemilik = Auth::user()->id;
         $messages = Message::where('sender_id', $id_pemilik)->get();
-        $total_message = count($messages);
+        
         // Mengirim data pegawai ke view
-        return view('home.pegawai',compact('total_message'), [
+        return view('home.pegawai',compact('messages'), [
             'title' => 'Pegawai',
             'pegawais' => $pegawais, // Mengirim data ke view
         ]);

@@ -12,15 +12,15 @@ class KategoriController extends Controller
     public function kategori(){
         $id_pemilik = Auth::user()->id;
         $messages = Message::where('sender_id', $id_pemilik)->get();
-        $total_message = count($messages);
-        return view('home.tambah_kategori', compact('total_message'),['title' => 'Produk']);
+        
+        return view('home.tambah_kategori', compact('messages'),['title' => 'Produk']);
     }
     public function index(){
         $kategori=Kategori::all();
         $id_pemilik = Auth::user()->id;
         $messages = Message::where('sender_id', $id_pemilik)->get();
-        $total_message = count($messages);
-        return view('home.kategori',compact('kategori','total_message'), ['title' => 'Produk']);
+        
+        return view('home.kategori',compact('kategori','messages'), ['title' => 'Produk']);
     }
 
     public function create(Request $request){

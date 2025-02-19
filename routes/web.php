@@ -37,7 +37,6 @@ Route::get('/home_pegawai', [LoginPegawaiController::class, 'index'])
 Route::get('/notifikasi', [MessageController::class, 'index'])->middleware('auth')->name('notifikasi');
 Route::post('/messages', [MessageController::class, 'store'])->middleware('auth')->name('messages'); // untuk pemilik
 
-
 Route::get('/all_pesan', function () {
     return view('home.all_pesan', ['title' => 'Semua Pesan']);
 })->middleware('auth')->name('all_pesan');
@@ -71,4 +70,4 @@ Route::get('/kategori',[KategoriController::class,'index'])->middleware('auth')-
 Route::post('/tambah_kategori',[KategoriController::class,'create'])->middleware('auth')->name('tambah_kategori');
 Route::delete('/kategori/{id}',[KategoriController::class,'destroy'])->middleware('auth')->name('kategori_delete');
 Route::patch('/kategori/{id}', [KategoriController::class, 'update'])->middleware('auth')->name('kategori_update');
-Route::get('/tambah_kategori',[KategoriController::class, 'kategori'])->middleware('auth')->name('tambah_kategori'); //kategori
+Route::get('/tambah_kategori',[KategoriController::class, 'kategori'])->middleware('auth')->name('tambah_kategori'); //kategorit

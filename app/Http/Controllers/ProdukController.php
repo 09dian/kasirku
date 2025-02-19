@@ -21,8 +21,8 @@ class ProdukController extends Controller
         $kategori= Kategori::all();
         $id_pemilik = Auth::user()->id;
         $messages = Message::where('sender_id', $id_pemilik)->get();
-        $total_message = count($messages);
-        return view('home.tambah_produk', compact('kategori','total_message'),['title' => 'Produk']);
+        
+        return view('home.tambah_produk', compact('kategori','messages'),['title' => 'Produk']);
     }
     
     public function index()
@@ -31,8 +31,8 @@ class ProdukController extends Controller
         $kategoris = Kategori::all();
         $id_pemilik = Auth::user()->id;
         $messages = Message::where('sender_id', $id_pemilik)->get();
-        $total_message = count($messages);
-        return view('home.produk', compact('produks', 'kategoris','total_message'), ['title' => 'Produk']);
+        
+        return view('home.produk', compact('produks', 'kategoris','messages'), ['title' => 'Produk']);
     }
 
     public function store(Request $request): \Illuminate\Http\RedirectResponse

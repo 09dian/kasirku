@@ -41,9 +41,8 @@ class LoginPegawaiController extends Controller
         $id_pegawai = Auth::guard('pegawai')->id();
         // Mengambil data pesan yang dikirim ke pegawai yang sedang login
         $messages = Message::where('receiver_id', $id_pegawai)->get();
-       $total_message = count($messages);
-
-        return view('home_pegawai.user_pegawai', compact('pegawai', 'messages','total_message'), ['title' => 'Pesan']);
+       
+        return view('home_pegawai.user_pegawai', compact('pegawai', 'messages'), ['title' => 'Pesan']);
     }
 
     public function logout(Request $request)
