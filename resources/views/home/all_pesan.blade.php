@@ -34,7 +34,7 @@
                                                         class="note">{{ $item->created_at->format('H:i') }}</span>
                                                 </td>
                                                 <td class="cell"><a class="btn-sm app-btn-secondary"
-                                                        href="#">Lihat</a></td>
+                                                        href="{{ route('notifikasi',['receiver_id'=>$item->receiver_id]) }}">Lihat</a></td>
                                             </tr>
                                         @endforeach
                                     </tbody>

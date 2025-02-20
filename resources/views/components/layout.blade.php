@@ -14,10 +14,10 @@
     <link rel="shortcut icon" href="favicon.ico">
 
     <!-- FontAwesome JS-->
-    <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
+    <script defer src="{{ asset('assets/plugins/fontawesome/js/all.min.js') }}"></script>
 
     <!-- App CSS -->
-    <link id="theme-style" rel="stylesheet" href="assets/css/portal.css">
+    <link id="theme-style" rel="stylesheet" href="{{ asset('assets/css/portal.css') }}">
 
 </head>
 
@@ -74,7 +74,8 @@
                                                         </div><!--//col-->
                                                         <div class="col">
                                                             <div class="info">
-                                                                <div class="desc">{{ $item->sender_type }}</div>
+                                                                <div class="desc"><b>{{ $item->sender_type }}</b>
+                                                                </div>
                                                                 <label for="Pesan">{{ $item->message }}</label>
                                                                 <div class="meta">
                                                                     {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}
@@ -83,7 +84,7 @@
                                                         </div><!--//col-->
                                                     </div><!--//row-->
                                                     <a class="link-mask"
-                                                        href="{{ route('notifikasi', ['id' => $item->id]) }}"></a>
+                                                        href="{{ route('notifikasi', ['receiver_id' => $item->receiver_id]) }}"></a>
                                                 </div><!--//item-->
                                             @endforeach
                                         @else
@@ -125,7 +126,7 @@
                 <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
                 <div class="app-branding">
                     <a class="app-logo" href="{{ route('home') }}"><img class="logo-icon me-2"
-                            src="assets/images/app-logo.svg" alt="logo"><span
+                            src="{{ asset('assets/images/app-logo.svg') }}" alt="logo"><span
                             class="logo-text">KASIRKU</span></a>
 
                 </div><!--//app-branding-->
