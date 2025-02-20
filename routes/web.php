@@ -34,12 +34,12 @@ Route::get('/home_pegawai', [LoginPegawaiController::class, 'index'])
 
 
 //pesan
-Route::get('/notifikasi/{id}', [MessageController::class, 'index'])->middleware('auth')->name('notifikasi');
+Route::get('/notifikasi/{receiver_id}', [MessageController::class, 'index'])->middleware('auth')->name('notifikasi');//untuk balas pesan dan kirim
 Route::post('/messages', [MessageController::class, 'store'])->middleware('auth')->name('messages'); // untuk pemilik
-
+Route::post('/message', [MessageController::class, 'storeMessage'])->middleware('auth')->name('message'); // untuk kirim pesan dari halaman notifikasi
 Route::get('/all_pesan',[MessageController::class,'all_pesan'])->middleware('auth')->name('all_pesan');
+Route::get('/delete/{id}/{receiver_id}', [MessageController::class, 'delete'])->name('delete');
 
-// pegawai 
 Route::get('/pegawai', [PegawaiController::class, 'pegawai'])->middleware('auth')->name('pegawai');
 Route::post('/pegawai', [PegawaiController::class, 'create'])->middleware('auth')->name('pegawai');
 Route::delete('/pegawai/{id}', [PegawaiController::class, 'destroy'])->middleware('auth')->name('delete_pegawai');

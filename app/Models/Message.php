@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Message extends Model
 {
@@ -17,15 +18,15 @@ class Message extends Model
         'message',
     ];
 
-    // Relasi ke pengirim (sender)
-    public function sender()
+    // Relasi ke pengirim (sender) menggunakan polymorphic relationship
+    public function sender(): MorphTo
     {
-        return $this->belongsTo(User::class, 'sender_id');
+        return $this->morphTo();
     }
 
-    // Relasi ke penerima (receiver)
-    public function receiver()
+    // Relasi ke penerima (receiver) menggunakan polymorphic relationship
+    public function receiver(): MorphTo
     {
-        return $this->belongsTo(User::class, 'receiver_id');
+        return $this->morphTo();
     }
 }
