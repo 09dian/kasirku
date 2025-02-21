@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Hasil;
 use App\Models\Message;
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
@@ -39,10 +40,16 @@ class LoginPegawaiController extends Controller
         // Ambil data pegawai yang sedang login
         $pegawai = Auth::guard('pegawai')->user();
         $id_pegawai = Auth::guard('pegawai')->id();
+
         // Mengambil data pesan yang dikirim ke pegawai yang sedang login
-        $messages = Message::where('receiver_id', $id_pegawai)->get();
-       
-        return view('home_pegawai.user_pegawai', compact('pegawai', 'messages'), ['title' => 'Pesan']);
+        $messages = Message::where('receiver_id',  $id_pegawai)
+        ->whereIn('id', function ($query) use ( $id_pegawai) {
+            $query->selectRaw('MAX(id)')->from('messages')->where('receiver_id',  $id_pegawai)->groupBy('receiver_id');
+        })
+        ->latest()
+        ->get();
+        $hasil = Hasil::latest()->first();
+        return view('home_pegawai.user_pegawai', compact('pegawai', 'messages','hasil'), ['title' => 'Home Pegawai']);
     }
 
     public function logout(Request $request)
