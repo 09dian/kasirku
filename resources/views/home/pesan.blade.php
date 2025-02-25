@@ -13,7 +13,7 @@
                 style="height: 400px; overflow-y: scroll; border: 1px solid #ddd; padding: 15px; border-radius: 8px;">
 
                 @foreach ($all_pesan as $message)
-                    @if ($message->sender_id == Auth::id())
+                    @if ($message->sender_id == Auth::id() && Auth::user()->name==$message->sender_type)
                         <!-- Pesan yang dikirim oleh pengguna -->
                         <div class="d-flex justify-content-end align-items-center mb-1">
                             <div class="bg-primary text-white p-2 rounded border border-3 border-dark">
@@ -29,8 +29,8 @@
                                     </svg>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    {{-- <li><a class="dropdown-item" href="{{ route('edit'), $message->id }}">Edit</a></li> --}}
-                                    <li><a href="{{ route('delete', ['id' => $message->id, 'receiver_id' => $message->receiver_id]) }}"
+                                    <li>
+                                        <a href="{{ route('delete', ['id' => $message->id, 'receiver_id' => $message->receiver_id]) }}"
                                             class="dropdown-item">Hapus</a>
                                     </li>
                                 </ul>
@@ -49,19 +49,20 @@
             </div>
 
             <!-- Message Input Form -->
-            @if(isset($message))
-            <form id="chatForm" action="{{ route('message', $message->id ?? '') }}" method="POST" class="d-flex mt-3">
-                @csrf
-                <input type="hidden" id="receiver_id" name="receiver_id" value="{{ $message->receiver_id ?? '' }}">
-                <input type="hidden" id="receiver_type" name="receiver_type" value="{{ $message->receiver_type ?? '' }}">
-                <input type="text" class="form-control border border-3 border-dark" placeholder="Balas"
-                    id="messageInput" name="message" required>
-                <button type="submit" class="btn app-btn-primary theme-btn mx-auto ms-2">Kirim</button>
-            </form>
-        @else
-            <p class="text-muted">Tidak ada percakapan.</p>
-        @endif
-        
+            @if (isset($message))
+                <form id="chatForm" action="{{ route('messages', $pegawaiId) }}" method="POST" class="d-flex mt-3">
+                    @csrf
+                    <!-- Input Hidden untuk ID Penerima -->
+                    <input type="hidden" id="receiver_id" name="receiver_id" value="{{ $pegawaiId }}">
+                    <input type="hidden" id="receiver_type" name="receiver_type" value="{{ $pegawai->nama }}">
+                    <input type="text" class="form-control border border-3 border-dark" placeholder="Balas"
+                        id="messageInput" name="message" required>
+                    <button type="submit" class="btn app-btn-primary theme-btn mx-auto ms-2">Kirim</button>
+                </form>
+            @else
+                <p class="text-muted">Tidak ada percakapan.</p>
+            @endif
+
 
         </div>
     </div>

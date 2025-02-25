@@ -28,8 +28,9 @@ Route::put('/settings', [SettingsController::class, 'create'])->middleware('auth
 
 //pesan
 Route::get('/notifikasi/{receiver_id}', [MessageController::class, 'index'])->middleware('auth')->name('notifikasi');//untuk balas pesan dan kirim
-Route::post('/messages', [MessageController::class, 'store'])->middleware('auth')->name('messages'); // untuk pemilik
-Route::post('/message', [MessageController::class, 'storeMessage'])->middleware('auth')->name('message'); // untuk kirim pesan dari halaman notifikasi
+Route::post('/message', [MessageController::class, 'store'])->middleware('auth')->name('message'); // untuk pemilik
+
+Route::post('/messages/{pegawaiId}', [MessageController::class, 'storeMessage'])->middleware('auth')->name('messages'); // untuk kirim pesan dan balas pesan
 Route::get('/all_pesan',[MessageController::class,'all_pesan'])->middleware('auth')->name('all_pesan');
 Route::get('/delete/{id}/{receiver_id}', [MessageController::class, 'delete'])->name('delete');
 

@@ -271,7 +271,7 @@
                                                     <div class="modal-dialog modal-dialog-centered">
                                                         <div class="modal-content">
                                                             <!-- Form di dalam modal -->
-                                                            <form id="messageForm" action="{{ route('messages', $pegawai->id) }}" method="POST">
+                                                            <form id="messageForm" action="{{ route('message', $pegawai->id) }}" method="POST">
                                                                 @csrf <!-- CSRF Token -->
                                                                 <!-- Modal Header -->
                                                                 <div class="modal-header">
