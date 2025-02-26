@@ -10,12 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
-    public function index(Request $request, $receiver_id)
+    public function index(Request $request, $receiver_id)git
     {
         $userId = Auth::id(); // Ambil ID user yang sedang login
         $pegawaiId = $receiver_id; // ID pegawai
-        $pegawai = Pegawai::where('id', $pegawaiId)->first(); // ambil nama Pegawai
-        // Ambil pesan antara pemilik (id=1) dan pegawai (id=2)
+        $pegawai = Pegawai::where('id', $pegawaiId)->first(); // ambil nama Pegawai     
         $messages = Message::where('sender_id', $userId)
         ->whereIn('id', function ($query) use ($userId) {
             $query->selectRaw('MAX(id)')->from('messages')->where('sender_id', $userId)->groupBy('receiver_id');

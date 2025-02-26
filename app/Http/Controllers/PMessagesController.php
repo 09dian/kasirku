@@ -11,17 +11,19 @@ class PMessagesController extends Controller
 {
     public function index($receiver_id)
     {
-        $all_pesan = Message::where('receiver_id', $receiver_id)->get();
-        $pegawai = Auth::guard('pegawai')->user()->nama; // Pegawai yang sedang login
-        $balas =Message::where('sender_type', $pegawai)->get();
-        $id_pegawai = Auth::guard('pegawai')->user()->id;
+        $pegawai = Auth::guard('pegawai')->user(); // Pegawai yang sedang login
+        $id_pegawai = $pegawai->id;
+
+        
+
         $messages = Message::where('receiver_id', $id_pegawai)
             ->whereIn('id', function ($query) use ($id_pegawai) {
                 $query->selectRaw('MAX(id)')->from('messages')->where('receiver_id', $id_pegawai)->groupBy('receiver_id');
             })
             ->latest()
             ->get();
-        return view('home_pegawai.pegawai_all_message', compact('all_pesan', 'messages','balas'), ['title' => 'Pesan']);
+
+        return view('home_pegawai.pegawai_all_message', compact('all_pesan', 'messages'), ['title' => 'Pesan']);
     }
 
     public function store(Request $request)
