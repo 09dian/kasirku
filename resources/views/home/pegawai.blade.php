@@ -271,7 +271,9 @@
                                                     <div class="modal-dialog modal-dialog-centered">
                                                         <div class="modal-content">
                                                             <!-- Form di dalam modal -->
-                                                            <form id="messageForm" action="{{ route('message', $pegawai->id) }}" method="POST">
+                                                            <form id="messageForm" action="{{ route('messages', ['pegawaiId' => $pegawai->id]) }}" method="POST">
+
+
                                                                 @csrf <!-- CSRF Token -->
                                                                 <!-- Modal Header -->
                                                                 <div class="modal-header">
@@ -286,6 +288,7 @@
                                                                         placeholder="Tulis pesan di sini..." style="width: 100%; max-width: 550px;" required></textarea>
 
                                                                     <!-- Input Hidden untuk ID Penerima -->
+                                                                  
                                                                     <input type="hidden" id="receiver_id" name="receiver_id" value="{{ $pegawai->id }}">
                                                                     <input type="hidden" id="receiver_type" name="receiver_type" value="{{ $pegawai->nama }}">
                                                                 </div>

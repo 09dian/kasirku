@@ -13,8 +13,31 @@ class PMessagesController extends Controller
     {
         $pegawai = Auth::guard('pegawai')->user(); // Pegawai yang sedang login
         $id_pegawai = $pegawai->id;
+        $re = User::where('id', $pegawai->id_user)->first(); //ambil data pemilik yang sesuai dengan id_user pegawai
 
-        
+        if ($re->id == $id_pegawai) {
+            $all_pesan = Message::where(function ($query) use ($id_pegawai, $receiver_id) {
+                $query->where('sender_id', $id_pegawai)->where('receiver_id', $receiver_id);
+            })
+                ->orWhere(function ($query) use ($id_pegawai, $receiver_id) {
+                    $query->where('sender_id', $receiver_id)->where('receiver_id', $id_pegawai);
+                })
+                ->orderBy('created_at', 'asc')
+                ->get();
+        } else {
+            $all_pesan = Message::where(function ($query) use ($pegawai) {
+                // Pesan di mana pegawai sebagai penerima
+                $query->where('receiver_id', $pegawai->id)->where('receiver_type', $pegawai->nama);
+            })
+                ->orWhere(function ($query) use ($pegawai) {
+                    // Pesan di mana pegawai sebagai pengirim
+                    $query->where('sender_id', $pegawai->id)->where('sender_type', $pegawai->nama);
+                })
+                ->orderBy('created_at', 'asc')
+                ->get();
+        }
+
+   
 
         $messages = Message::where('receiver_id', $id_pegawai)
             ->whereIn('id', function ($query) use ($id_pegawai) {
@@ -23,39 +46,27 @@ class PMessagesController extends Controller
             ->latest()
             ->get();
 
-        return view('home_pegawai.pegawai_all_message', compact('all_pesan', 'messages'), ['title' => 'Pesan']);
+        return view('home_pegawai.pegawai_all_message', compact('all_pesan', 'messages', 'pegawai', 're', 'pegawai'), ['title' => 'Pesan']);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        // Validasi input
-        $request->validate([
-            'receiver_id' => 'required',
-            'nilai' => 'required',
-            'receiver_type' => 'required|string',
-            'message' => 'required|string|',
-        ]);
         $pegawai = Auth::guard('pegawai')->user(); // Pegawai yang sedang login
-        $receiverId = $request->receiver_id;
-        $receiverType = $request->receiver_type;
-        $messageText = $request->message;
-        $nilai = $request->nilai;
-        // Ambil data pemilik berdasarkan id_user pegawai
-        $pemilik = User::where('id', $pegawai->id_user)->first();
+        $request->validate([
+            'receiver_id' => 'required|integer', // ID penerima
+            'receiver_type' => 'required|string', // Tipe penerima (pegawai atau user)
+            'message' => 'required|string', // Isi pesan
+        ]);
 
-        if ($pemilik && $pegawai->id_user == $pemilik->id) {
-            // Simpan pesan ke database
-            Message::create([
-                'sender_id' => $pegawai->id,
-                'sender_type' => $pegawai->nama,
-                'receiver_id' => $receiverId,
-                'receiver_type' => $receiverType,
-                'message' => $messageText,
-            ]);
+        // Simpan pesan ke database
+        Message::create([
+            'sender_id' => $pegawai->id,
+            'sender_type' => $pegawai->nama,
+            'receiver_id' => $request->receiver_id,
+            'receiver_type' => $request->receiver_type,
+            'message' => $request->message,
+        ]);
 
-            return redirect()->route('pegawai_notifikasi', $nilai)->with('success', 'pesan berhasil di kirim');
-        } else {
-            dd('no'); // Jika tidak cocok
-        }
+        return redirect()->route('pegawai_notifikasi', $pegawai->id)->with('success', 'pesan berhasil di kirim');
     }
 }
