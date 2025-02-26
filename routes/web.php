@@ -28,7 +28,7 @@ Route::put('/settings', [SettingsController::class, 'create'])->middleware('auth
 
 //pesan
 Route::get('/notifikasi/{receiver_id}', [MessageController::class, 'index'])->middleware('auth')->name('notifikasi');//untuk balas pesan dan kirim
-Route::post('/message', [MessageController::class, 'store'])->middleware('auth')->name('message'); // untuk pemilik
+
 
 Route::post('/messages/{pegawaiId}', [MessageController::class, 'storeMessage'])->middleware('auth')->name('messages'); // untuk kirim pesan dan balas pesan
 Route::get('/all_pesan',[MessageController::class,'all_pesan'])->middleware('auth')->name('all_pesan');
@@ -72,4 +72,4 @@ Route::post('/login_pegawai', [LoginPegawaiController::class, 'ActionLogin'])->m
 Route::get('/home_pegawai', [LoginPegawaiController::class, 'index'])->middleware('auth:pegawai')->name('home_pegawai');
 Route::get('/logout_pegawai', [LoginPegawaiController::class, 'logout'])->middleware('auth:pegawai')->name('logout_pegawai'); // Pastikan hanya pegawai yang login yang bisa mengakses
 Route::get('/pegawai_notifikasi/{receiver_id}', [PMessagesController::class, 'index'])->middleware('auth:pegawai')->name('pegawai_notifikasi');
-Route::post('balas_pesan', [PMessagesController::class, 'store'])->middleware('auth:pegawai')->name('balas_pesan');
+Route::post('/pegawai_notifikasi/{id}', [PMessagesController::class, 'store'])->middleware('auth:pegawai')->name('message');
