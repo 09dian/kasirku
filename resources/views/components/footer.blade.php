@@ -13,6 +13,7 @@
 
 <!-- Javascript -->
 <script src="{{ asset('assets/js/kasirku.js') }}"></script>
+<script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/popper.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 

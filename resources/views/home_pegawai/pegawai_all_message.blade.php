@@ -27,9 +27,11 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="{{ route('delete', ['id' => $message->id, 'receiver_id' => $message->receiver_id]) }}"
+                                        <a href="{{ route('Pdelete', ['id' => $message->id, 'sender_id' => $message->sender_id]) }}"
                                             class="dropdown-item">Hapus</a>
                                     </li>
+
+                                    
                                 </ul>
                             </div>
                         </div>

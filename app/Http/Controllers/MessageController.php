@@ -15,13 +15,14 @@ class MessageController extends Controller
         $userId = Auth::id(); // Ambil ID user yang sedang login
         $pegawaiId = $receiver_id; // ID pegawai
         $pegawai = Pegawai::where('id', $pegawaiId)->first(); // ambil nama Pegawai
-     
+
         $messages = Message::where('sender_id', $userId)
-        ->whereIn('id', function ($query) use ($userId) {
-            $query->selectRaw('MAX(id)')->from('messages')->where('sender_id', $userId)->groupBy('receiver_id');
-        })
-        ->latest()
-        ->get();
+            ->whereIn('id', function ($query) use ($userId) {
+                $query->selectRaw('MAX(id)')->from('messages')->where('sender_id', $userId)->groupBy('receiver_id');
+            })
+            ->latest()
+            ->get();
+
 
         if ($pegawai->id == $userId) {
             $all_pesan = Message::where('sender_id', $userId)->where('receiver_id', $userId)->orderBy('created_at', 'asc')->get();
@@ -38,8 +39,8 @@ class MessageController extends Controller
         // Tampilkan view pesan.blade.php
         return view('home.pesan', compact('messages', 'all_pesan', 'pegawaiId', 'pegawai'), ['title' => 'Pesan']);
     }
+    
 
-   
     public function storeMessage(Request $request, $pegawaiId)
     {
         // Validasi input

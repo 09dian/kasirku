@@ -69,4 +69,11 @@ class PMessagesController extends Controller
 
         return redirect()->route('pegawai_notifikasi', $pegawai->id)->with('success', 'pesan berhasil di kirim');
     }
+
+    public function delete($id,$sender_id){
+        $message = Message::findOrFail($id);
+        $message->delete();
+        return redirect()->route('pegawai_notifikasi', $sender_id)->with('success', 'pesan berhasil di hapus');
+    }
+    
 }
