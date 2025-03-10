@@ -49,3 +49,4 @@ function updateSwitch(checkbox) {
     }
 }
 
+  // ===================== CHAT SYSTEM =====================

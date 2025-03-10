@@ -9,11 +9,11 @@
 
         <div class="row justify-content-center">
             <!-- Chat Messages Container -->
-            <div class="messages"
+            <div class="messages" id="messages"
                 style="height: 400px; overflow-y: scroll; border: 1px solid #ddd; padding: 15px; border-radius: 8px;">
 
                 @foreach ($all_pesan as $message)
-                    @if ($message->sender_id == Auth::id() && Auth::user()->name==$message->sender_type)
+                    @if ($message->sender_id == Auth::id() && Auth::user()->name == $message->sender_type)
                         <!-- Pesan yang dikirim oleh pengguna -->
                         <div class="d-flex justify-content-end align-items-center mb-1">
                             <div class="bg-primary text-white p-2 rounded border border-3 border-dark">

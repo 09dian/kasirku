@@ -28,11 +28,10 @@ Route::put('/settings', [SettingsController::class, 'create'])->middleware('auth
 
 //pesan
 Route::get('/notifikasi/{receiver_id}', [MessageController::class, 'index'])->middleware('auth')->name('notifikasi');//untuk balas pesan dan kirim
-
-
 Route::post('/messages/{pegawaiId}', [MessageController::class, 'storeMessage'])->middleware('auth')->name('messages'); // untuk kirim pesan dan balas pesan
 Route::get('/all_pesan',[MessageController::class,'all_pesan'])->middleware('auth')->name('all_pesan');
 Route::get('/delete/{id}/{receiver_id}', [MessageController::class, 'delete'])->name('delete');
+
 
 // Route pegawai hanya bisa di akses oleh pemilik
 Route::get('/pegawai', [PegawaiController::class, 'pegawai'])->middleware('auth')->name('pegawai');
@@ -49,9 +48,7 @@ Route::get('/tambah_produk', [ProdukController::class, 'produk'])->middleware('a
 
 Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
 
-Route::get('/pos', function () {
-    return view('home.pos', ['title' => 'Pos']);
-})->middleware('auth')->name('pos');
+Route::get('/pos', [PosController::class,'index'])->middleware('auth')->name('pos');
 Route::get('/history', function () {
     return view('home.history', ['title' => 'History']);
 })->middleware('auth')->name('history');
@@ -73,3 +70,4 @@ Route::get('/home_pegawai', [LoginPegawaiController::class, 'index'])->middlewar
 Route::get('/logout_pegawai', [LoginPegawaiController::class, 'logout'])->middleware('auth:pegawai')->name('logout_pegawai'); // Pastikan hanya pegawai yang login yang bisa mengakses
 Route::get('/pegawai_notifikasi/{receiver_id}', [PMessagesController::class, 'index'])->middleware('auth:pegawai')->name('pegawai_notifikasi');
 Route::post('/pegawai_notifikasi/{id}', [PMessagesController::class, 'store'])->middleware('auth:pegawai')->name('message');
+Route::get('/Pdelete/{id}/{sender_id}', [PMessagesController::class, 'delete'])->middleware('auth:pegawai')->name('Pdelete');
