@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PosController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CabangController;
@@ -38,6 +39,7 @@ Route::get('/pegawai', [PegawaiController::class, 'pegawai'])->middleware('auth'
 Route::post('/pegawai', [PegawaiController::class, 'create'])->middleware('auth')->name('pegawai');
 Route::delete('/pegawai/{id}', [PegawaiController::class, 'destroy'])->middleware('auth')->name('delete_pegawai');
 Route::patch('/pegawai/{id}', [PegawaiController::class, 'update'])->middleware('auth')->name('edit_pegawai');
+
 
 // Route produk dan tambah produk hanya bisa di akses oleh pemilik
 Route::get('/produk', [ProdukController::class,'index'])->middleware('auth')->name('produk');
