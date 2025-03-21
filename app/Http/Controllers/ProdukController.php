@@ -14,41 +14,33 @@ use App\Http\Requests\UpdateCreateProdukRequest;
 
 class ProdukController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function produk(){
-        $kategori= Kategori::all();
+    public function produk()
+    {
+        $kategori = Kategori::all();
         $id_pemilik = Auth::user()->id;
-       // Ambil hanya pesan terbaru untuk setiap receiver_id
-$messages = Message::where('sender_id', $id_pemilik)
-    ->whereIn('id', function ($query) use ($id_pemilik) {
-        $query->selectRaw('MAX(id)')
-            ->from('messages')
-            ->where('sender_id', $id_pemilik)
-            ->groupBy('receiver_id');
-    })
-    ->latest()
-    ->get();
-        return view('home.tambah_produk', compact('kategori','messages'),['title' => 'Produk']);
+        // Ambil hanya pesan terbaru untuk setiap receiver_id
+        $messages = Message::where('sender_id', $id_pemilik)
+            ->whereIn('id', function ($query) use ($id_pemilik) {
+                $query->selectRaw('MAX(id)')->from('messages')->where('sender_id', $id_pemilik)->groupBy('receiver_id');
+            })
+            ->latest()
+            ->get();
+        return view('home.tambah_produk', compact('kategori', 'messages'), ['title' => 'Produk']);
     }
-    
+
     public function index()
     {
-        $produks = Produk::all();
+    $produks = Produk::all();
         $kategoris = Kategori::all();
         $id_pemilik = Auth::user()->id;
-       // Ambil hanya pesan terbaru untuk setiap receiver_id
-$messages = Message::where('sender_id', $id_pemilik)
-    ->whereIn('id', function ($query) use ($id_pemilik) {
-        $query->selectRaw('MAX(id)')
-            ->from('messages')
-            ->where('sender_id', $id_pemilik)
-            ->groupBy('receiver_id');
-    })
-    ->latest()
-    ->get();
-        return view('home.produk', compact('produks', 'kategoris','messages'), ['title' => 'Produk']);
+        // Ambil hanya pesan terbaru untuk setiap receiver_id
+        $messages = Message::where('sender_id', $id_pemilik)
+            ->whereIn('id', function ($query) use ($id_pemilik) {
+                $query->selectRaw('MAX(id)')->from('messages')->where('sender_id', $id_pemilik)->groupBy('receiver_id');
+            })
+            ->latest()
+            ->get();
+        return view('home.produk', compact('produks', 'kategoris', 'messages'), ['title' => 'Produk']);
     }
 
     public function store(Request $request): \Illuminate\Http\RedirectResponse
@@ -65,7 +57,8 @@ $messages = Message::where('sender_id', $id_pemilik)
         $validated['status'] = 1;
 
         if ($request->file('img_produk')) {
-            $validated['img_produk'] = $request->file('img_produk')->store('post_image');
+            $validated['img_produk'] = $request->file('img_produk')->store('post_image', 'public');
+
             if (!$validated['img_produk']) {
                 return redirect()->route('produk')->with('error', 'Gagal mengunggah gambar!');
             }
