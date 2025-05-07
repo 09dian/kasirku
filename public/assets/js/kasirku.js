@@ -49,4 +49,102 @@ function updateSwitch(checkbox) {
     }
 }
 
-  // ===================== CHAT SYSTEM =====================
+// Script untuk menampilkan produk di keranjang
+const keranjangList = document.getElementById('keranjang-list');
+const totalHargaElem = document.getElementById('total-harga');
+const invoiceIdElem = document.getElementById('invoice-id');
+
+const cart = {};
+let invoiceId = "";
+
+// Fungsi untuk membuat kode invoice: AA999070525
+function generateInvoiceCode() {
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const randomLetters = letters.charAt(Math.floor(Math.random() * 26)) +
+                          letters.charAt(Math.floor(Math.random() * 26));
+
+    const randomNumber = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+
+    const today = new Date();
+    const date = today.getDate().toString().padStart(2, '0');
+    const month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const year = today.getFullYear().toString().slice(2);
+
+    return randomLetters + randomNumber + date + month + year;
+}
+
+// Event listener tombol tambah ke keranjang
+document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', function () {
+        const nama = this.dataset.nama;
+        const harga = parseInt(this.dataset.harga);
+        const img = this.dataset.img;
+
+        if (cart[nama]) {
+            cart[nama].qty += 1;
+        } else {
+            cart[nama] = {
+                nama: nama,
+                harga: harga,
+                img: img,
+                qty: 1
+            };
+        }
+
+        updateKeranjang();
+    });
+});
+
+// Update tampilan keranjang & invoice
+function updateKeranjang() {
+    keranjangList.innerHTML = '';
+    let totalHarga = 0;
+    let totalItem = 0;
+
+    for (const key in cart) {
+        const item = cart[key];
+        totalHarga += item.harga * item.qty;
+        totalItem += item.qty;
+
+        keranjangList.innerHTML += `
+            <li class="list-group-item d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <img src="${item.img}" style="width: 60px; height: 60px;" alt="${item.nama}">
+                    <div class="mx-3">
+                        <h6 class="mb-0">${item.nama}</h6>
+                        <small class="text-muted">Rp. ${item.harga.toLocaleString()}</small>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-warning btn-sm" style="color: white" onclick="kurangiQty('${key}')">-</button>
+                    <span class="badge bg-primary mx-2">${item.qty}</span>
+                    <button class="btn btn-success btn-sm" style="color: white" onclick="tambahQty('${key}')">+</button>
+                </div>
+            </li>
+        `;
+    }
+
+    totalHargaElem.innerText = `Rp. ${totalHarga.toLocaleString()}`;
+
+    // Tampilkan Invoice ID jika belum ada
+    if (!invoiceId) {
+        invoiceId = generateInvoiceCode();
+        invoiceIdElem.innerText = invoiceId;
+    }
+}
+
+// Kurangi item
+function kurangiQty(key) {
+    if (cart[key].qty > 1) {
+        cart[key].qty -= 1;
+    } else {
+        delete cart[key];
+    }
+    updateKeranjang();
+}
+
+// Tambah item
+function tambahQty(key) {
+    cart[key].qty += 1;
+    updateKeranjang();
+}

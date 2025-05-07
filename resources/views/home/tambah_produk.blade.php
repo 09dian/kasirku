@@ -26,7 +26,7 @@
                             <span class="input-group-text" id="addon-wrapping">Kategori</span>
                             <select id="role" class="form-select" name='kategori_produk'>
                                 @foreach ($kategori as $item)
-                                    @if ($item->nama_kategori)
+                                    @if ($item->nama_kategori && $item->status == 1)
                                         <option>{{ $item->nama_kategori }}</option>
                                     @endif
                                 @endforeach

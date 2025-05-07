@@ -30,7 +30,7 @@ class ProdukController extends Controller
 
     public function index()
     {
-    $produks = Produk::all();
+        $produks = Produk::all();
         $kategoris = Kategori::all();
         $id_pemilik = Auth::user()->id;
         // Ambil hanya pesan terbaru untuk setiap receiver_id
