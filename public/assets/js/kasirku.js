@@ -131,6 +131,9 @@ function updateKeranjang() {
         invoiceId = generateInvoiceCode();
         invoiceIdElem.innerText = invoiceId;
     }
+    const checkoutButton = document.getElementById('checkout-button');
+    checkoutButton.disabled = Object.keys(cart).length === 0;
+
 }
 
 // Kurangi item
