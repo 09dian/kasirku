@@ -1,0 +1,10 @@
+.metode-pembayaran{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    gap: 16px; /* tambahkan ini untuk memberi jarak */
+}
