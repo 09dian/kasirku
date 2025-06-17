@@ -151,3 +151,17 @@ function tambahQty(key) {
     cart[key].qty += 1;
     updateKeranjang();
 }
+//metode pemvbayaran
+  const input = document.getElementById('pilihanPembayaran');
+
+  document.getElementById('qrisOptions').addEventListener('click', function(e) {
+    e.preventDefault();
+    input.type = 'file';
+    input.placeholder = 'Pilih Gambar';
+  });
+
+  document.getElementById('cashOption').addEventListener('click', function(e) {
+    e.preventDefault();
+     input.type = 'text';
+    input.placeholder = 'Masukkan';
+  });

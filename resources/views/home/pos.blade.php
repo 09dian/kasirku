@@ -52,7 +52,7 @@
                             <strong>Total:</strong>
                             <span id="total-harga">Rp. 0</span>
                         </div>
-                        <button class="btn btn-primary w-100" id="checkout-button" disabled data-bs-toggle="modal"
+                   <button class="btn btn-primary w-100" id="checkout-button" disabled data-bs-toggle="modal"
                             data-bs-target="#exampleModalToggle" style="color: white">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-cart-check" viewBox="0 0 16 16">
