@@ -158,10 +158,63 @@ function tambahQty(key) {
     e.preventDefault();
     input.type = 'file';
     input.placeholder = 'Pilih Gambar';
+     input.disabled = false;
+      // Aktifkan input nama pemilik
+    const namaPemilik = document.getElementById('namaPemilik');
+    namaPemilik.disabled = false;
+     namaPemilik.placeholder = 'Nama Pemilik QRIS';
   });
+  function angka(input) {
+    input.value = input.value.replace(/[^0-9]/g, ''); // Hanya izinkan angka
+  }
 
   document.getElementById('cashOption').addEventListener('click', function(e) {
     e.preventDefault();
      input.type = 'text';
-    input.placeholder = 'Masukkan';
+    input.placeholder = 'Masukkan Nomor Rekening';
+     input.disabled = false;
+      // Aktifkan input nama pemilik
+    const namaPemilik = document.getElementById('namaPemilik');
+    namaPemilik.disabled = false;
+    namaPemilik.placeholder = 'Nama Pemilik Rekening';
   });
+  document.getElementById('transfer').addEventListener('click', function(e) {
+    e.preventDefault();
+     input.type = 'text';
+    input.placeholder = 'Masukkan Nomor Rekening';
+     input.disabled = false;
+      // Aktifkan input nama pemilik
+    const namaPemilik = document.getElementById('namaPemilik');
+    namaPemilik.disabled = false;
+    namaPemilik.placeholder = 'Nama Pemilik Rekening';
+     
+  });
+  
+
+
+ const items = document.querySelectorAll('.dropdown-item');
+    const inputHidden = document.getElementById('namePembayaran');
+
+    items.forEach(function (item) {
+        item.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const selectedValue = this.textContent.trim();
+            inputHidden.value = selectedValue;
+
+            });
+    });
+
+    const  dropdownItems = document.querySelectorAll('.dropdown-item');
+    const button = document.getElementById('basic-addon1');
+    const hiddenInput = document.getElementById('namePembayaran');
+
+    dropdownItems.forEach(function (item) {
+        item.addEventListener('click', function (e) {
+            e.preventDefault();
+            const pilihan= this.textContent.trim();
+
+            button.textContent = pilihan; //untukUbah teks tombol sesuai pilihan
+            hiddenInput.value = pilihan; //untuk Simpan pilihan di input tersembunyi
+        });
+    });

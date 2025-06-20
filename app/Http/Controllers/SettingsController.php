@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
+use App\Models\Pembayaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -22,6 +23,7 @@ class SettingsController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+
     public function create(Request $request)
     {
         // Ambil user yang sedang login
@@ -82,5 +84,16 @@ class SettingsController extends Controller
 
         // Redirect halaman dengan pesan sukses
         return redirect()->route('settings')->with('success', $berhasil);
+    }
+    public function update_pembayaran(Request $request)
+    {
+        //    Validasi input
+        $pembayaran =$request->validate([
+        'namePembayaran' => 'required|in:QRIS,CASH,TRANSFER',
+        'namaPemilik' => 'required|string',
+        'pilihanPembayaran' => 'nullable|string',
+    ]);
+    Pembayaran::create($pembayaran);
+      
     }
 }
