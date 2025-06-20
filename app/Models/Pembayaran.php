@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pembayaran extends Model
 {
+
+    protected $fillable = [
+        'namePembayaran',    
+        'namaPemilik',
+        'pilihanPembayaran',
+    ];
     /** @use HasFactory<\Database\Factories\PembayaranFactory> */
     use HasFactory;
 }

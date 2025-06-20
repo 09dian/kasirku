@@ -517,26 +517,36 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
-                                        <form action="/ " method="post">
+                                        <form action="{{ route('settings') }}" method="post">
                                             @csrf
+                                            @method('PUT')
                                             <div class="modal-body">
                                                 <!-- Input Nama -->
                                                 <div class="input-group mb-3">
-                                                    <button class="input-group-text" id="basic-addon1" type="button"
-                                                        data-bs-toggle="dropdown">Nama</button>
+                                                    <button class="input-group-text dropdown-toggle" id="basic-addon1"
+                                                        type="button" data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                        Pilih
+                                                    </button>
                                                     <ul class="dropdown-menu">
                                                         <li><a class="dropdown-item" href="#"
                                                                 id="qrisOptions">QRIS</a></li>
-                                                        <li><a class="dropdown-item" href="#" 
-                                                            id="cashOption">CASH</a>
+                                                        <li><a class="dropdown-item" href="#"
+                                                                id="cashOption">CASH</a>
                                                         </li>
-                                                        <li><a class="dropdown-item" href="#">TRANSFER</a></li>
+                                                        <li><a class="dropdown-item" href="#"
+                                                                id="transfer">TRANSFER</a></li>
                                                     </ul>
-
-                                                    <input type="text" id="pilihanPembayaran" name="pilihanPembayaran"
-                                                        class="form-control" placeholder="Masukkan Nama"
-                                                        aria-label="Nama Pegawai" aria-describedby="basic-addon1"
-                                                        required>
+                                                    <input hidden type="text" id="namePembayaran"
+                                                        name="namePembayaran">
+                                                    <input disabled type="text" id="pilihanPembayaran"
+                                                        name="pilihanPembayaran" class="form-control"
+                                                        placeholder="Pilih Metode Pembayaran"
+                                                        aria-label="Pilih Metode Pembayaran"
+                                                        aria-describedby="basic-addon1" required oninput="angka(this)">
+                                                        <input disabled  type="text" id="namaPemilik" name="namaPemilik"
+                                                        class="form-control" placeholder="Nama Pemilik "
+                                                        aria-label="Nama Pemilik" aria-describedby="basic-addon1">
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -548,12 +558,11 @@
                             </div>
                             {{-- akhir modal tambah metode --}}
                         </div><!--//app-card-footer-->
-
                     </div><!--//app-card-->
                 </div>
             </div><!--//row-->
 
         </div><!--//container-fluid-->
     </div><!--//app-content-->
-    
+
 </x-layout>

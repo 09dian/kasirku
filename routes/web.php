@@ -26,6 +26,7 @@ Route::get('forgot', [ForgotController::class, 'forgot'])->middleware('guest')->
 // settings
 Route::get('/settings', [SettingsController::class, 'settings'])->middleware('auth')->name('settings');
 Route::put('/settings', [SettingsController::class, 'create'])->middleware('auth')->name('settings');
+Route::put('/settings', [SettingsController::class, 'update_pembayaran'])->middleware('auth')->name('settings');
 
 //pesan
 Route::get('/notifikasi/{receiver_id}', [MessageController::class, 'index'])->middleware('auth')->name('notifikasi');//untuk balas pesan dan kirim
