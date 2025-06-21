@@ -1,4 +1,4 @@
-<x-layout :totalMessage="$messages">
+<x-layout :pMessage="$messages" :jumlahPesan="$jumlahPesan">
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">

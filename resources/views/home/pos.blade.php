@@ -1,4 +1,4 @@
-<x-layout :totalMessage="$messages">
+<x-layout :pMessage="$messages" :jumlahPesan="$jumlahPesan">
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
@@ -52,7 +52,7 @@
                             <strong>Total:</strong>
                             <span id="total-harga">Rp. 0</span>
                         </div>
-                   <button class="btn btn-primary w-100" id="checkout-button" disabled data-bs-toggle="modal"
+                        <button class="btn btn-primary w-100" id="checkout-button" disabled data-bs-toggle="modal"
                             data-bs-target="#exampleModalToggle" style="color: white">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-cart-check" viewBox="0 0 16 16">
@@ -88,7 +88,7 @@
                                             <path d="M12 9h2V8h-2z" />
                                         </svg> QRIS</button>
                                     <button style="color: white" type="button"
-                                        class="btn btn-success"data-bs-target="#exampleModalToggle2"
+                                        class="btn btn-success"data-bs-target="#exampleModalToggle3"
                                         data-bs-toggle="modal">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
@@ -99,9 +99,7 @@
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button style="color: white" class="btn btn-primary"
-                                        data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Open second
-                                        modal</button>
+
                                 </div>
                             </div>
                         </div>
@@ -120,8 +118,28 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button style="color: white" class="btn btn-primary"
-                                        data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Back to
-                                        first</button>
+                                        data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Kembali ke
+                                        Pilihan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="exampleModalToggle3" aria-hidden="true"
+                        aria-labelledby="exampleModalToggleLabel3" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">CASH</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Hide this modal and show the first with the button below.
+                                </div>
+                                <div class="modal-footer">
+                                    <button style="color: white" class="btn btn-primary"
+                                        data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Kembali ke
+                                        Pilihan</button>
                                 </div>
                             </div>
                         </div>
@@ -130,5 +148,5 @@
 
             </div>
         </div>
-
+        
 </x-layout>

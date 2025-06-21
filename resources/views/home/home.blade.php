@@ -1,4 +1,4 @@
-<x-layout :totalMessage="$messages">
+<x-layout :pMessage="$messages" :jumlahPesan="$jumlahPesan">
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
@@ -64,7 +64,7 @@
                     <div class="app-card app-card-stat shadow-sm h-100">
                         <div class="app-card-body p-3 p-lg-4">
                             <h4 class="stats-type mb-1">Jumlah Barang</h4>
-                            <div class="stats-figure">{{ $hasil->jumlah_barang ?? 0 }}</div>
+                            <div class="stats-figure">{{ $produk }}</div>
                         </div><!--//app-card-body-->
                         <a class="app-card-link-mask" href="#"></a>
                     </div><!--//app-card-->

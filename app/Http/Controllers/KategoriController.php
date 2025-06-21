@@ -20,7 +20,8 @@ class KategoriController extends Controller
             })
             ->latest()
             ->get();
-        return view('home.tambah_kategori', compact('messages'), ['title' => 'Produk']);
+             $jumlahPesan = $messages->count();
+        return view('home.tambah_kategori', compact('messages','jumlahPesan'), ['title' => 'Produk']);
     }
     public function index()
     {
@@ -34,7 +35,8 @@ class KategoriController extends Controller
             })
             ->latest()
             ->get();
-        return view('home.kategori', compact('kategori', 'messages'), ['title' => 'Produk']);
+             $jumlahPesan = $messages->count();
+        return view('home.kategori', compact('kategori', 'messages','jumlahPesan'), ['title' => 'Produk']);
     }
 
     public function create(Request $request)

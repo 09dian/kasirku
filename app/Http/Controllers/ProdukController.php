@@ -25,7 +25,8 @@ class ProdukController extends Controller
             })
             ->latest()
             ->get();
-        return view('home.tambah_produk', compact('kategori', 'messages'), ['title' => 'Produk']);
+             $jumlahPesan = $messages->count();
+        return view('home.tambah_produk', compact('kategori', 'messages','jumlahPesan'), ['title' => 'Produk']);
     }
 
     public function index()
@@ -40,7 +41,8 @@ class ProdukController extends Controller
             })
             ->latest()
             ->get();
-        return view('home.produk', compact('produks', 'kategoris', 'messages'), ['title' => 'Produk']);
+             $jumlahPesan = $messages->count();
+        return view('home.produk', compact('produks', 'kategoris', 'messages','jumlahPesan'), ['title' => 'Produk']);
     }
 
     public function store(Request $request): \Illuminate\Http\RedirectResponse

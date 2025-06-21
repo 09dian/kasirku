@@ -25,7 +25,7 @@ Route::post('/register', [RegisterController::class, 'store'])->middleware('gues
 Route::get('forgot', [ForgotController::class, 'forgot'])->middleware('guest')->name('forgot');
 // settings
 Route::get('/settings', [SettingsController::class, 'settings'])->middleware('auth')->name('settings');
-Route::put('/settings', [SettingsController::class, 'create'])->middleware('auth')->name('settings');
+Route::put('/settings_update', [SettingsController::class, 'update'])->middleware('auth')->name('settings_update');
 Route::put('/settings', [SettingsController::class, 'update_pembayaran'])->middleware('auth')->name('settings');
 
 //pesan

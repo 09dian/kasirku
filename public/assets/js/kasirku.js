@@ -163,6 +163,8 @@ function tambahQty(key) {
     const namaPemilik = document.getElementById('namaPemilik');
     namaPemilik.disabled = false;
      namaPemilik.placeholder = 'Nama Pemilik QRIS';
+      const codeid = document.getElementById('codePembayaran');
+     codeid.value= 1;
   });
   function angka(input) {
     input.value = input.value.replace(/[^0-9]/g, ''); // Hanya izinkan angka
@@ -177,6 +179,8 @@ function tambahQty(key) {
     const namaPemilik = document.getElementById('namaPemilik');
     namaPemilik.disabled = false;
     namaPemilik.placeholder = 'Nama Pemilik Rekening';
+    const codeid = document.getElementById('codePembayaran');
+     codeid.value= 0;
   });
   document.getElementById('transfer').addEventListener('click', function(e) {
     e.preventDefault();
@@ -185,9 +189,10 @@ function tambahQty(key) {
      input.disabled = false;
       // Aktifkan input nama pemilik
     const namaPemilik = document.getElementById('namaPemilik');
-    namaPemilik.disabled = false;
+     namaPemilik.disabled = false;
     namaPemilik.placeholder = 'Nama Pemilik Rekening';
-     
+    const codeid = document.getElementById('codePembayaran');
+     codeid.value= 0;
   });
   
 
@@ -218,3 +223,5 @@ function tambahQty(key) {
             hiddenInput.value = pilihan; //untuk Simpan pilihan di input tersembunyi
         });
     });
+
+    

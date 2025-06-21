@@ -12,6 +12,7 @@ class Pembayaran extends Model
         'namePembayaran',    
         'namaPemilik',
         'pilihanPembayaran',
+        'codePembayaran',
     ];
     /** @use HasFactory<\Database\Factories\PembayaranFactory> */
     use HasFactory;

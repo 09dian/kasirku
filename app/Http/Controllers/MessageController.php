@@ -22,7 +22,7 @@ class MessageController extends Controller
             })
             ->latest()
             ->get();
-
+        $jumlahPesan = $messages->count();
 
         if ($pegawai->id == $userId) {
             $all_pesan = Message::where('sender_id', $userId)->where('receiver_id', $userId)->orderBy('created_at', 'asc')->get();
@@ -37,9 +37,8 @@ class MessageController extends Controller
                 ->get();
         }
         // Tampilkan view pesan.blade.php
-        return view('home.pesan', compact('messages', 'all_pesan', 'pegawaiId', 'pegawai'), ['title' => 'Pesan']);
+        return view('home.pesan', compact('messages', 'all_pesan', 'pegawaiId', 'pegawai','jumlahPesan'), ['title' => 'Pesan']);
     }
-    
 
     public function storeMessage(Request $request, $pegawaiId)
     {
@@ -91,7 +90,8 @@ class MessageController extends Controller
             })
             ->latest()
             ->get();
-        return view('home.all_pesan', compact('messages'), ['title' => 'Semua Pesan']);
+             $jumlahPesan = $messages->count();
+        return view('home.all_pesan', compact('messages','jumlahPesan'), ['title' => 'Semua Pesan']);
     }
 
     public function delete($id, $receiver_id)

@@ -1,9 +1,14 @@
-<x-layout :totalMessage="$messages">
+<x-layout :pMessage="$messages" :jumlahPesan="$jumlahPesan">
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
 
             <h1 class="app-page-title">Akun {{ ucwords(strtolower(Auth::user()->nama_toko)) }}</h1>
+            @if (session('success'))
+                <div class="alert alert-success text-center">
+                    {{ session('success') }}
+                </div>
+            @endif
             <div class="row gy-4">
                 <div class="col-12 col-lg-6">
                     <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
@@ -46,11 +51,11 @@
                                             </button>
                                         </div><!--//col-->
                                     </form>
-                                    <!-- Modal Edit -->
+                                    <!-- Modal Edit Fhoto-->
                                     <div class="modal fade" id="editPhotoModal" tabindex="-1"
                                         aria-labelledby="editPhotoModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <form action="{{ route('settings') }}" method="post"
+                                            <form action="{{ route('settings_update') }}" method="post"
                                                 enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
@@ -109,7 +114,7 @@
                                     <div class="modal fade" id="editModalName" tabindex="-1"
                                         aria-labelledby="editModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <form action="{{ route('settings') }}" method="post">
+                                            <form action="{{ route('settings_update') }}" method="post">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="modal-content">
@@ -157,7 +162,7 @@
                                     <div class="modal fade" id="editModalEmail" tabindex="-1"
                                         aria-labelledby="editModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <form action="{{ route('settings') }}" method="post">
+                                            <form action="{{ route('settings_update') }}" method="post">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="modal-content">
@@ -172,7 +177,7 @@
 
                                                         <div class="input-group mb-3">
                                                             <span class="input-group-text">Email</span>
-                                                            <input type="text" name="name" class="form-control"
+                                                            <input type="text" name="email" class="form-control"
                                                                 value="{{ Auth::user()->email }}" required>
                                                         </div>
                                                     </div>
@@ -206,7 +211,7 @@
                                     <div class="modal fade" id="editModalTtl" tabindex="-1"
                                         aria-labelledby="editModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <form action="{{ route('settings') }}" method="post">
+                                            <form action="{{ route('settings_update') }}" method="post">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="modal-content">
@@ -221,7 +226,7 @@
 
                                                         <div class="input-group mb-3">
                                                             <span class="input-group-text">TTL</span>
-                                                            <input type="date" name="name" class="form-control"
+                                                            <input type="date" name="ttl" class="form-control"
                                                                 value="{{ Auth::user()->ttl }}" required>
                                                         </div>
                                                     </div>
@@ -254,7 +259,7 @@
                                     <div class="modal fade" id="editModalAlamat" tabindex="-1"
                                         aria-labelledby="editModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <form action="{{ route('settings') }}" method="post">
+                                            <form action="{{ route('settings_update') }}" method="post">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="modal-content">
@@ -302,7 +307,7 @@
                                     <div class="modal fade" id="editModalNamaToko" tabindex="-1"
                                         aria-labelledby="editModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <form action="{{ route('settings') }}" method="post">
+                                            <form action="{{ route('settings_update') }}" method="post">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="modal-content">
@@ -497,7 +502,25 @@
                         </div><!--//app-card-header-->
                         <div class="app-card-body px-4 w-100">
 
-                            {{-- motede pembayaran --}}
+                            @foreach ($pembayaran as $pembayaran)
+                                <div class="item border-bottom py-3">
+                                    <div class="row justify-content-between align-items-center">
+                                        <div class="col-auto">
+                                            <div class="item-label"><i
+                                                    class="fab fa-cc-visa me-2"></i><strong>{{ $pembayaran->namePembayaran }}
+                                                    a.n {{ $pembayaran->namaPemilik }}</strong>
+                                            </div>
+                                            <div class="item-data">{{ $pembayaran->pilihanPembayaran }}</div>
+                                        </div><!--//col-->
+                                        <div class="col text-end">
+                                            <a class="btn-sm app-btn-secondary" href="#">Edit</a>
+                                        </div><!--//col-->
+                                        {{-- modal edit pembayaran --}}
+
+                                        {{-- akhir modal pembayran --}}
+                                    </div><!--//row-->
+                                </div><!--//item-->
+                            @endforeach
 
                         </div><!--//app-card-body-->
                         <div class="app-card-footer p-4 mt-auto">
@@ -539,14 +562,19 @@
                                                     </ul>
                                                     <input hidden type="text" id="namePembayaran"
                                                         name="namePembayaran">
+
                                                     <input disabled type="text" id="pilihanPembayaran"
                                                         name="pilihanPembayaran" class="form-control"
                                                         placeholder="Pilih Metode Pembayaran"
                                                         aria-label="Pilih Metode Pembayaran"
-                                                        aria-describedby="basic-addon1" required oninput="angka(this)">
-                                                        <input disabled  type="text" id="namaPemilik" name="namaPemilik"
-                                                        class="form-control" placeholder="Nama Pemilik "
-                                                        aria-label="Nama Pemilik" aria-describedby="basic-addon1">
+                                                        aria-describedby="basic-addon1" required
+                                                        oninput="angka(this)">
+                                                    <input disabled type="text" id="namaPemilik"
+                                                        name="namaPemilik" class="form-control"
+                                                        placeholder="Nama Pemilik " aria-label="Nama Pemilik"
+                                                        aria-describedby="basic-addon1">
+                                                    <input hidden type="text" id="codePembayaran"
+                                                        name="codePembayaran">
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -564,5 +592,6 @@
 
         </div><!--//container-fluid-->
     </div><!--//app-content-->
+
 
 </x-layout>

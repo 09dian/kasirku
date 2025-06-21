@@ -15,9 +15,7 @@ return new class extends Migration {
             $table->string('namePembayaran'); // Contoh: "Transfer BCA", "QRIS ShopeePay"
             $table->string('namaPemilik'); // Nama pemilik QRIS / rekening
             $table->string('pilihanPembayaran');
-
-
-
+            $table->string('codePembayaran');
             $table->timestamps();
         });
     }

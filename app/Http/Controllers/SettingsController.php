@@ -15,16 +15,18 @@ class SettingsController extends Controller
      */
     public function settings()
     {
+        $pembayaran = pembayaran::all();
         $id_pemilik = Auth::user()->id;
         $messages = Message::where('sender_id', $id_pemilik)->selectRaw('*, MAX(created_at) as max_created_at')->groupBy('receiver_id')->orderBy('max_created_at', 'desc')->get();
-        return view('home.settings', compact('messages'), ['title' => 'Settings']);
+        $jumlahPesan = $messages->count();
+        return view('home.settings', compact('messages', 'pembayaran', 'jumlahPesan'), ['title' => 'Settings']);
     }
 
     /**
      * Show the form for creating a new resource.
      */
 
-    public function create(Request $request)
+    public function update(Request $request)
     {
         // Ambil user yang sedang login
         $user = Auth::user();
@@ -88,12 +90,16 @@ class SettingsController extends Controller
     public function update_pembayaran(Request $request)
     {
         //    Validasi input
-        $pembayaran =$request->validate([
-        'namePembayaran' => 'required|in:QRIS,CASH,TRANSFER',
-        'namaPemilik' => 'required|string',
-        'pilihanPembayaran' => 'nullable|string',
-    ]);
-    Pembayaran::create($pembayaran);
-      
+        $data_input = $request->validate([
+            'namePembayaran' => 'required|in:QRIS,CASH,TRANSFER',
+            'namaPemilik' => 'required|string',
+            'pilihanPembayaran' => 'nullable|string',
+            'codePembayaran' => 'required|string',
+        ]);
+        Pembayaran::create($data_input);
+
+        $pesan[] = 'Pembayaran berhasil ditambahkan.';
+        $berhasil = implode(' ', $pesan);
+        return redirect()->route('settings')->with('success', $berhasil);
     }
 }
