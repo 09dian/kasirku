@@ -30,8 +30,9 @@ $messages = Message::where('sender_id', $id_pemilik)
 })
 ->latest()
 ->get();
+$jumlahPesan = $messages->count();
         // Mengirim data pegawai ke view
-        return view('home.pegawai',compact('messages'), [
+        return view('home.pegawai',compact('messages','jumlahPesan'), [
             'title' => 'Pegawai',
             'pegawais' => $pegawais, // Mengirim data ke view
         ]);

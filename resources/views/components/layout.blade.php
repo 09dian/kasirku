@@ -65,7 +65,7 @@
                                             {{ ucwords(strtolower(Auth::user()->nama_toko)) }}</h5>
                                     </div><!--//dropdown-menu-title-->
                                     <div class="dropdown-menu-content">
-                                        @if ( $jumlahPesan==0)
+                                       
                                             @foreach ($pMessage as $item)
                                                 <div class="item p-3">
                                                     <div class="row gx-2 justify-content-between align-items-center">
@@ -89,9 +89,8 @@
                                                         href="{{ route('notifikasi', ['receiver_id' => $item->receiver_id]) }}"></a>
                                                 </div><!--//item-->
                                             @endforeach
-                                        @else
-                                            <div class="p-3 text-center">Tidak ada pesan baru</div>
-                                        @endif
+                                        
+                                           
                                     </div><!--//dropdown-menu-content-->
 
                                     <div class="dropdown-menu-footer p-2 text-center">

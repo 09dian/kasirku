@@ -35,6 +35,7 @@ class MessageController extends Controller
                 })
                 ->orderBy('created_at', 'asc') // Urutkan berdasarkan waktu
                 ->get();
+                
         }
         // Tampilkan view pesan.blade.php
         return view('home.pesan', compact('messages', 'all_pesan', 'pegawaiId', 'pegawai','jumlahPesan'), ['title' => 'Pesan']);
@@ -75,6 +76,8 @@ class MessageController extends Controller
             'receiver_id' => $receiverId,
             'receiver_type' => $receiverType,
             'message' => $messageText,
+            'is_read' => true, // Pesan belum dibaca
+            
         ]);
 
         return redirect()->route('notifikasi', $pegawaiId)->with('success', 'pesan berhasil di kirim');
