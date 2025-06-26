@@ -10,17 +10,19 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            
+
             // Sender (pengirim)
             $table->unsignedBigInteger('sender_id');
             $table->string('sender_type');
-            
+
             // Receiver (penerima)
             $table->unsignedBigInteger('receiver_id');
             $table->string('receiver_type');
-            
+
             // Pesan
             $table->text('message');
+            $table->boolean('is_read')->default(false); // false = belum dibaca, true = sudah dibaca
+
             $table->timestamps();
         });
     }

@@ -14,18 +14,18 @@ class HomeController extends Controller
     public function index()
     {
         $produk = Produk::count();
-        
-        $hasil = Hasil::latest()->first();
-        $id_pemilik = Auth::user()->id;
-        // Ambil hanya pesan terbaru untuk setiap receiver_id
 
-        $messages = Message::where('sender_id', $id_pemilik)
-            ->whereIn('id', function ($query) use ($id_pemilik) {
-                $query->selectRaw('MAX(id)')->from('messages')->where('sender_id', $id_pemilik)->groupBy('receiver_id');
+        $hasil = Hasil::latest()->first();
+        $userI= auth()->id(); // ID kamu
+
+        $messages = Message::where('sender_id', $userId)
+            ->whereIn('id', function ($query) use ($userId) {
+                $query->selectRaw('MAX(id)')->from('messages')->where('sender_id', $userId)->groupBy('receiver_id');
             })
             ->latest()
             ->get();
-            $jumlahPesan = $messages->count();
-        return view('home.home', compact('hasil', 'messages','produk','jumlahPesan'), ['title' => 'Home Pemilik']);
+
+        $jumlahPesan = $messages->count();
+        return view('home.home', compact('hasil', 'messages', 'produk', 'jumlahPesan'), ['title' => 'Home Pemilik']);
     }
 }
