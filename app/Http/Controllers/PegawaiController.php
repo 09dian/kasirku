@@ -19,18 +19,12 @@ class PegawaiController extends Controller
         // Mengambil data pegawai yang sesuai dengan id_user
         $pegawais = Pegawai::where('id_user', $id_user)->get(); // Query berdasarkan id_user
     
-        $id_pemilik = Auth::user()->id;
-       // Ambil hanya pesan terbaru untuk setiap receiver_id
-$messages = Message::where('sender_id', $id_pemilik)
-->whereIn('id', function ($query) use ($id_pemilik) {
-    $query->selectRaw('MAX(id)')
-        ->from('messages')
-        ->where('sender_id', $id_pemilik)
-        ->groupBy('receiver_id');
-})
-->latest()
-->get();
-$jumlahPesan = $messages->count();
+        $name = auth()->user()->name; // ID yang sedang login
+        $data = Message::where('sender_type', $name)->orWhere('receiver_type', $name)->orderBy('created_at', 'asc')->get();
+        $messages = $data->groupBy(function ($msg) use ($name) {
+            return $msg->sender_type === $name ? $msg->receiver_type : $msg->sender_type;
+        });
+        $jumlahPesan = Message::where('is_read', 0)->count(); //menghitung jumlah pesan yang belum dibaca
         // Mengirim data pegawai ke view
         return view('home.pegawai',compact('messages','jumlahPesan'), [
             'title' => 'Pegawai',

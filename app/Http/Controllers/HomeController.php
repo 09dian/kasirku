@@ -16,16 +16,17 @@ class HomeController extends Controller
         $produk = Produk::count();
 
         $hasil = Hasil::latest()->first();
-        $userI= auth()->id(); // ID kamu
+        $name = auth()->user()->name; // ID yang sedang login
 
-        $messages = Message::where('sender_id', $userId)
-            ->whereIn('id', function ($query) use ($userId) {
-                $query->selectRaw('MAX(id)')->from('messages')->where('sender_id', $userId)->groupBy('receiver_id');
-            })
-            ->latest()
-            ->get();
 
-        $jumlahPesan = $messages->count();
-        return view('home.home', compact('hasil', 'messages', 'produk', 'jumlahPesan'), ['title' => 'Home Pemilik']);
+        $data = Message::where('sender_type', $name)->orWhere('receiver_type', $name)->orderBy('created_at', 'asc')->get();
+
+        $messages = $data->groupBy(function ($msg) use ($name) {
+            return $msg->sender_type === $name ? $msg->receiver_type : $msg->sender_type;
+        });
+
+        $jumlahPesan = Message::where('is_read', 0)->count(); //menghitung jumlah pesan yang belum dibaca
+
+       return view('home.home', compact('messages','hasil', 'produk', 'jumlahPesan'), ['title' => 'Home Pemilik']);
     }
 }
