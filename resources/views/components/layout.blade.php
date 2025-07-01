@@ -19,7 +19,7 @@
 
     <!-- App CSS -->
     <link id="theme-style" rel="stylesheet" href="{{ asset('assets/css/portal.css') }}">
-       <link id="theme-style" rel="stylesheet" href="{{ asset('assets/css/kasirku.css') }}">
+    <link id="theme-style" rel="stylesheet" href="{{ asset('assets/css/kasirku.css') }}">
 
 </head>
 
@@ -65,32 +65,32 @@
                                             {{ ucwords(strtolower(Auth::user()->nama_toko)) }}</h5>
                                     </div><!--//dropdown-menu-title-->
                                     <div class="dropdown-menu-content">
-                                       
-                                            @foreach ($pMessage as $item)
-                                                <div class="item p-3">
-                                                    <div class="row gx-2 justify-content-between align-items-center">
-                                                        <div class="col-auto">
-                                                            <img class="profile-image rounded-circle"
-                                                                src="{{ asset('assets/images/profiles/profile-2.png') }}"
-                                                                alt="Profile">
-                                                        </div><!--//col-->
-                                                        <div class="col">
-                                                            <div class="info">
-                                                                <div class="desc"><b>{{ $item->sender_type }}</b>
-                                                                </div>
-                                                                <label for="Pesan">{{ $item->message }}</label>
-                                                                <div class="meta">
-                                                                    {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}
-                                                                </div>
+                                        @foreach ($pMessage as $pegawai => $item)
+                                            @php
+                                                $latest = $item->last();
+                                            @endphp
+                                            <div class="item p-3">
+                                                <div class="row gx-2 justify-content-between align-items-center">
+                                                    <div class="col-auto">
+                                                        <img class="profile-image rounded-circle"
+                                                            src="{{ asset('assets/images/profiles/profile-2.png') }}"
+                                                            alt="Profile">
+                                                    </div><!--//col-->
+                                                    <div class="col">
+                                                        <div class="info">
+                                                            <div class="desc"><b>{{ $latest->sender_type }}</b>
                                                             </div>
-                                                        </div><!--//col-->
-                                                    </div><!--//row-->
-                                                    <a class="link-mask"
-                                                        href="{{ route('notifikasi', ['receiver_id' => $item->receiver_id]) }}"></a>
-                                                </div><!--//item-->
-                                            @endforeach
-                                        
-                                           
+                                                            <label for="Pesan">{{ $latest->message }}</label>
+                                                            <div class="meta">
+                                                                {{ \Carbon\Carbon::parse($latest->created_at)->diffForHumans() }}
+                                                            </div>
+                                                        </div>
+                                                    </div><!--//col-->
+                                                </div><!--//row-->
+                                                <a class="link-mask"
+                                                    href="{{ route('notifikasi', ['receiver_id' => $latest->receiver_id]) }}"></a>
+                                            </div><!--//item-->
+                                        @endforeach
                                     </div><!--//dropdown-menu-content-->
 
                                     <div class="dropdown-menu-footer p-2 text-center">
