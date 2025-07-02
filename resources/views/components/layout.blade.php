@@ -79,9 +79,11 @@
                                                     <div class="col">
                                                         <div class="info">
                                                             <div class="desc"><b>{{ $latest->sender_type }}
+                                                                
                                                                     <span
-                                                                        class="badge text-bg-danger text-white position-relative"
-                                                                        style="top: -10px; right: 5px;">{{ $item->count() }}</span>
+                                                                        class="notif badge text-bg-danger text-white position-relative"
+                                                                        style="top: -13px; right: 2px;">{{ $item->where('is_read', 0)->count() }}
+</span>
                                                                 </b>
                                                             </div>
                                                             <label for="Pesan">{{ $latest->message }}</label>
@@ -97,11 +99,6 @@
                                             </div><!--//item-->
                                         @endforeach
                                     </div><!--//dropdown-menu-content-->
-
-                                    <div class="dropdown-menu-footer p-2 text-center">
-                                        <a href="{{ route('all_pesan') }}">View all</a>
-                                    </div>
-
                                 </div><!--//dropdown-menu-->
                             </div>
                             {{-- notifikasi --}}
@@ -112,7 +109,6 @@
                                         src="{{ Auth::user()->gambar ? (str_starts_with(Auth::user()->gambar, 'profile_images/') ? asset('storage/' . Auth::user()->gambar) : asset('assets/images/' . Auth::user()->gambar)) : asset('assets/images/default.jpg') }}"
                                         alt="user profile"></a>
                                 <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
-                                    <li><a class="dropdown-item" href="account.html">Account</a></li>
                                     <li><a class="dropdown-item" href="{{ route('settings') }}">Settings</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
