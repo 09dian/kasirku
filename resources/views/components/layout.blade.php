@@ -78,11 +78,16 @@
                                                     </div><!--//col-->
                                                     <div class="col">
                                                         <div class="info">
-                                                            <div class="desc"><b>{{ $latest->sender_type }}</b>
+                                                            <div class="desc"><b>{{ $latest->sender_type }}
+                                                                    <span
+                                                                        class="badge text-bg-danger text-white position-relative"
+                                                                        style="top: -10px; right: 5px;">{{ $item->count() }}</span>
+                                                                </b>
                                                             </div>
                                                             <label for="Pesan">{{ $latest->message }}</label>
                                                             <div class="meta">
                                                                 {{ \Carbon\Carbon::parse($latest->created_at)->diffForHumans() }}
+
                                                             </div>
                                                         </div>
                                                     </div><!--//col-->

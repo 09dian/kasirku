@@ -12,33 +12,30 @@ class MessageController extends Controller
 {
     public function index(Request $request, $receiver_id)
     {
-        $userId = Auth::id(); // Ambil ID user yang sedang login
         $pegawaiId = $receiver_id; // ID pegawai
         $pegawai = Pegawai::where('id', $pegawaiId)->first(); // ambil nama Pegawai
 
-        $messages = Message::where('sender_id', $userId)
-            ->whereIn('id', function ($query) use ($userId) {
-                $query->selectRaw('MAX(id)')->from('messages')->where('sender_id', $userId)->groupBy('receiver_id');
-            })
-            ->latest()
-            ->get();
+        $name = auth()->user()->name; // ID yang sedang login
+        $data = Message::where('sender_type', $name)->orWhere('receiver_type', $name)->orderBy('created_at', 'asc')->get();
+        $messages = $data->groupBy(function ($msg) use ($name) {
+            return $msg->sender_type === $name ? $msg->receiver_type : $msg->sender_type;
+        });
         $jumlahPesan = $messages->count();
 
-        if ($pegawai->id == $userId) {
-            $all_pesan = Message::where('sender_id', $userId)->where('receiver_id', $userId)->orderBy('created_at', 'asc')->get();
+        if ($pegawai->id == $name) {
+            $all_pesan = Message::where('sender_id', $name)->where('receiver_id', $name)->orderBy('created_at', 'asc')->get();
         } else {
-            $all_pesan = Message::where(function ($query) use ($userId, $pegawaiId) {
-                $query->where('sender_id', $userId)->where('receiver_id', $pegawaiId);
+            $all_pesan = Message::where(function ($query) use ($name, $pegawaiId) {
+                $query->where('sender_id', $name)->where('receiver_id', $pegawaiId);
             })
-                ->orWhere(function ($query) use ($userId, $pegawaiId) {
-                    $query->where('sender_id', $pegawaiId)->where('receiver_id', $userId);
+                ->orWhere(function ($query) use ($name, $pegawaiId) {
+                    $query->where('sender_id', $pegawaiId)->where('receiver_id', $name);
                 })
                 ->orderBy('created_at', 'asc') // Urutkan berdasarkan waktu
                 ->get();
-                
         }
         // Tampilkan view pesan.blade.php
-        return view('home.pesan', compact('messages', 'all_pesan', 'pegawaiId', 'pegawai','jumlahPesan'), ['title' => 'Pesan']);
+        return view('home.pesan', compact('messages', 'all_pesan', 'pegawaiId', 'pegawai', 'jumlahPesan'), ['title' => 'Pesan']);
     }
 
     public function storeMessage(Request $request, $pegawaiId)
@@ -77,7 +74,6 @@ class MessageController extends Controller
             'receiver_type' => $receiverType,
             'message' => $messageText,
             'is_read' => true, // Pesan belum dibaca
-            
         ]);
 
         return redirect()->route('notifikasi', $pegawaiId)->with('success', 'pesan berhasil di kirim');
@@ -93,8 +89,8 @@ class MessageController extends Controller
             })
             ->latest()
             ->get();
-             $jumlahPesan = $messages->count();
-        return view('home.all_pesan', compact('messages','jumlahPesan'), ['title' => 'Semua Pesan']);
+        $jumlahPesan = $messages->count();
+        return view('home.all_pesan', compact('messages', 'jumlahPesan'), ['title' => 'Semua Pesan']);
     }
 
     public function delete($id, $receiver_id)
