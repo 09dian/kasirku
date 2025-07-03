@@ -40,7 +40,7 @@ class MessageController extends Controller
         //         ->get();
         // }
         // Tampilkan view pesan.blade.php
-dd("ok");
+      
         // return view('home.pesan', compact('messages', 'all_pesan', 'pegawaiId', 'pegawai', 'jumlahPesan'), ['title' => 'Pesan']);
     }
 
@@ -52,11 +52,55 @@ dd("ok");
             'receiver_id' => 'required|integer',
             'receiver_type' => 'required|string',
         ]);
-        $sender = auth()->user()->name; // Ambil user yang sedang login
+
         $receiverId = $request->receiver_id;
         $receiverType = $request->receiver_type;
         $messageText = $request->message;
 
+        // Ambil objek user yang sedang login
+        $sender = Auth::user(); // default: 'web' guard
+
+        // Inisialisasi variabel receiver
+        $receiver = null;
+
+        // Cek apakah pengirim User (Pemilik) atau Pegawai
+        if ($sender instanceof User) {
+            // Pengirim adalah User (Pemilik)
+            $receiver = Pegawai::where('id', $receiverId)->where('id_user', $sender->id)->first();
+        } elseif ($sender instanceof Pegawai) {
+            // Pengirim adalah Pegawai
+            $receiver = User::where('id', $receiverId)->where('id', $sender->id_user)->first();
+        } else {
+            return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk mengirim pesan ini.');
+        }
+
+        // Jika penerima tidak valid
+        if (!$receiver) {
+            return redirect()->back()->with('error', 'Pesan hanya dapat dikirim antara pemilik dan pegawai yang sesuai.');
+        }
+
+        // Simpan pesan ke database
+        Message::create([
+            'sender_id' => $sender->id,
+            'sender_type' => $sender->name,
+            'receiver_id' => $receiverId,
+            'receiver_type' => $receiverType,
+            'message' => $messageText,
+        ]);
+
+        return redirect()->route('notifikasi', $pegawaiId)->with('success', 'Pesan berhasil dikirim.');
+        // Validasi input
+        $request->validate([
+            'message' => 'required|string',
+            'receiver_id' => 'required|integer',
+            'receiver_type' => 'required|string',
+        ]);
+
+        $sender = auth()->user()->name; // Ambil user yang sedang login
+        $receiverId = $request->receiver_id;
+        $receiverType = $request->receiver_type;
+        $messageText = $request->message;
+        dd($sender, $receiverId, $receiverType, $messageText);
         // Cek apakah pengirim adalah user atau pegawai
         if ($sender instanceof User) {
             // Jika pengirim adalah User (Pemilik), pastikan hanya bisa mengirim ke Pegawai dengan id_user yang sama
