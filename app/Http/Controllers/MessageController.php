@@ -13,9 +13,9 @@ class MessageController extends Controller
     public function index(Request $request, $receiver_id)
     {
         $pegawaiId = $receiver_id; // ID pegawai
-        $pegawai = Pegawai::where('id', $pegawaiId)->first(); // ambil nama Pegawai
+        $pegawai = Pegawai::where('id', $pegawaiId)->first();
 
-        $name = auth()->user()->name; // ID yang sedang login
+        $name = auth()->user()->name; //nama yang sedang login
         $data = Message::where('sender_type', $name)->orWhere('receiver_type', $name)->orderBy('created_at', 'asc')->get();
         $messages = $data->groupBy(function ($msg) use ($name) {
             return $msg->sender_type === $name ? $msg->receiver_type : $msg->sender_type;
@@ -24,24 +24,15 @@ class MessageController extends Controller
         $jumlahPesan = Message::where('is_read', 0)->count(); //menghitung jumlah pesan yang belum dibaca
         if ($pegawai->id == $pegawaiId) {
             Message::where('receiver_type', $pegawai->nama)->update(['is_read' => 1]);
+            Message::where('receiver_type', $name)->update(['is_read' => 1]);
         } else {
             Message::where('receiver_type', $pegawai->nama)->update(['is_read' => 0]);
+            Message::where('receiver_type', $name)->update(['is_read' => 0]);
         }
-        // if ($pegawai->id == $name) {
-        //     $all_pesan = Message::where('sender_id', $name)->where('receiver_id', $name)->orderBy('created_at', 'asc')->get();
-        // } else {
-        //     $all_pesan = Message::where(function ($query) use ($name, $pegawaiId) {
-        //         $query->where('sender_id', $name)->where('receiver_id', $pegawaiId);
-        //     })
-        //         ->orWhere(function ($query) use ($name, $pegawaiId) {
-        //             $query->where('sender_id', $pegawaiId)->where('receiver_id', $name);
-        //         })
-        //         ->orderBy('created_at', 'asc') // Urutkan berdasarkan waktu
-        //         ->get();
-        // }
-        // Tampilkan view pesan.blade.php
-      
-        // return view('home.pesan', compact('messages', 'all_pesan', 'pegawaiId', 'pegawai', 'jumlahPesan'), ['title' => 'Pesan']);
+
+        $all_pesan = Message::where('receiver_type', $pegawai->nama)->orWhere('sender_type', $pegawai->nama)->orderBy('created_at', 'asc')->get();
+
+        return view('home.pesan', compact('messages', 'all_pesan', 'pegawaiId', 'pegawai', 'jumlahPesan'), ['title' => 'Pesan']);
     }
 
     public function storeMessage(Request $request, $pegawaiId)
