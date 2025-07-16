@@ -13,6 +13,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\PMessagesController;
 use App\Http\Controllers\LoginPegawaiController;
+use App\Http\Controllers\PegawaiProdukController;
 
 //login dan logout pemilik
 Route::get('/', [LoginController::class, 'login'])->name('login');
@@ -134,3 +135,6 @@ Route::post('/pegawai_notifikasi/{id}', [PMessagesController::class, 'store'])
 Route::get('/Pdelete/{id}/{sender_id}', [PMessagesController::class, 'delete'])
     ->middleware('auth:pegawai')
     ->name('Pdelete');
+Route::get('produkPegawai',[PegawaiProdukController::class, 'index'])
+    ->middleware('auth:pegawai')
+    ->name('produkPegawai');
