@@ -92,17 +92,41 @@ class SettingsController extends Controller
     }
     public function update_pembayaran(Request $request)
     {
-        //    Validasi input
-        $data_input = $request->validate([
+        //priksa inputan file atau string
+        if ($request->hasFile('pilihanPembayaran') && $request->file('pilihanPembayaran')->isValid()) {
+            $validated = $request->validate([
+                'namePembayaran' => 'required|in:QRIS,CASH,TRANSFER',
+                'namaPemilik' => 'required|string',
+                'pilihanPembayaran' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'codePembayaran' => 'required|string',
+            ]);
+            if ($request->file('pilihanPembayaran')) {
+                $validated['pilihanPembayaran'] = $request->file('pilihanPembayaran')->store('post_image', 'public');
+    
+                if (!$validated['pilihanPembayaran']) {
+                    $pesan[] = 'gagal uplod gambar';
+                    $berhasil = implode(' ', $pesan);
+                    return redirect()->route('settings')->with('danger', $berhasil);
+                }
+            }
+            Pembayaran::create($validated);
+
+            $pesan[] = 'Pembayaran berhasil ditambahkan.';
+            $berhasil = implode(' ', $pesan);
+            return redirect()->route('settings')->with('success', $berhasil);
+
+        }else{        
+        $validated = $request->validate([
             'namePembayaran' => 'required|in:QRIS,CASH,TRANSFER',
             'namaPemilik' => 'required|string',
             'pilihanPembayaran' => 'nullable|string',
             'codePembayaran' => 'required|string',
         ]);
-        Pembayaran::create($data_input);
+        Pembayaran::create($validated);
 
         $pesan[] = 'Pembayaran berhasil ditambahkan.';
         $berhasil = implode(' ', $pesan);
         return redirect()->route('settings')->with('success', $berhasil);
+    }
     }
 }

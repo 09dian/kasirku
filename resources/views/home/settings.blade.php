@@ -504,21 +504,65 @@
 
                             @foreach ($pembayaran as $pembayaran)
                                 <div class="item border-bottom py-3">
-                                    <div class="row justify-content-between align-items-center">
-                                        <div class="col-auto">
-                                            <div class="item-label"><i
-                                                    class="fab fa-cc-visa me-2"></i><strong>{{ $pembayaran->namePembayaran }}
-                                                    a.n {{ $pembayaran->namaPemilik }}</strong>
-                                            </div>
-                                            <div class="item-data">{{ $pembayaran->pilihanPembayaran }}</div>
-                                        </div><!--//col-->
-                                        <div class="col text-end">
-                                            <a class="btn-sm app-btn-secondary" href="#">Edit</a>
-                                        </div><!--//col-->
-                                        {{-- modal edit pembayaran --}}
+                                    @if ($pembayaran->codePembayaran == 1)
+                                        <div class="item-label">
+                                            <div class="row justify-content-between align-items-center">
 
-                                        {{-- akhir modal pembayran --}}
-                                    </div><!--//row-->
+                                                <!-- Kolom info QRIS (kiri) -->
+                                                <div class="col">
+                                                    <div class="item-label">
+                                                        <i class="fab fa-cc-visa me-2"></i>
+                                                        <strong>{{ $pembayaran->namePembayaran }} a.n
+                                                            {{ $pembayaran->namaPemilik }}</strong>
+                                                    </div>
+                                                    <div class="item-data">Nama : {{ $pembayaran->namePembayaran }}</div>
+                                                </div>
+
+                                                <!-- Kolom kanan: gambar user + tombol edit -->
+                                                <div class="col-auto d-flex align-items-center gap-2">
+                                                    <!-- Gambar user -->
+                                                    <div class="img-pembayaran">
+                                                        <img src="{{ asset('storage/' . $pembayaran->pilihanPembayaran) }}"
+                                                            alt="{{ $pembayaran->pilihanPembayaran }}" width="50"
+                                                            height="50"
+                                                            style="border-radius: 50%; object-fit: cover;" class="img-thumbnail" data-bs-toggle="modal"
+                                                            data-bs-target="#imageModal{{ $pembayaran->id }}">
+
+                                                            <div class="modal fade" id="imageModal{{ $pembayaran->id }}"
+                                                                tabindex="-1" aria-hidden="true">
+                                                                <div class="modal-dialog modal-md modal-dialog-centered">
+                                                                    <div class="modal-content bg-transparent border-0">
+                                                                        <div class="modal-body text-center">
+                                                                            <img src="{{ asset('storage/' . $pembayaran->pilihanPembayaran) }}"
+                                                                                class="img-fluid rounded w-80">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                    </div>
+
+                                                    <!-- Tombol edit -->
+                                                    <a class="btn-sm app-btn-secondary" href="#">Edit</a>
+                                                </div>
+
+                                            </div><!--//row-->
+                                        @else
+                                            <div class="row justify-content-between align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="item-label"><i
+                                                            class="fab fa-cc-visa me-2"></i><strong>{{ $pembayaran->namePembayaran }}
+                                                            a.n {{ $pembayaran->namaPemilik }}</strong>
+                                                    </div>
+                                                    <div class="item-data">Nonor : {{ $pembayaran->pilihanPembayaran }}</div>
+                                                </div><!--//col-->
+                                                <div class="col text-end">
+                                                    <a class="btn-sm app-btn-secondary" href="#">Edit</a>
+                                                </div><!--//col-->
+                                                {{-- modal edit pembayaran --}}
+
+                                                {{-- akhir modal pembayran --}}
+                                            </div><!--//row-->
+                                    @endif
                                 </div><!--//item-->
                             @endforeach
 
