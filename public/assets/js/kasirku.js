@@ -126,15 +126,24 @@ function updateKeranjang() {
 
     totalHargaElem.innerText = `Rp. ${totalHarga.toLocaleString()}`;
 
-    // Tampilkan Invoice ID jika belum ada
-    if (!invoiceId) {
-        invoiceId = generateInvoiceCode();
-        invoiceIdElem.innerText = invoiceId;
-    }
     const checkoutButton = document.getElementById('checkout-button');
-    checkoutButton.disabled = Object.keys(cart).length === 0;
+    const invoiceIdElem = document.getElementById('invoice-id'); // pastikan ID ini ada di HTML
 
+    // Cek apakah keranjang kosong
+    if (Object.keys(cart).length === 0) {
+        invoiceId = null; // reset invoice
+        invoiceIdElem.innerText = ''; // kosongkan tampilan invoice
+        checkoutButton.disabled = true; // nonaktifkan tombol checkout
+    } else {
+        // Hanya buat invoice jika belum ada
+        if (!invoiceId) {
+            invoiceId = generateInvoiceCode();
+        }
+        invoiceIdElem.innerText = invoiceId;
+        checkoutButton.disabled = false;
+    }
 }
+
 
 // Kurangi item
 function kurangiQty(key) {
