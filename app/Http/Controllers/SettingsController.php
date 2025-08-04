@@ -39,9 +39,8 @@ class SettingsController extends Controller
 
         // Update gambar
         if ($request->hasFile('gambar')) {
-            // Hapus gambar lama jika ada
-            if ($user->gambar && Storage::exists('public/' . $user->gambar)) {
-                Storage::delete('public/' . $user->gambar);
+            if ($user->gambar && Storage::disk('public')->exists($user->gambar)) {
+                Storage::disk('public')->delete($user->gambar);
             }
             // Simpan gambar baru
             $file = $request->file('gambar');
@@ -102,7 +101,7 @@ class SettingsController extends Controller
             ]);
             if ($request->file('pilihanPembayaran')) {
                 $validated['pilihanPembayaran'] = $request->file('pilihanPembayaran')->store('post_image', 'public');
-    
+
                 if (!$validated['pilihanPembayaran']) {
                     $pesan[] = 'gagal uplod gambar';
                     $berhasil = implode(' ', $pesan);
@@ -114,19 +113,18 @@ class SettingsController extends Controller
             $pesan[] = 'Pembayaran berhasil ditambahkan.';
             $berhasil = implode(' ', $pesan);
             return redirect()->route('settings')->with('success', $berhasil);
+        } else {
+            $validated = $request->validate([
+                'namePembayaran' => 'required|in:QRIS,CASH,TRANSFER',
+                'namaPemilik' => 'required|string',
+                'pilihanPembayaran' => 'nullable|string',
+                'codePembayaran' => 'required|string',
+            ]);
+            Pembayaran::create($validated);
 
-        }else{        
-        $validated = $request->validate([
-            'namePembayaran' => 'required|in:QRIS,CASH,TRANSFER',
-            'namaPemilik' => 'required|string',
-            'pilihanPembayaran' => 'nullable|string',
-            'codePembayaran' => 'required|string',
-        ]);
-        Pembayaran::create($validated);
-
-        $pesan[] = 'Pembayaran berhasil ditambahkan.';
-        $berhasil = implode(' ', $pesan);
-        return redirect()->route('settings')->with('success', $berhasil);
-    }
+            $pesan[] = 'Pembayaran berhasil ditambahkan.';
+            $berhasil = implode(' ', $pesan);
+            return redirect()->route('settings')->with('success', $berhasil);
+        }
     }
 }
