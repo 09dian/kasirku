@@ -129,7 +129,9 @@
                                     @endforeach
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle"
+                                    <button class="btn btn-primary" style="color: white" data-bs-target="#exampleModalToggle"
+                                        data-bs-toggle="modal">Bayar</button>
+                                    <button class="btn btn-primary" style="color: white" data-bs-target="#exampleModalToggle"
                                         data-bs-toggle="modal">Kembali ke Pilihan</button>
                                 </div>
                             </div>
@@ -156,7 +158,9 @@
                                     @endforeach
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle"
+                                     <button class="btn btn-primary" style="color: white" data-bs-target="#exampleModalToggle"
+                                        data-bs-toggle="modal">Bayar</button>
+                                    <button class="btn btn-primary" style="color: white" data-bs-target="#exampleModalToggle"
                                         data-bs-toggle="modal">Kembali ke Pilihan</button>
                                 </div>
                             </div>

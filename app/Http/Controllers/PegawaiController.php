@@ -64,7 +64,8 @@ class PegawaiController extends Controller
     public function destroy($id) {
         // Menghapus data pegawai berdasarkan id
         Pegawai::destroy($id);
-    
+        // Menghapus data terkait dengan pegawai
+        Message::where('sender_id', $id)->orWhere('receiver_id', $id)->delete();
         // Redirect dengan pesan sukses
         return redirect()->route('pegawai')->with('success', 'Pegawai berhasil dihapus');
     }
