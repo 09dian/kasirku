@@ -74,6 +74,7 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body metode-pembayaran">
+
                                     <button style="color: white" type="button"
                                         class="btn btn-success"data-bs-target="#exampleModalToggle2"
                                         data-bs-toggle="modal"> <svg xmlns="http://www.w3.org/2000/svg" width="16"
@@ -86,7 +87,9 @@
                                             <path
                                                 d="M9 2h5v5H9zm1 1v3h3V3zM8 8v2h1v1H8v1h2v-2h1v2h1v-1h2v-1h-3V8zm2 2H9V9h1zm4 2h-1v1h-2v1h3zm-4 2v-1H8v1z" />
                                             <path d="M12 9h2V8h-2z" />
-                                        </svg> QRIS</button>
+                                        </svg> QRIS
+                                    </button>
+
                                     <button style="color: white" type="button"
                                         class="btn btn-success"data-bs-target="#exampleModalToggle3"
                                         data-bs-toggle="modal">
@@ -95,7 +98,8 @@
                                             <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
                                             <path
                                                 d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2z" />
-                                        </svg> Cash</button>
+                                        </svg> Cash
+                                    </button>
 
                                 </div>
                                 <div class="modal-footer">
@@ -104,6 +108,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Modal QRIS -->
                     <div class="modal fade" id="exampleModalToggle2" aria-hidden="true"
                         aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
                         <div class="modal-dialog modal-dialog-centered">
@@ -113,40 +118,55 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">
-                                    Hide this modal and show the first with the button below.
+                                <div class="modal-body text-center">
+                                    @foreach ($pembayaran as $item)
+                                        @if ($item->codePembayaran == '1')
+                                            <p><strong>{{ $item->namePembayaran }}</strong></p>
+                                            <p>Nama Pemilik: {{ $item->namaPemilik }}</p>
+                                            <img src="{{ asset('storage/' . $item->pilihanPembayaran) }}"
+                                                alt="{{ $item->pilihanPembayaran }}" class="img-fluid">
+                                        @endif
+                                    @endforeach
                                 </div>
                                 <div class="modal-footer">
-                                    <button style="color: white" class="btn btn-primary"
-                                        data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Kembali ke
-                                        Pilihan</button>
+                                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle"
+                                        data-bs-toggle="modal">Kembali ke Pilihan</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Modal CASH -->
                     <div class="modal fade" id="exampleModalToggle3" aria-hidden="true"
                         aria-labelledby="exampleModalToggleLabel3" tabindex="-1">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">CASH</h1>
+                                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel3">CASH</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">
-                                    Hide this modal and show the first with the button below.
+                                <div class="modal-body text-center">
+                                    @foreach ($pembayaran as $item)
+                                        @if ($item->codePembayaran == '0')
+                                            <p><strong>{{ $item->namePembayaran }}</strong></p>
+                                            <p>Nama Pemilik: {{ $item->namaPemilik }}</p>
+                                            <p>Keterangan: {{ $item->pilihanPembayaran }}</p>
+                                        @endif
+                                    @endforeach
                                 </div>
                                 <div class="modal-footer">
-                                    <button style="color: white" class="btn btn-primary"
-                                        data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Kembali ke
-                                        Pilihan</button>
+                                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle"
+                                        data-bs-toggle="modal">Kembali ke Pilihan</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
                 </div>
 
             </div>
         </div>
-        
+
 </x-layout>
