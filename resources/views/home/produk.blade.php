@@ -81,7 +81,7 @@
                                                         <!-- Modal Bootstrap -->
                                                         <div class="modal fade" id="imageModal{{ $produk->id }}"
                                                             tabindex="-1" aria-hidden="true">
-                                                            <div class="modal-dialog modal-xl modal-dialog-centered">
+                                                            <div class="modal-dialog modal-md modal-dialog-centered">
                                                                 <div class="modal-content bg-transparent border-0">
                                                                     <div class="modal-body text-center">
                                                                         <img src="{{ asset('storage/' . $produk->img_produk) }}"

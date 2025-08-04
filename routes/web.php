@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CabangController;
 use App\Http\Controllers\ForgotController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\HistroyController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\KategoriController;
@@ -90,9 +91,8 @@ Route::get('/home', [HomeController::class, 'index'])
 Route::get('/pos', [PosController::class, 'index'])
     ->middleware('auth')
     ->name('pos');
-Route::get('/history', function () {
-    return view('home.history', ['title' => 'History']);
-})
+
+Route::get('/history',[HistroyController::class,'index'])
     ->middleware('auth')
     ->name('history');
 Route::get('cabang', [CabangController::class, 'index'])
@@ -135,6 +135,6 @@ Route::post('/pegawai_notifikasi/{id}', [PMessagesController::class, 'store'])
 Route::get('/Pdelete/{id}/{sender_id}', [PMessagesController::class, 'delete'])
     ->middleware('auth:pegawai')
     ->name('Pdelete');
-Route::get('produkPegawai',[PegawaiProdukController::class, 'index'])
+Route::get('produkPegawai', [PegawaiProdukController::class, 'index'])
     ->middleware('auth:pegawai')
     ->name('produkPegawai');
