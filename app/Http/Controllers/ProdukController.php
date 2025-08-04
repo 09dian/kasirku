@@ -17,26 +17,26 @@ class ProdukController extends Controller
     public function produk()
     {
         $kategori = Kategori::all();
-       $name = auth()->user()->name; // ID yang sedang login
+        $name = auth()->user()->name; // ID yang sedang login
         $data = Message::where('sender_type', $name)->orWhere('receiver_type', $name)->orderBy('created_at', 'asc')->get();
         $messages = $data->groupBy(function ($msg) use ($name) {
             return $msg->sender_type === $name ? $msg->receiver_type : $msg->sender_type;
         });
         $jumlahPesan = Message::where('is_read', 0)->count(); //menghitung jumlah pesan yang belum dibaca
-        return view('home.tambah_produk', compact('kategori', 'messages','jumlahPesan'), ['title' => 'Produk']);
+        return view('home.tambah_produk', compact('kategori', 'messages', 'jumlahPesan'), ['title' => 'Produk']);
     }
 
     public function index()
     {
         $produks = Produk::all();
         $kategoris = Kategori::all();
-       $name = auth()->user()->name; // ID yang sedang login
+        $name = auth()->user()->name; // ID yang sedang login
         $data = Message::where('sender_type', $name)->orWhere('receiver_type', $name)->orderBy('created_at', 'asc')->get();
         $messages = $data->groupBy(function ($msg) use ($name) {
             return $msg->sender_type === $name ? $msg->receiver_type : $msg->sender_type;
         });
         $jumlahPesan = Message::where('is_read', 0)->count(); //menghitung jumlah pesan yang belum dibaca
-        return view('home.produk', compact('produks', 'kategoris', 'messages','jumlahPesan'), ['title' => 'Produk']);
+        return view('home.produk', compact('produks', 'kategoris', 'messages', 'jumlahPesan'), ['title' => 'Produk']);
     }
 
     public function store(Request $request): \Illuminate\Http\RedirectResponse
@@ -82,10 +82,11 @@ class ProdukController extends Controller
         if ($request->hasFile('img_produk')) {
             // Hapus gambar lama jika ada
             if ($produk->img_produk) {
-                Storage::delete($produk->img_produk);
+                Storage::disk('public')->delete($produk->img_produk);
             }
-            // Simpan gambar baru
-            $validated['img_produk'] = $request->file('img_produk')->store('post_image');
+
+            // Simpan gambar baru ke storage/app/public/post_image/
+            $validated['img_produk'] = $request->file('img_produk')->store('post_image', 'public');
         } else {
             // Jika tidak ada file baru, gunakan gambar lama
             $validated['img_produk'] = $request->old_img_produk;
